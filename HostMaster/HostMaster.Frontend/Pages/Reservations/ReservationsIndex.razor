@@ -1,37 +1,35 @@
 ﻿@page "/reservations"
 
-<h3>Reservations</h3>
-
-@if (Reservations is null)
-{
-    <p>Cargando...</p>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td> Reserva </td>
-                <td></td>
-            </tr>
-        </thead>
-
-
-        <tbody>
-            @foreach (var reservation in Reservations!)
-            {
+<h3>@Localizer["Reservations"]</h3>
+<div class="mb-3">
+    <a class="btn btn-primary" href="/reservations/create">@Localizer["New"] @Localizer["Reservation"]</a>
+</div>
+<GenericList MyList="Reservations">
+    <Body>
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td> @reservation.Room </td>
-                    <td>
-                    </td>
+                    <th>@Localizer["Reservation"]</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>     
-
-
-    </table>
-}
-
+            </thead>
+            <tbody>
+                @foreach (var reservation in Reservations!)
+                {
+                    <tr>
+                        <td>
+                            @reservation.Room
+                        </td>
+                        <td>
+                            <a class="btn btn-warning">@Localizer["Edit"]</a>
+                            <button class="btn btn-danger">@Localizer["Delete"]</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</GenericList>
 
 
 

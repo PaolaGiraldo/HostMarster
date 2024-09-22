@@ -23,9 +23,12 @@
     <Folder Include="Helpers\" />
     <Folder Include="Shared\" />
     <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\scripts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HostMaster.Shared\HostMaster.Shared.csproj" />
   </ItemGroup>
 
 </Project>

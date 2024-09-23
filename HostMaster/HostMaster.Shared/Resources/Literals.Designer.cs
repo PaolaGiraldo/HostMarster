@@ -178,6 +178,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MaxLength {
+            get {
+                return ResourceManager.GetString("MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string New {
@@ -232,6 +241,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Field {0} is required..
+        /// </summary>
+        public static string RequiredField {
+            get {
+                return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reservation.
         /// </summary>
         public static string Reservation {
@@ -241,7 +259,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reservas.
+        ///   Looks up a localized string similar to Reservations.
         /// </summary>
         public static string Reservations {
             get {

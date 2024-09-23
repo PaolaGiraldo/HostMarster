@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HostMaster.Shared.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace HostMaster.Shared.Entities
 {
@@ -6,13 +7,13 @@ namespace HostMaster.Shared.Entities
     {
         public int Id { get; set; }
 
-        [Required]
-        public string Room { get; set; }
+        [Display(Name = "Room", ResourceType = typeof(Literals))]
+        [MaxLength(100, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+        public string Room { get; set; } = null!;
 
-        [Required]
-        public string StartDate { get; set; }
+        public string? StartDate { get; set; }
 
-        [Required]
-        public string EndDate { get; set; }
+        public string? EndDate { get; set; }
     }
 }

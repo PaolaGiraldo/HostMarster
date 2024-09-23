@@ -21,8 +21,8 @@
                             @reservation.Room
                         </td>
                         <td>
-                            <a class="btn btn-warning">@Localizer["Edit"]</a>
-                            <button class="btn btn-danger">@Localizer["Delete"]</button>
+                            <a class="btn btn-warning" href="/reservations/edit/@reservation.Id">@Localizer["Edit"]</a>
+                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(reservation))>@Localizer["Delete"]</button>
                         </td>
                     </tr>
                 }

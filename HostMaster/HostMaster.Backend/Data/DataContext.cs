@@ -17,6 +17,17 @@ namespace HostMaster.Backend.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Room>().HasIndex(x => x.Number).IsUnique();
+            //modelBuilder.Entity<Reservation>().HasIndex(x => new { x.RoomId, x.StartDate }).IsUnique();
+            DisableCascadingDelete(modelBuilder);
+        }
+
+        private void DisableCascadingDelete(ModelBuilder modelBuilder)
+        {
+            var relationships = modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys());
+            foreach (var relationship in relationships)
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
     }
 }

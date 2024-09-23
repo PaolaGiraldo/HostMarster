@@ -74,7 +74,7 @@ namespace HostMaster.Frontend.Pages.Reservations
                 Timer = 3000,
                 ConfirmButtonText = Localizer["Yes"]
             });
-            toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordDeletedOk"]);
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordDeletedOk"]);
         }
     }
 }

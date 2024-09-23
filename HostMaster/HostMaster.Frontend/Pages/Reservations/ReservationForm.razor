@@ -1,0 +1,21 @@
+﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>@Localizer["Reservation"]:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Reservation.Room" />
+            <ValidationMessage For="@(() => Reservation.Room)" />
+        </div>
+        <div>
+            <InputText class="form-control" @bind-Value="@Reservation.StartDate" />
+            <ValidationMessage For="@(() => Reservation.StartDate)" />
+        </div>
+        <div>
+            <InputText class="form-control" @bind-Value="@Reservation.EndDate" />
+            <ValidationMessage For="@(() => Reservation.EndDate)" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">@Localizer["SaveChanges"]</button>
+    <button class="btn btn-success" @onclick="ReturnAction">@Localizer["Return"]</button>
+</EditForm>

@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="Images\" />
     <Folder Include="Repositories\Implementations\" />

@@ -24,12 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="Images\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HostMaster.Shared\HostMaster.Shared.csproj" />
+    <Folder Include="Repositories\Implementations\" />
+    <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="UnitsOfWork\Implementations\" />
+    <Folder Include="UnitsOfWork\Interfaces\" />
   </ItemGroup>
 
 </Project>

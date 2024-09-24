@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HostMaster.Shared.Entities;
 
@@ -28,5 +27,5 @@ public class Reservation
 
     public ICollection<ExtraService>? ExtraServices { get; set; }
 
-    public ICollection<Room>? Rooms { get; set; }
+    public ICollection<ReservationRoom> ReservationRooms { get; set; } = null!;
 }

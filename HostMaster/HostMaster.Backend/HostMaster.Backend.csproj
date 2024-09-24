@@ -33,4 +33,8 @@
     <Folder Include="UnitsOfWork\Interfaces\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HostMaster.Frontend\HostMaster.Frontend.csproj" />
+  </ItemGroup>
+
 </Project>

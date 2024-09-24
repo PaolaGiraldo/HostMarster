@@ -178,7 +178,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Field {0} cannot be longer than {1} charaters..
         /// </summary>
         public static string MaxLength {
             get {

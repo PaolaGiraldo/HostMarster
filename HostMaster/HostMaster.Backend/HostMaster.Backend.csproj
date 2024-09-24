@@ -26,10 +26,6 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Images\" />
-    <Folder Include="Repositories\Implementations\" />
-    <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="UnitsOfWork\Implementations\" />
-    <Folder Include="UnitsOfWork\Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>

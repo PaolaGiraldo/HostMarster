@@ -22,9 +22,11 @@ public class Room
     public RoomType? RoomType { get; set; }
 
     // Relationships
-    public ICollection<Reservation>? Reservations { get; set; }
+    public ICollection<Reservation> Reservations { get; set; } = null!;
 
-    public ICollection<RoomInventoryItem>? RoomInventoryItems { get; set; }
+    public ICollection<RoomInventoryItem> RoomInventoryItems { get; set; } = null!;
 
-    public ICollection<RoomPhoto>? Photos { get; set; }
+    public ICollection<RoomPhoto> Photos { get; set; } = null!;
+
+    public ICollection<ReservationRoom>? ReservationRooms { get; set; }
 }

@@ -7,6 +7,10 @@ public class Employee
 {
     public int Id { get; set; }
 
+    [MaxLength(15)]
+    [Required]
+    public string DocumentId { get; set; }
+
     [MaxLength(100)]
     [Required]
     public string FirstName { get; set; } = null!;

@@ -9,7 +9,7 @@ public class Employee
 
     [MaxLength(15)]
     [Required]
-    public string DocumentId { get; set; }
+    public string DocumentId { get; set; } = null!;
 
     [MaxLength(100)]
     [Required]
@@ -30,6 +30,8 @@ public class Employee
     [MaxLength(15)]
     [Required]
     public string PhoneNumber { get; set; } = null!;
+
+    public string? Photo { get; set; }
 
     // Foreign keys
     public int AccommodationId { get; set; }

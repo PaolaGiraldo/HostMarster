@@ -28,9 +28,8 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Room>().HasIndex(x => new { x.AccommodationId, x.RoomNumber }).IsUnique();
-        //modelBuilder.Entity<Reservation>().HasIndex(x => new { x.RoomId, x.StartDate }).IsUnique();
-        modelBuilder.Entity<ReservationRoom>().HasIndex(x => new { x.ReservationId, x.RoomId }).IsUnique();
+        modelBuilder.Entity<Accommodation>().HasIndex(x => x.Name).IsUnique();
+        modelBuilder.Entity<Employee>().HasIndex(x => new { x.AccommodationId, x.DocumentId }).IsUnique();
 
         DisableCascadingDelete(modelBuilder);
     }

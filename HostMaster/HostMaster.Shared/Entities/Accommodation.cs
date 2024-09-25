@@ -26,4 +26,6 @@ public class Accommodation
 
     public ICollection<Employee>? Employees { get; set; }
     public ICollection<Reservation>? Reservations { get; set; }
+
+    public int EmployeeCount => Employees == null ? 0 : Employees.Count;
 }

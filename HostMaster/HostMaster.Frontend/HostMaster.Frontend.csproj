@@ -26,4 +26,8 @@
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HostMaster.Shared\HostMaster.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

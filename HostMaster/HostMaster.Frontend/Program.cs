@@ -8,9 +8,11 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7091") });
+builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7242") });
 
 builder.Services.AddScoped<IRepository, Repository>();
+
+builder.Services.AddLocalization();
 
 builder.Services.AddSweetAlert2();
 

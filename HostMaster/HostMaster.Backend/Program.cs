@@ -15,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 
+builder.Services.AddTransient<SeedDb>();
+
 builder.Services.AddIdentity<User, IdentityRole>()
 	.AddEntityFrameworkStores<DataContext>()
 	.AddDefaultTokenProviders();
@@ -25,7 +27,28 @@ builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWor
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
+builder.Services.AddScoped<ICitiesRepository, CitiesRepository>();
+builder.Services.AddScoped<ICitiesUnitOfWork, CitiesUnitOfWork>();
+
+builder.Services.AddScoped<IStatesRepository, StatesRepository>();
+builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();
+
+builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
+builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();
+
 var app = builder.Build();
+
+SeedData(app);
+async void SeedData(WebApplication app)
+{
+	var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+
+	using (var scope = scopeFactory!.CreateScope())
+	{
+		var service = scope.ServiceProvider.GetService<SeedDb>();
+		service!.SeedAsync().Wait();
+	}
+}
 
 if (app.Environment.IsDevelopment())
 {

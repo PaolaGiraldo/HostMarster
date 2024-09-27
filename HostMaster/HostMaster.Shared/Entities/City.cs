@@ -1,19 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HostMaster.Shared.Entities;
+using System.ComponentModel.DataAnnotations;
 
-namespace HostMaster.Shared.Entities;
-
-public class City
+namespace HostMaster.Shared.Entities
 {
-    public int Id { get; set; }
+	public class City
+	{
+		public int Id { get; set; }
 
-    [Required]
-    public string Name { get; set; } = null!;
+		[Display(Name = "Ciudad")]
+		[MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
+		[Required(ErrorMessage = "El campo {0} es requerido.")]
+		public string Name { get; set; } = null!;
 
-    // Foreign keys
-    public int StateId { get; set; }
+		public int StateId { get; set; }
 
-    public State? State { get; set; }
+		public State? State { get; set; }
 
-    // Relationships
-    public ICollection<Accommodation>? Accommodations { get; set; }
+		public ICollection<User>? Users { get; set; }
+	}
 }

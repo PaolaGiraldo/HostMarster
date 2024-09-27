@@ -22,7 +22,7 @@ namespace HostMaster.Shared.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Literals {
+    public class Literals {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HostMaster.Shared.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HostMaster.Shared.Resources.Literals", typeof(Literals).Assembly);
@@ -51,7 +51,7 @@ namespace HostMaster.Shared.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
-        internal static string Department {
+        public static string Department {
             get {
                 return ResourceManager.GetString("Department", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Document.
         /// </summary>
-        internal static string Document {
+        public static string Document {
             get {
                 return ResourceManager.GetString("Document", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Document Type.
         /// </summary>
-        internal static string DocumentType {
+        public static string DocumentType {
             get {
                 return ResourceManager.GetString("DocumentType", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
-        internal static string FirstName {
+        public static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Hire Date.
         /// </summary>
-        internal static string HireDate {
+        public static string HireDate {
             get {
                 return ResourceManager.GetString("HireDate", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
-        internal static string LastName {
+        public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
             }
@@ -117,16 +117,25 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The field {0} cannot be longer than {1} characters.
         /// </summary>
-        internal static string MaxLength {
+        public static string MaxLength {
             get {
                 return ResourceManager.GetString("MaxLength", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone Number.
         /// </summary>
-        internal static string PhoneNumber {
+        public static string PhoneNumber {
             get {
                 return ResourceManager.GetString("PhoneNumber", resourceCulture);
             }
@@ -135,7 +144,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Photo.
         /// </summary>
-        internal static string Photo {
+        public static string Photo {
             get {
                 return ResourceManager.GetString("Photo", resourceCulture);
             }
@@ -144,7 +153,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Field {0} is required..
         /// </summary>
-        internal static string RequiredField {
+        public static string RequiredField {
             get {
                 return ResourceManager.GetString("RequiredField", resourceCulture);
             }
@@ -153,7 +162,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to HostMaster.
         /// </summary>
-        internal static string Title {
+        public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
@@ -162,7 +171,7 @@ namespace HostMaster.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to User Type.
         /// </summary>
-        internal static string UserType {
+        public static string UserType {
             get {
                 return ResourceManager.GetString("UserType", resourceCulture);
             }

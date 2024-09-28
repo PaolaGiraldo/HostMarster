@@ -1,9 +1,15 @@
-﻿using HostMaster.Shared.Resources;
+﻿using HostMaster.Shared.Entities;
+using HostMaster.Shared.Resources;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HostMaster.Shared.Entities;
+namespace HostMaster.Shared.DTOs;
 
-public class RoomType
+public class RoomTypeDTO
 {
     public int Id { get; set; }
 
@@ -24,7 +30,4 @@ public class RoomType
     [Display(Name = "MaxGuests", ResourceType = typeof(Literals))]    
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int MaxGuests { get; set; }
-
-    // Relationships
-    public ICollection<Room>? Rooms { get; set; }
 }

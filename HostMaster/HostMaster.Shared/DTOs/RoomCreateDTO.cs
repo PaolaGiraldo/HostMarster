@@ -1,10 +1,15 @@
-﻿using HostMaster.Shared.Resources;
+﻿using HostMaster.Shared.Entities;
+using HostMaster.Shared.Resources;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HostMaster.Shared.Entities;
+namespace HostMaster.Shared.DTOs;
 
-public class Room
+public class RoomCreateDTO
 {
     public int Id { get; set; }
 
@@ -16,8 +21,7 @@ public class Room
     public bool IsAvailable { get; set; }
 
     // Foreign keys
-    // Foreign keys
-    [Display(Name = "AccommodationId", ResourceType = typeof(Literals))]
+    [Display(Name = "AccommodationId", ResourceType = typeof(Literals))]    
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int AccommodationId { get; set; }
 
@@ -31,9 +35,5 @@ public class Room
     public RoomType? RoomType { get; set; }
 
     // Relationships
-    public ICollection<Reservation>? Reservations { get; set; }
-
-    public ICollection<RoomInventoryItem>? RoomInventoryItems { get; set; }
-
     public ICollection<RoomPhoto>? Photos { get; set; }
 }

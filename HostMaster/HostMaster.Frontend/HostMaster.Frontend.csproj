@@ -26,7 +26,6 @@
     <Folder Include="AuthenticationProviders\" />
     <Folder Include="Helpers\" />
     <Folder Include="Services\" />
-    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 

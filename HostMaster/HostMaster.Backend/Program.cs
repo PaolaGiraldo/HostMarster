@@ -18,8 +18,8 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnec
 builder.Services.AddTransient<SeedDb>();
 
 builder.Services.AddIdentity<User, IdentityRole>()
-	.AddEntityFrameworkStores<DataContext>()
-	.AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
@@ -36,31 +36,40 @@ builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();
 
+builder.Services.AddScoped<IRoomsRepository, RoomsRepository>();
+builder.Services.AddScoped<IRoomsUnitOfWork, RoomsUnitOfWork>();
+
+builder.Services.AddScoped<IRoomPhotosRepository, RoomPhotosRepository>();
+builder.Services.AddScoped<IRoomPhotosUnitOfWork, RoomPhotosUnitOfWork>();
+
+builder.Services.AddScoped<IRoomTypesRepository, RoomTypesRepository>();
+builder.Services.AddScoped<IRoomTypesUnitOfWork, RoomTypesUnitOfWork>();
+
 var app = builder.Build();
 
 SeedData(app);
-async void SeedData(WebApplication app)
+void SeedData(WebApplication app)
 {
-	var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+    var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
 
-	using (var scope = scopeFactory!.CreateScope())
-	{
-		var service = scope.ServiceProvider.GetService<SeedDb>();
-		service!.SeedAsync().Wait();
-	}
+    using (var scope = scopeFactory!.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<SeedDb>();
+        service!.SeedAsync().Wait();
+    }
 }
 
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseCors(x => x
-	.AllowAnyMethod()
-	.AllowAnyHeader()
-	.SetIsOriginAllowed(origin => true)
-	.AllowCredentials());
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials());
 
 app.UseHttpsRedirection();
 

@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
-using HostMaster.Shared.Enums;
+﻿using HostMaster.Shared.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace HostMaster.Shared.Entities
 {

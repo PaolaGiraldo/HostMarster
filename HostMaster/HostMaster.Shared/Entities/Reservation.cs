@@ -1,37 +1,70 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HostMaster.Shared.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace HostMaster.Shared.Entities;
 
 public class Reservation
 {
-    public int Id { get; set; }
+    [Display(Name = "StartDate", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    public int Id
+    {
+        get; set;
+    }
+
+    [Display(Name = "StartDate", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public DateTime StartDate { get; set; }
+
+    [Display(Name = "EndDate", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public DateTime EndDate { get; set; }
+
+    [Display(Name = "NumberOfGuests", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int NumberOfGuests { get; set; }
 
-    [Required]
-    public string State { get; set; } = null!;
+    [Display(Name = "ReservationState", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    public string ReservationState { get; set; } = null!;
 
     //Foreign keys
+    [Display(Name = "RoomId", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int RoomId { get; set; }
 
-    [Required]
     public Room Room { get; set; } = null!;
 
-    public int CustomerId { get; set; }
+    [Display(Name = "CustomerId", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    public int CustomerId
+    {
+        get; set;
+    }
 
-    [Required]
+    [Display(Name = "Customer", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public Customer Customer { get; set; } = null!;
 
+    [Display(Name = "AccommodationId", ResourceType = typeof(Literals))]
+    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int AccommodationId { get; set; }
 
-    [Required]
-    public Accommodation Accommodation { get; set; } = null!;
+    public Accommodation? Accommodation { get; set; }
 
     // Relationships
     public ICollection<Payment>? Payments { get; set; }
 
     public ICollection<ExtraService>? ExtraServices { get; set; }
 
-    public ICollection<ReservationRoom> ReservationRooms { get; set; } = null!;
+    public ICollection<ReservationRoom>? ReservationRooms { get; set; } = null!;
 }

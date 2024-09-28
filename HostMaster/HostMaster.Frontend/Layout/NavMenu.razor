@@ -10,6 +10,8 @@
     <MudNavLink Href="/reservations" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.RoomService">@Localizer["Reservations"]</MudNavLink>
     <MudDivider />
     <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.CalendarMonth">@Localizer["Calendar"]</MudNavLink>
+    <MudNavLink Href="/countries" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.AddHomeWork">@Localizer["Countries"]</MudNavLink>
+    <MudDivider />
 </MudNavMenu>
 
 ﻿<div class="top-row ps-3 navbar navbar-dark">
@@ -34,28 +36,5 @@
                 <span class="bi bi-person-fill" aria-hidden="true"></span> Users
             </NavLink>
         </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="accommodations">
-                <span class="bi bi-building-fill" aria-hidden="true"></span> Accommodations
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="countries">
-                <span class="bi bi-globe2" aria-hidden="true"></span> Paises
-            </NavLink>
-        </div>
     </nav>
 </div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

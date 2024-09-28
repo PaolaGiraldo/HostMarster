@@ -12,5 +12,5 @@ public interface IReservationsUnitOfWork
 
     Task<ActionResponse<Reservation>> UpdateAsync(ReservationDTO reservationDTO);
 
-    Task<ActionResponse<Reservation>> GetAsync(int id);
+    Task<ActionResponse<Reservation>> GetAsync(int roomId);
 }

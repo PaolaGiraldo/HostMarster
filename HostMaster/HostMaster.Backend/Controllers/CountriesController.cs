@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using HostMaster.Backend.UnitsOfWork.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
@@ -18,7 +16,6 @@ public class CountriesController : GenericController<Country>
 		_countriesUnitOfWork = countriesUnitOfWork;
 	}
 
-	[AllowAnonymous]
 	[HttpGet("combo")]
 	public async Task<IActionResult> GetComboAsync()
 	{

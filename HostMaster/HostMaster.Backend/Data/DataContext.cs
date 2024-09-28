@@ -32,6 +32,11 @@ public class DataContext : DbContext
         modelBuilder.Entity<Reservation>().HasIndex(x => new { x.RoomId, x.StartDate }).IsUnique();
         modelBuilder.Entity<ReservationRoom>().HasIndex(x => new { x.ReservationId, x.RoomId }).IsUnique();
 
+        modelBuilder.Entity<User>().ToTable("Users");
+        modelBuilder.Entity<User>().HasIndex(u => u.Document).IsUnique();
+        modelBuilder.Entity<Customer>().ToTable("Customers");
+        modelBuilder.Entity<Employee>().ToTable("Employees");
+
         DisableCascadingDelete(modelBuilder);
     }
 

@@ -1,5 +1,6 @@
 ﻿using HostMaster.Backend.Data;
 using HostMaster.Backend.Repositories.Interfaces;
+using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
@@ -16,38 +17,74 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
         _context = context;
     }
 
+    /*
     public override async Task<ActionResponse<IEnumerable<Reservation>>> GetAsync()
     {
+    }
+
+    public override async Task<ActionResponse<Reservation>> GetAsync(int id)
+    {
+    }*/
+
+    public async Task<ActionResponse<Reservation>> AddAsync(ReservationDTO reservationDTO)
+    {
+        var room = await _context.Rooms.FindAsync(reservationDTO.RoomId);
+        if (room == null)
         {
-            var reservation = await _context.Reservations
-                 .Include(x => x.ReservationRooms)
-                 .ToListAsync();
-
-            if (reservation == null)
+            return new ActionResponse<Reservation>
             {
-                return new ActionResponse<IEnumerable<Reservation>>
-                {
-                    WasSuccess = false,
-                    Message = "ERR001"
-                };
-            }
+                WasSuccess = false,
+                Message = "ERR004"
+            };
+        }
 
-            return new ActionResponse<IEnumerable<Reservation>>
+        var reservation = new Reservation
+        {
+            StartDate = reservationDTO.StartDate,
+            EndDate = reservationDTO.EndDate,
+            ReservationState = reservationDTO.ReservationState,
+            RoomId = reservationDTO.RoomId,
+            NumberOfGuests = reservationDTO.NumberOfGuests,
+            CustomerId = reservationDTO.CustomerDocumentNumber,
+        };
+
+        _context.Add(reservation);
+
+        try
+        {
+            await _context.SaveChangesAsync();
+            return new ActionResponse<Reservation>
             {
                 WasSuccess = true,
                 Result = reservation
             };
         }
+        catch (DbUpdateException)
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = "ERR003"
+            };
+        }
+        catch (Exception exception)
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = exception.Message
+            };
+        }
     }
 
-    public Task<IEnumerable<Reservation>> GetComboAsync()
+    /*
+    public async Task<IEnumerable<Reservation>> GetComboAsync(int roomId)
     {
         throw new NotImplementedException();
     }
 
-    /*
-    public async Task<IEnumerable<Reservation>> GetComboAsync()
+    public async Task<ActionResponse<Reservation>> UpdateAsync(ReservationDTO reservationDTO)
     {
-        return await _context.ReservationRooms.OrderBy(x => x.RoomId).ToListAsync();
+        throw new NotImplementedException();
     }*/
 }

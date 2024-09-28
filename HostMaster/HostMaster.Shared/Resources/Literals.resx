@@ -205,4 +205,10 @@
   <data name="AccommodationId" xml:space="preserve">
     <value>Accommodation Id</value>
   </data>
+  <data name="ERR004" xml:space="preserve">
+    <value>The Room Id is not valid</value>
+  </data>
+  <data name="ERR005" xml:space="preserve">
+    <value>The Accommodation Id is not valid</value>
+  </data>
 </root>

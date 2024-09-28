@@ -1,9 +1,15 @@
-﻿using HostMaster.Shared.Resources;
+﻿using HostMaster.Shared.Entities;
+using HostMaster.Shared.Resources;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HostMaster.Shared.Entities;
+namespace HostMaster.Shared.DTOs;
 
-public class Reservation
+public class ReservationDTO
 {
     public int Id { get; set; }
 
@@ -33,27 +39,5 @@ public class Reservation
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int RoomId { get; set; }
 
-    public Room? Room { get; set; }
-
-    [Display(Name = "Customer", ResourceType = typeof(Literals))]
-    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public int CustomerId { get; set; }
-
-    //[Display(Name = "Customer", ResourceType = typeof(Literals))]
-    //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public Customer Customer { get; set; } = null!;
-
-    [Display(Name = "AccommodationId", ResourceType = typeof(Literals))]
-    //[MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
-    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public int AccommodationId { get; set; }
-
-    public Accommodation? Accommodation { get; set; }
-
-    // Relationships
-    public ICollection<Payment>? Payments { get; set; }
-
-    public ICollection<ExtraService>? ExtraServices { get; set; }
-
-    public ICollection<ReservationRoom>? ReservationRooms { get; set; } = null!;
+    public int CustomerDocumentNumber { get; set; }
 }

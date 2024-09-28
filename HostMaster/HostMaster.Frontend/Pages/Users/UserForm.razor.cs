@@ -14,10 +14,10 @@ public partial class UserForm
 
     protected override void OnInitialized()
     {
-        editContext = new EditContext(user);
+        editContext = new(User);
     }
 
-    [EditorRequired, Parameter] public User user { get; set; } = null!;
+    [EditorRequired, Parameter] public User User { get; set; } = null!;
     [EditorRequired, Parameter] public EventCallback OnValidSubmit { get; set; }
     [EditorRequired, Parameter] public EventCallback ReturnAction { get; set; }
 

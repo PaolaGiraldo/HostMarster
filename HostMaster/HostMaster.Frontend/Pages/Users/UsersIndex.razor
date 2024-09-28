@@ -21,6 +21,9 @@
                             @user.FullName
                         </td>
                         <td>
+                            @user.UserType
+                        </td>
+                        <td>
                             @user.Email
                         </td>
                         <td>
@@ -30,7 +33,7 @@
                             @user.Document
                         </td>
                         <td>
-                            <a class="btn btn-warning" href="/reservations/edit/@user.Id">@Localizer["Edit"]</a>
+                            <a class="btn btn-warning" href="/users/edit/@user.Id">@Localizer["Edit"]</a>
                             <button class="btn btn-danger" @onclick=@(() => DeleteAsync(user))>@Localizer["Delete"]</button>
                         </td>
                     </tr>

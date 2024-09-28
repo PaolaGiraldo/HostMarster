@@ -9,8 +9,8 @@ namespace HostMaster.Frontend.Pages.Users;
 
 public partial class UsersCreate
 {
-    private UserForm? reservationForm;
-    private Reservation reservation = new();
+    private UserForm? userForm;
+    private User user = new();
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -19,7 +19,7 @@ public partial class UsersCreate
 
     private async Task CreateAsync()
     {
-        var responseHttp = await Repository.PostAsync("/api/users", reservation);
+        var responseHttp = await Repository.PostAsync("/api/users", user);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -39,7 +39,7 @@ public partial class UsersCreate
 
     private void Return()
     {
-        reservationForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo("/reservations");
+        userForm!.FormPostedSuccessfully = true;
+        NavigationManager.NavigateTo("/users");
     }
 }

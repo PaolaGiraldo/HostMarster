@@ -7,15 +7,13 @@ namespace HostMaster.Backend.UnitsOfWork.Interfaces;
 
 public interface IUsersUnitOfWork
 {
-    Task<User> GetUserAsync(string email);
+    Task<ActionResponse<User>> GetAsync(int id);
 
-    Task<IdentityResult> AddUserAsync(User user, string password);
-
-    Task CheckRoleAsync(string roleName);
-
-    Task AddUserToRoleAsync(User user, string roleName);
-
-    Task<bool> IsUserInRoleAsync(User user, string roleName);
+    Task<ActionResponse<IEnumerable<User>>> GetAsync();
 
     Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<User>> AddAsync(UserDTO userDTO);
 }

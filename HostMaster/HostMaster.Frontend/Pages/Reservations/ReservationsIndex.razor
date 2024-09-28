@@ -1,0 +1,31 @@
+﻿@page "/reservations"
+
+<h3>
+    @Localizer["Reservations"]
+</h3>
+<GenericList MyList="Reservations">
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Localizer["Reservation"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Reservations!)
+                {
+                    <tr>
+                        <td>
+                            @reservation.Room
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="/reservations/edit/@reservation.Id">@Localizer["Edit"]</a>
+                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(reservation))>@Localizer["Delete"]</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</GenericList>

@@ -8,7 +8,10 @@ namespace HostMaster.Backend.Controllers;
 [Route("/api/[controller]")]
 public class ReservationsController : GenericController<Reservation>
 {
-    public ReservationsController(IGenericUnitOfWork<Reservation> unitOfWork) : base(unitOfWork)
+    private readonly IReservationsUnitOfWork _reservationsUnitOfWork;
+
+    public ReservationsController(IGenericUnitOfWork<Reservation> unitOfWork, IReservationsUnitOfWork reservationsUnitOfWork) : base(unitOfWork)
     {
+        _reservationsUnitOfWork = reservationsUnitOfWork;
     }
 }

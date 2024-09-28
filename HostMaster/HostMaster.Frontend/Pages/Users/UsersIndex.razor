@@ -1,0 +1,41 @@
+﻿@page "/users"
+
+<h3>@Localizer["Users"]</h3>
+<div class="mb-3">
+    <a class="btn btn-primary" href="/users/create">@Localizer["New"] @Localizer["User"]</a>
+</div>
+<GenericList MyList="Users">
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Localizer["User"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Users!)
+                {
+                    <tr>
+                        <td>
+                            @user.FullName
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @user.DocumentType
+                        </td>
+                        <td>
+                            @user.Document
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="/reservations/edit/@user.Id">@Localizer["Edit"]</a>
+                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(user))>@Localizer["Delete"]</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</GenericList>

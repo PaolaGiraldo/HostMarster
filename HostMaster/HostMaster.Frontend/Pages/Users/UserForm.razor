@@ -1,0 +1,24 @@
+﻿@page "/users/userform"
+﻿
+@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>@Localizer["User"]:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@user.FirstName" />
+            <ValidationMessage For="@(() => user.FirstName)" />
+        </div>
+        <div>
+            <InputText class="form-control" @bind-Value="@user.LastName" />
+            <ValidationMessage For="@(() => user.LastName)" />
+        </div>
+        <div>
+            <InputText class="form-control" @bind-Value="@user.Email" />
+            <ValidationMessage For="@(() => user.Email)" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">@Localizer["SaveChanges"]</button>
+    <button class="btn btn-success" @onclick="ReturnAction">@Localizer["Return"]</button>
+</EditForm>

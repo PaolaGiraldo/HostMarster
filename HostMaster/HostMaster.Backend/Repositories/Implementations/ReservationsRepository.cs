@@ -73,7 +73,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             ReservationState = reservationDTO.ReservationState,
             RoomId = reservationDTO.RoomId,
             NumberOfGuests = reservationDTO.NumberOfGuests,
-            CustomerId = reservationDTO.CustomerDocumentNumber,
+            CustomerDocument = reservationDTO.CustomerDocumentNumber,
         };
 
         _context.Add(reservation);

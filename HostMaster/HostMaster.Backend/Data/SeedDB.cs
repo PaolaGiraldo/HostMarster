@@ -22,6 +22,7 @@ public class SeedDb
         await CheckRoomsTypesDbAsync();
         await CheckRoomsDbAsync();
         await CheckCountriesAsync();
+        await CheckReservationsDbAsync();
     }
 
     private async Task CheckCountriesDbAsync()
@@ -116,5 +117,14 @@ public class SeedDb
         }
 
         await _context.SaveChangesAsync();
+    }
+
+    private async Task CheckReservationsDbAsync()
+    {
+        if (!_context.Reservations.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedReservations.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
     }
 }

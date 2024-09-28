@@ -1,4 +1,4 @@
-﻿INSERT INTO Reservations (StartDate, EndDate, NumberOfGuests, ReservationState, RoomId, CustomerDocumentNumber)
+﻿INSERT INTO Reservations (StartDate, EndDate, NumberOfGuests, ReservationState, RoomId, CustomerDocument)
 VALUES 
     ('2024-09-28', '2024-10-02', 2, 'Confirmed', 1, 123456789),
     ('2024-09-30', '2024-10-05', 4, 'Pending', 2, 987654321),

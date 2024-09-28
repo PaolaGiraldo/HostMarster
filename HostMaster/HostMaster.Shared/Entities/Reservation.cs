@@ -37,7 +37,7 @@ public class Reservation
 
     [Display(Name = "Customer", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public int CustomerId { get; set; }
+    public int CustomerDocument { get; set; }
 
     //[Display(Name = "Customer", ResourceType = typeof(Literals))]
     //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]

@@ -18,8 +18,21 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 
 builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
 builder.Services.AddScoped<IReservationsUnitOfWork, ReservationsUnitOfWork>();
+builder.Services.AddTransient<SeedDb>();
 
 var app = builder.Build();
+
+SeedData(app);
+void SeedData(WebApplication app)
+{
+    var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopeFactory!.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<SeedDb>();
+        service!.SeedAsync().Wait();
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {

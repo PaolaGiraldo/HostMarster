@@ -11,9 +11,6 @@ public class User : IdentityUser
 	public int Id { get; set; }
 
 	[Required]
-	public string Email { get; set; } = null!;
-
-	[Required]
 	[Display(Name = "DocumentType", ResourceType = typeof(Literals))]
 	public string DocumentType { get; set; } = null!;
 

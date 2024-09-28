@@ -16,14 +16,16 @@ public class Accommodation
     [Required]
     public string PhoneNumber { get; set; } = null!;
 
+    public string Description { get; set; } = null!;
+
     // Foreign keys
     public int CityId { get; set; }
 
-    public City? City { get; set; }
+    public City? City { get; set; } = null!;
 
     // Relationships
-    public ICollection<Room>? Rooms { get; set; }
+    public ICollection<Room>? Rooms { get; set; } = null!;
 
-    public ICollection<Employee>? Employees { get; set; }
-    public ICollection<Reservation>? Reservations { get; set; }
+    public ICollection<Employee>? Employees { get; set; } = null!;
+    public ICollection<Reservation>? Reservations { get; set; } = null!;
 }

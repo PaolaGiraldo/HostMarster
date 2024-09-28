@@ -1,44 +1,37 @@
 ﻿@page "/countries"
 
-<div class="card">
-    <div class="card-header">
-        <span>
-            <i class="bi bi-globe-americas" /> Países
-            <a class="btn btn-primary btn-sm float-end" @onclick=@(() => ShowModalAsync())><i class="bi bi-plus-square" /> Nuevo País</a>
-        </span>
-    </div>
-    <div class="card-body">
-        <Filter PlaceHolder="Buscar país..." Callback=@FilterCallBack />
-        <GenericList MyList="Countries">
-            <Body>
-                <Pagination CurrentPage="currentPage"
-                            TotalPages="totalPages"
-                            SelectedPage="SelectedPageAsync"
-                            RecordsNumber="SelectedRecordsNumberAsync" />
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>País</th>
-                            <th style="width:210px">Estados / Departamentos</th>
-                            <th style="width:168px"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var country in Countries!)
-                        {
-                            <tr>
-                                <td><a href="/countries/details/@country.Id"> @country.Name</a></td>
-                                <td>@country.StatesNumber</td>
-                                <td>
-                                    <a @onclick=@(() => ShowModalAsync(country.Id, true)) class="btn btn-sm btn-warning"><i class="bi bi-pencil" /> Editar</a>
-                                    <button @onclick=@(() => DeleteAsycn(country)) class="btn btn-sm btn-danger"><i class="bi bi-trash" /> Borrar</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </Body>
-        </GenericList>
-    </div>
+<h3>@Localizer["Countries"]</h3>
+
+<div class="mb-3">
+    <a href="countries/create" class="btn btn-primary">@Localizer["New"]</a>
 </div>
+
+<GenericList MyList="Countries">
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Localizer["Country"]</th>
+                    <th>@Localizer["Teams"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var country in Countries!)
+                {
+                    <tr>
+                        <td>
+                            @country.Name
+                        </td>                        
+                        <td>
+                            <a class="btn btn-warning" href="/countries/edit/@country.Id">@Localizer["Edit"]</a>
+                            <button class="btn btn-danger" onclick=@(() => DeleteAsync(country))>@Localizer["Delete"]</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+
+</GenericList>

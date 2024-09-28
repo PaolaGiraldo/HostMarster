@@ -1,49 +1,47 @@
-﻿using Blazored.Modal;
-using Blazored.Modal.Services;
 using CurrieTechnologies.Razor.SweetAlert2;
-using Microsoft.AspNetCore.Components;
 using HostMaster.Frontend.Repositories;
-using HostMaster.Frontend.Shared;
 using HostMaster.Shared.Entities;
+using HostMaster.Shared.Resources;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using MudBlazor;
 
 namespace HostMaster.Frontend.Pages.Countries;
 
 public partial class CountryCreate
 {
-    private Country country = new();
+	private CountryForm? countryForm;
+	private Country country = new();
 
-    private FormWithName<Country>? countryForm;
-    [Inject] private IRepository Repository { get; set; } = null!;
-    [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    [CascadingParameter] private BlazoredModalInstance BlazoredModal { get; set; } = default!;
+	[Inject] private IRepository Repository { get; set; } = null!;
+	[Inject] private NavigationManager NavigationManager { get; set; } = null!;
+	[Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+	[Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
-    private async Task CreateAsync()
-    {
-        var responseHttp = await Repository.PostAsync("/api/countries", country);
-        if (responseHttp.Error)
-        {
-            var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
-            return;
-        }
+	private async Task CreateAsync()
+	{
+		var responseHttp = await Repository.PostAsync("/api/countries", country);
+		if (responseHttp.Error)
+		{
+			var message = await responseHttp.GetErrorMessageAsync();
+			await SweetAlertService.FireAsync(Localizer["Error"], Localizer[message!]);
+			return;
+		}
 
-        await BlazoredModal.CloseAsync(ModalResult.Ok());
-        Return();
+		Return();
+		var toast = SweetAlertService.Mixin(new SweetAlertOptions
+		{
+			Toast = true,
+			Position = SweetAlertPosition.BottomEnd,
+			ShowConfirmButton = true,
+			Timer = 3000
+		});
+		await toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordCreatedOk"]);
+	}
 
-        var toast = SweetAlertService.Mixin(new SweetAlertOptions
-        {
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-            ShowConfirmButton = true,
-            Timer = 3000
-        });
-        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con éxito.");
-    }
-
-    private void Return()
-    {
-        countryForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo("/countries");
-    }
+	private void Return()
+	{
+		countryForm!.FormPostedSuccessfully = true;
+		NavigationManager.NavigateTo("/countries");
+	}
 }

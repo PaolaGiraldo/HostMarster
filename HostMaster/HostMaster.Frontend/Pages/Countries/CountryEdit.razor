@@ -1,12 +1,12 @@
-﻿@page "/countries/edit/{Id:int}"
+﻿@page "/countries/edit/{Id:int}"﻿
 
-<h3>Editar País</h3>
+<h3>@Localizer["Edit"] @Localizer["Country"]</h3>
 
-@if(country is null)
+@if (country is null)
 {
-    <Loading/>
+    <Loading />
 }
 else
 {
-    <FormWithName @ref="countryForm" Label="País:" Model="country" OnValidSubmit="EditAsync" ReturnAction="Return" />
+    <CountryForm @ref="countryForm" Country="country" OnValidSubmit="EditAsync" ReturnAction="Return" />
 }

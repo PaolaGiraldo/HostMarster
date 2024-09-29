@@ -3,8 +3,8 @@ using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using static MudBlazor.Colors;
 
 namespace HostMaster.Backend.Repositories.Implementations;
 
@@ -32,12 +32,11 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
         };
     }
 
-    public override async Task<ActionResponse<Reservation>> GetAsync(int id)
+    public override async Task<ActionResponse<Reservation>> GetAsync(int reservationId)
     {
         var reservation = await _context.Reservations
-            .Include(r => r.RoomId)
-
-           .FirstOrDefaultAsync(r => r.Id == id);
+            .Include(r => r.Room)
+           .FirstOrDefaultAsync(r => r.Id == reservationId);
 
         if (reservation == null)
         {
@@ -65,6 +64,23 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
                 Message = "ERR_RES001"
             };
         }
+        else if (!room.IsAvailable)
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = "ERR_RES005"
+            };
+        }
+
+        if (reservationDTO.StartDate <= reservationDTO.EndDate)
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = "ERR_RES004"
+            };
+        }
 
         var reservation = new Reservation
         {
@@ -73,7 +89,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             ReservationState = reservationDTO.ReservationState,
             RoomId = reservationDTO.RoomId,
             NumberOfGuests = reservationDTO.NumberOfGuests,
-            CustomerId = reservationDTO.CustomerDocumentNumber,
+            CustomerDocumentNumber = reservationDTO.CustomerDocument,
             AccommodationId = reservationDTO.AccommodationId,
         };
 
@@ -127,12 +143,31 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
                 Message = "ERR_RES001"
             };
         }
+        else if (!room.IsAvailable)
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = "ERR_RES005"
+            };
+        }
+
+        if (reservationDTO.StartDate <= reservationDTO.EndDate)
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = "ERR_RES004"
+            };
+        }
 
         currentReservation.StartDate = reservationDTO.StartDate;
         currentReservation.EndDate = reservationDTO.EndDate;
         currentReservation.RoomId = reservationDTO.RoomId;
         currentReservation.NumberOfGuests = reservationDTO.NumberOfGuests;
         currentReservation.AccommodationId = reservationDTO.AccommodationId;
+        currentReservation.CustomerDocumentNumber = reservationDTO.CustomerDocument;
+        currentReservation.ReservationState = reservationDTO.ReservationState;
 
         _context.Update(currentReservation);
         try

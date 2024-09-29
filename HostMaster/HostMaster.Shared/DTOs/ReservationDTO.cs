@@ -38,5 +38,5 @@ public class ReservationDTO
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int AccommodationId { get; set; }
 
-    public int CustomerDocumentNumber { get; set; }
+    public int CustomerDocument { get; set; }
 }

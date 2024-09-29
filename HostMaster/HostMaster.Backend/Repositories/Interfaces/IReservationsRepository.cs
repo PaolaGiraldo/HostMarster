@@ -16,7 +16,7 @@ public interface IReservationsRepository
 
     Task<ActionResponse<Reservation>> UpdateAsync(ReservationDTO reservationDTO);
 
-    Task<IEnumerable<Reservation>> GetComboAsync(int roomId);
+    Task<IEnumerable<Reservation>> GetComboAsync(int reservationId);
 
     //Task<ActionResponse<IEnumerable<Reservation>>> GetAsync(PaginationDTO pagination);
 

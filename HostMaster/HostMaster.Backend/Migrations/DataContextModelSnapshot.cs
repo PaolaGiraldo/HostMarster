@@ -582,15 +582,7 @@ namespace HostMaster.Backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HostMaster.Shared.Entities.Accommodation", b =>
-                {
-                    b.HasOne("HostMaster.Shared.Entities.City", "City")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("City");
-                });
+ 
 
             modelBuilder.Entity("HostMaster.Shared.Entities.City", b =>
                 {

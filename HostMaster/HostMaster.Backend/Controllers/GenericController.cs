@@ -4,14 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HostMaster.Backend.Controllers;
 
-public class GenericController<T> : Controller where T : class
+public class GenericController<T>(IGenericUnitOfWork<T> unitOfWork) : Controller where T : class
 {
-    private readonly IGenericUnitOfWork<T> _unitOfWork;
-
-    public GenericController(IGenericUnitOfWork<T> unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
+    private readonly IGenericUnitOfWork<T> _unitOfWork = unitOfWork;
 
     [HttpGet]
     public virtual async Task<IActionResult> GetAsync()

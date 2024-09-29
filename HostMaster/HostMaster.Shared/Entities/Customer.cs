@@ -7,10 +7,6 @@ public class Customer : User
 {
     public int Id { get; set; }
 
-    [Required]
-    [Display(Name = "PhoneNumber", ResourceType = typeof(Literals))]
-    public string PhoneNumber { get; set; } = null!;
-
     // Relationships
     public ICollection<Reservation>? Reservations { get; set; }
 }

@@ -5,8 +5,6 @@ using HostMaster.Backend.UnitsOfWork.Implementations;
 using HostMaster.Backend.UnitsOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Identity;
-using HostMaster.Shared.Entities;
 using HostMaster.Backend.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);

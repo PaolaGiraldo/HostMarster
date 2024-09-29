@@ -7,4 +7,5 @@ VALUES
     (3, 'linda.white@example.com', 'CC', '666778899', 'Linda', 'White', NULL, '555-0808', 1), 
     (4, 'charles.adams@example.com', 'CC', '777889900', 'Charles', 'Adams', NULL, '555-0909', 1), 
     (5, 'patricia.thomas@example.com', 'TI', '888990011', 'Patricia', 'Thomas', NULL, '555-1010', 1);
+
 SET IDENTITY_INSERT [dbo].[Users] OFF;

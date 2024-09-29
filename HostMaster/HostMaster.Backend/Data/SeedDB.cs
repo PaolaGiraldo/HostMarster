@@ -22,6 +22,7 @@ public class SeedDb
         await CheckRoomsTypesDbAsync();
         await CheckRoomsDbAsync();
         await CheckCountriesAsync();
+        await CheckCustomersDbAsync();
         await CheckReservationsDbAsync();
     }
 

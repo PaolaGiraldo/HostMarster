@@ -56,7 +56,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
 
     public async Task<ActionResponse<Reservation>> AddAsync(ReservationDTO reservationDTO)
     {
-        var room = await _context.Reservations.FindAsync(reservationDTO.RoomId);
+        var room = await _context.Rooms.FindAsync(reservationDTO.RoomId);
         if (room == null)
         {
             return new ActionResponse<Reservation>
@@ -73,7 +73,8 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             ReservationState = reservationDTO.ReservationState,
             RoomId = reservationDTO.RoomId,
             NumberOfGuests = reservationDTO.NumberOfGuests,
-            CustomerDocument = reservationDTO.CustomerDocumentNumber,
+            CustomerId = reservationDTO.CustomerDocumentNumber,
+            AccommodationId = reservationDTO.AccommodationId,
         };
 
         _context.Add(reservation);
@@ -131,6 +132,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
         currentReservation.EndDate = reservationDTO.EndDate;
         currentReservation.RoomId = reservationDTO.RoomId;
         currentReservation.NumberOfGuests = reservationDTO.NumberOfGuests;
+        currentReservation.AccommodationId = reservationDTO.AccommodationId;
 
         _context.Update(currentReservation);
         try

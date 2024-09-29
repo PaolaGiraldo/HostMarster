@@ -14,30 +14,29 @@ public class ReservationDTO
     public int Id { get; set; }
 
     [Display(Name = "StartDate", ResourceType = typeof(Literals))]
-    //[MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public DateTime StartDate { get; set; }
 
     [Display(Name = "EndDate", ResourceType = typeof(Literals))]
-    //[MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public DateTime EndDate { get; set; }
 
     [Display(Name = "NumberOfGuests", ResourceType = typeof(Literals))]
-    [MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int NumberOfGuests { get; set; }
 
     [Display(Name = "ReservationState", ResourceType = typeof(Literals))]
-    ////[MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public string ReservationState { get; set; } = null!;
 
     //Foreign keys
     [Display(Name = "RoomId", ResourceType = typeof(Literals))]
-    //[MaxLength(3, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int RoomId { get; set; }
+
+    [Display(Name = "AccommodationId", ResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    public int AccommodationId { get; set; }
 
     public int CustomerDocumentNumber { get; set; }
 }

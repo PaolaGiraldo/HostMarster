@@ -4,6 +4,7 @@ using HostMaster.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostMaster.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240928221839_UpdateReservationEntityDocument")]
+    partial class UpdateReservationEntityDocument
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,11 +111,14 @@ namespace HostMaster.Backend.Migrations
 
             modelBuilder.Entity("HostMaster.Shared.Entities.Customer", b =>
                 {
-                    b.Property<int>("DocumentNumber")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentNumber"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DocumentNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("DocumentType")
                         .IsRequired()
@@ -126,9 +132,6 @@ namespace HostMaster.Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -137,7 +140,7 @@ namespace HostMaster.Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DocumentNumber");
+                    b.HasKey("Id");
 
                     b.HasIndex("DocumentNumber")
                         .IsUnique();
@@ -250,6 +253,9 @@ namespace HostMaster.Backend.Migrations
                     b.Property<int>("AccommodationId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CustomerDocument")
+                        .HasColumnType("int");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
@@ -257,6 +263,7 @@ namespace HostMaster.Backend.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("NumberOfGuests")
+                        .HasMaxLength(3)
                         .HasColumnType("int");
 
                     b.Property<string>("ReservationState")

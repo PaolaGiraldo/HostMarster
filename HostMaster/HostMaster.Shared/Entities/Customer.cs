@@ -16,6 +16,7 @@ public class Customer
     public string DocumentType { get; set; } = null!;
 
     [Required]
+    [Key]
     public int DocumentNumber { get; set; }
 
     [Required]

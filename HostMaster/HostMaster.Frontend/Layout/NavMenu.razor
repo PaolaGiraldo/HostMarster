@@ -1,27 +1,14 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">HostMaster.Frontend</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿﻿<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">@Localizer["Home"]</MudNavLink>
+    <MudDivider />
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <div class="nav-item px-3">
-        <NavLink class="nav-link" href="reservations">
-            <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Reservas
-        </NavLink>
-    </div>
-</div>
 
-@code {
-    private bool collapseNavMenu = true;
+            <MudNavLink Href="/rooms" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">@Localizer["Rooms"]</MudNavLink>
+            <MudDivider />
+            <MudNavLink Href="/reservations" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Groups">@Localizer["Reservations"]</MudNavLink>
+            <MudDivider />
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">@Localizer["About"]</MudNavLink>
+    <MudDivider />
+</MudNavMenu>

@@ -1,5 +1,3 @@
-﻿@page "/reservations/create"
-
-<h3>@Localizer["Create"] @Localizer["Reservation"]</h3>
+﻿<h3>@Localizer["Create"] @Localizer["Reservation"]</h3>
 
 <ReservationForm @ref="reservationForm" ReservationDTO="reservationDTO" OnValidSubmit="CreateAsync" ReturnAction="Return" />

@@ -36,7 +36,7 @@ public class DataContext : DbContext
         modelBuilder.Entity<User>().ToTable("Users");
         modelBuilder.Entity<User>().HasIndex(u => u.Document).IsUnique();
         modelBuilder.Entity<Customer>().ToTable("Customers");
-        modelBuilder.Entity<Customer>().HasIndex(c => c.DocumentNumber).IsUnique();
+        modelBuilder.Entity<Customer>().HasIndex(c => c.Document).IsUnique();
         modelBuilder.Entity<Employee>().ToTable("Employees");
 
         modelBuilder.Entity<User>().ToTable("Users");

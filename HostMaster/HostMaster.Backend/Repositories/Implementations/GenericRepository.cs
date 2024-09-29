@@ -2,6 +2,7 @@
 using HostMaster.Backend.Helpers;
 using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Shared.DTOs;
+using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
 

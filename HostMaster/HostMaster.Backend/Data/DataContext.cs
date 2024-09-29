@@ -13,6 +13,7 @@ public class DataContext : DbContext
     public DbSet<Accommodation> Accommodations { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
+    public DbSet<User> Users { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<ExtraService> ExtraServices { get; set; }
@@ -36,6 +37,11 @@ public class DataContext : DbContext
         modelBuilder.Entity<User>().HasIndex(u => u.Document).IsUnique();
         modelBuilder.Entity<Customer>().ToTable("Customers");
         modelBuilder.Entity<Customer>().HasIndex(c => c.DocumentNumber).IsUnique();
+        modelBuilder.Entity<Employee>().ToTable("Employees");
+
+        modelBuilder.Entity<User>().ToTable("Users");
+        modelBuilder.Entity<User>().HasIndex(u => u.Document).IsUnique();
+        modelBuilder.Entity<Customer>().ToTable("Customers");
         modelBuilder.Entity<Employee>().ToTable("Employees");
 
         DisableCascadingDelete(modelBuilder);

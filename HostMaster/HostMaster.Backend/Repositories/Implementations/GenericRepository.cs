@@ -15,7 +15,32 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     public GenericRepository(DataContext context)
     {
         _context = context;
-        _entity = context.Set<T>();
+        _entity = _context.Set<T>();
+    }
+
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _entity.AsQueryable();
+
+        return new ActionResponse<IEnumerable<T>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
+
+    public virtual async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
+    {
+        var queryable = _entity.AsQueryable();
+        var count = await queryable.CountAsync();
+        int totalPages = (int)Math.Ceiling((double)count / pagination.RecordsNumber);
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = totalPages
+        };
     }
 
     public virtual async Task<ActionResponse<T>> AddAsync(T entity)
@@ -30,9 +55,21 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
                 Result = entity
             };
         }
-        catch (DbUpdateException)
+        catch (DbUpdateException ex)
         {
-            return DbUpdateExceptionActionResponse();
+            if (ex.InnerException != null)
+            {
+                if (ex.InnerException!.Message.Contains("duplicate"))
+                {
+                    return DbUpdateExceptionActionResponse();
+                }
+            }
+
+            return new ActionResponse<T>
+            {
+                WasSuccess = false,
+                Message = ex.Message
+            };
         }
         catch (Exception exception)
         {
@@ -48,17 +85,17 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
             return new ActionResponse<T>
             {
                 WasSuccess = false,
-                Message = "ERR001"
+                Message = "Registro no encontrado"
             };
         }
 
-        _entity.Remove(row);
         try
         {
+            _entity.Remove(row);
             await _context.SaveChangesAsync();
             return new ActionResponse<T>
             {
-                WasSuccess = true,
+                WasSuccess = true
             };
         }
         catch
@@ -66,7 +103,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
             return new ActionResponse<T>
             {
                 WasSuccess = false,
-                Message = "ERR002"
+                Message = "No se pude borrar, porque tiene registros relacionados."
             };
         }
     }
@@ -79,9 +116,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
             return new ActionResponse<T>
             {
                 WasSuccess = false,
-                Message = "ERR001"
+                Message = "Registro no encontrado"
             };
         }
+
         return new ActionResponse<T>
         {
             WasSuccess = true,
@@ -110,9 +148,21 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
                 Result = entity
             };
         }
-        catch (DbUpdateException)
+        catch (DbUpdateException ex)
         {
-            return DbUpdateExceptionActionResponse();
+            if (ex.InnerException != null)
+            {
+                if (ex.InnerException!.Message.Contains("duplicate"))
+                {
+                    return DbUpdateExceptionActionResponse();
+                }
+            }
+
+            return new ActionResponse<T>
+            {
+                WasSuccess = false,
+                Message = ex.Message
+            };
         }
         catch (Exception exception)
         {
@@ -120,12 +170,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
-    private ActionResponse<T> ExceptionActionResponse(Exception exception)
+    private ActionResponse<T> DbUpdateExceptionActionResponse()
     {
         return new ActionResponse<T>
         {
             WasSuccess = false,
-            Message = exception.Message
+            Message = "Ya existe el registro que estas intentando crear."
         };
     }
 

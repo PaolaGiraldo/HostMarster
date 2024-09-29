@@ -1,10 +1,13 @@
-﻿﻿<MudNavMenu>
+﻿<MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">@Localizer["Home"]</MudNavLink>
     <MudDivider />
-                <MudNavLink Href="/rooms" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">@Localizer["Rooms"]</MudNavLink>
-            <MudDivider />
-            <MudNavLink Href="/reservations" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Groups">@Localizer["Reservations"]</MudNavLink>
-            <MudDivider />
-                <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">@Localizer["About"]</MudNavLink>
+    <MudNavLink Href="/Accommodations" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.AddHomeWork">@Localizer["Accommodations"]</MudNavLink>
     <MudDivider />
+    <MudNavLink Href="/rooms" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.BedroomChild">@Localizer["Rooms"]</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/roomTypes" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">@Localizer["RoomTypes"]</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/reservations" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.RoomService">@Localizer["Reservations"]</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.CalendarMonth">@Localizer["Calendar"]</MudNavLink>
 </MudNavMenu>

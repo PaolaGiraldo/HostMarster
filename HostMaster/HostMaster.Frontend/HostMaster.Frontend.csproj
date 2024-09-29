@@ -18,7 +18,11 @@
     <PackageReference Include="TextCopy" Version="6.2.1" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\HostMaster.Shared\HostMaster.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
     <Folder Include="AuthenticationProviders\" />
     <Folder Include="Helpers\" />
     <Folder Include="Services\" />

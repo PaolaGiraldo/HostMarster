@@ -1,31 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HostMaster.Shared.Resources;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HostMaster.Shared.Entities;
 
-public class Employee
+public class Employee : User
 {
     public int Id { get; set; }
 
     [MaxLength(100)]
     [Required]
-    public string FirstName { get; set; } = null!;
+    [Display(Name = "Department", ResourceType = typeof(Literals))]
+    public string Department { get; set; } = null!;
 
-    [MaxLength(100)]
     [Required]
-    public string LastName { get; set; } = null!;
-
-    [MaxLength(100)]
-    [Required]
-    public string Position { get; set; } = null!;
-
-    [MaxLength(100)]
-    [Required]
-    public string Email { get; set; } = null!;
-
-    [MaxLength(15)]
-    [Required]
-    public string PhoneNumber { get; set; } = null!;
+    [Display(Name = "HireDate", ResourceType = typeof(Literals))]
+    public DateTime HireDate { get; set; }
 
     // Foreign keys
     public int AccommodationId { get; set; }

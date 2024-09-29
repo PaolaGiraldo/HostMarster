@@ -77,7 +77,8 @@ namespace HostMaster.Backend.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("StateId")
                         .HasColumnType("int");
@@ -183,6 +184,7 @@ namespace HostMaster.Backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("Countries");
                     b.HasIndex("AccommodationId");
 
                     b.ToTable("Employees", (string)null);
@@ -269,6 +271,10 @@ namespace HostMaster.Backend.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccommodationId");
@@ -301,6 +307,9 @@ namespace HostMaster.Backend.Migrations
 
                     b.HasIndex("RoomId");
 
+                    b.HasIndex("ReservationId", "RoomId")
+                        .IsUnique();
+
                     b.ToTable("ReservationRooms");
                 });
 
@@ -320,7 +329,8 @@ namespace HostMaster.Backend.Migrations
 
                     b.Property<string>("RoomNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<int>("RoomTypeId")
                         .HasColumnType("int");
@@ -375,7 +385,7 @@ namespace HostMaster.Backend.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RoomPhotoUrl")
+                    b.Property<string>("RoomPhotoURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -396,7 +406,8 @@ namespace HostMaster.Backend.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("MaxGuests")
                         .HasColumnType("int");
@@ -406,7 +417,8 @@ namespace HostMaster.Backend.Migrations
 
                     b.Property<string>("TypeName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -426,7 +438,8 @@ namespace HostMaster.Backend.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -443,8 +456,14 @@ namespace HostMaster.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
                     b.Property<int>("CityId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Document")
                         .IsRequired()
@@ -459,6 +478,9 @@ namespace HostMaster.Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -469,7 +491,37 @@ namespace HostMaster.Backend.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserType")
@@ -484,6 +536,35 @@ namespace HostMaster.Backend.Migrations
                         .IsUnique();
 
                     b.ToTable("Users", (string)null);
+
+                    b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("HostMaster.Shared.Entities.Customer", b =>
+                {
+                    b.HasBaseType("HostMaster.Shared.Entities.User");
+
+                    b.ToTable("Customers", (string)null);
+                });
+
+            modelBuilder.Entity("HostMaster.Shared.Entities.Employee", b =>
+                {
+                    b.HasBaseType("HostMaster.Shared.Entities.User");
+
+                    b.Property<int>("AccommodationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasIndex("AccommodationId");
+
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("ExtraServiceReservation", b =>
@@ -504,7 +585,6 @@ namespace HostMaster.Backend.Migrations
             modelBuilder.Entity("HostMaster.Shared.Entities.Accommodation", b =>
                 {
                     b.HasOne("HostMaster.Shared.Entities.City", "City")
-                        .WithMany("Accommodations")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -646,12 +726,38 @@ namespace HostMaster.Backend.Migrations
             modelBuilder.Entity("HostMaster.Shared.Entities.User", b =>
                 {
                     b.HasOne("HostMaster.Shared.Entities.City", "City")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("HostMaster.Shared.Entities.Customer", b =>
+                {
+                    b.HasOne("HostMaster.Shared.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("HostMaster.Shared.Entities.Customer", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HostMaster.Shared.Entities.Employee", b =>
+                {
+                    b.HasOne("HostMaster.Shared.Entities.Accommodation", "Accommodation")
+                        .WithMany("Employees")
+                        .HasForeignKey("AccommodationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("HostMaster.Shared.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("HostMaster.Shared.Entities.Employee", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Accommodation");
                 });
 
             modelBuilder.Entity("HostMaster.Shared.Entities.Accommodation", b =>
@@ -665,7 +771,7 @@ namespace HostMaster.Backend.Migrations
 
             modelBuilder.Entity("HostMaster.Shared.Entities.City", b =>
                 {
-                    b.Navigation("Accommodations");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("HostMaster.Shared.Entities.Country", b =>
@@ -704,6 +810,11 @@ namespace HostMaster.Backend.Migrations
             modelBuilder.Entity("HostMaster.Shared.Entities.State", b =>
                 {
                     b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("HostMaster.Shared.Entities.Customer", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

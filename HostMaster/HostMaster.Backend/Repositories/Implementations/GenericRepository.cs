@@ -18,31 +18,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         _entity = _context.Set<T>();
     }
 
-    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
-    {
-        var queryable = _entity.AsQueryable();
-
-        return new ActionResponse<IEnumerable<T>>
-        {
-            WasSuccess = true,
-            Result = await queryable
-                .Paginate(pagination)
-                .ToListAsync()
-        };
-    }
-
-    public virtual async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
-    {
-        var queryable = _entity.AsQueryable();
-        var count = await queryable.CountAsync();
-        int totalPages = (int)Math.Ceiling((double)count / pagination.RecordsNumber);
-        return new ActionResponse<int>
-        {
-            WasSuccess = true,
-            Result = totalPages
-        };
-    }
-
     public virtual async Task<ActionResponse<T>> AddAsync(T entity)
     {
         _context.Add(entity);
@@ -77,6 +52,15 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
+    private ActionResponse<T> ExceptionActionResponse(Exception exception)
+    {
+        return new ActionResponse<T>
+        {
+            WasSuccess = false,
+            Message = exception.Message
+        };
+    }
+
     public virtual async Task<ActionResponse<T>> DeleteAsync(int id)
     {
         var row = await _entity.FindAsync(id);
@@ -85,7 +69,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
             return new ActionResponse<T>
             {
                 WasSuccess = false,
-                Message = "Registro no encontrado"
+                Message = "ERR001"
             };
         }
 
@@ -103,7 +87,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
             return new ActionResponse<T>
             {
                 WasSuccess = false,
-                Message = "No se pude borrar, porque tiene registros relacionados."
+                Message = "ERR002"
             };
         }
     }
@@ -116,7 +100,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
             return new ActionResponse<T>
             {
                 WasSuccess = false,
-                Message = "Registro no encontrado"
+                Message = "ERR001"
             };
         }
 
@@ -175,15 +159,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return new ActionResponse<T>
         {
             WasSuccess = false,
-            Message = "Ya existe el registro que estas intentando crear."
-        };
-    }
-
-    private ActionResponse<T> DbUpdateExceptionActionResponse()
-    {
-        return new ActionResponse<T>
-        {
-            WasSuccess = false,
             Message = "ERR003"
         };
     }
@@ -209,6 +184,18 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         {
             WasSuccess = true,
             Result = (int)count
+        };
+    }
+
+    public virtual async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
+    {
+        var queryable = _entity.AsQueryable();
+        var count = await queryable.CountAsync();
+        int totalPages = (int)Math.Ceiling((double)count / pagination.RecordsNumber);
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = totalPages
         };
     }
 }

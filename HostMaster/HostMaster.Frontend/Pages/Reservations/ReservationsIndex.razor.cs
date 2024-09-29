@@ -17,7 +17,7 @@ public partial class ReservationsIndex
     private readonly int[] pageSizeOptions = { 10, 25, 50, int.MaxValue };
     private int totalRecords = 0;
     private bool loading;
-    private const string baseUrl = "api/Reservations";
+    private const string baseUrl = "api/reservations";
     private string infoFormat = "{first_item}-{last_item} => {all_items}";
 
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
@@ -37,7 +37,6 @@ public partial class ReservationsIndex
     {
         loading = true;
         var url = $"{baseUrl}/totalRecordsPaginated";
-        Console.WriteLine(url);
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {
@@ -45,7 +44,6 @@ public partial class ReservationsIndex
         }
 
         var responseHttp = await Repository.GetAsync<int>(url);
-        Console.WriteLine(responseHttp);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -54,9 +52,7 @@ public partial class ReservationsIndex
         }
 
         totalRecords = responseHttp.Response;
-        Console.WriteLine(totalRecords);
         loading = false;
-        Console.WriteLine(loading);
     }
 
     private async Task<TableData<Reservation>> LoadListAsync(TableState state, CancellationToken cancellationToken)
@@ -64,7 +60,6 @@ public partial class ReservationsIndex
         int page = state.Page + 1;
         int pageSize = state.PageSize;
         var url = $"{baseUrl}/paginated/?page={page}&recordsnumber={pageSize}";
-        Console.WriteLine(url);
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {
@@ -72,7 +67,6 @@ public partial class ReservationsIndex
         }
 
         var responseHttp = await Repository.GetAsync<List<Reservation>>(url);
-        Console.WriteLine(responseHttp);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();

@@ -223,6 +223,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
     {
         return await _context.Reservations
          .Where(r => r.RoomId == roomId)
+
          .ToListAsync();
     }
 

@@ -49,14 +49,12 @@ public partial class ReservationEdit
                 AccommodationId = reservation!.AccommodationId,
                 ReservationState = reservation!.ReservationState,
             };
-
         }
     }
 
     private async Task EditAsync()
     {
         var responseHttp = await Repository.PutAsync("api/reservations/full", reservationDTO);
-        Console.WriteLine(responseHttp);
         if (responseHttp.Error)
         {
             var mensajeError = await responseHttp.GetErrorMessageAsync();

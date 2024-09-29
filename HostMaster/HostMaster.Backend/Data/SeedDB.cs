@@ -22,7 +22,6 @@ public class SeedDb
         await CheckRoomsTypesDbAsync();
         await CheckRoomsDbAsync();
         await CheckCountriesAsync();
-        await CheckCustomersDbAsync();
         await CheckReservationsDbAsync();
     }
 
@@ -120,20 +119,20 @@ public class SeedDb
         await _context.SaveChangesAsync();
     }
 
-    private async Task CheckReservationsDbAsync()
-    {
-        if (!_context.Reservations.Any())
-        {
-            var SQLScript = File.ReadAllText("Data\\SeedReservations.sql");
-            await _context.Database.ExecuteSqlRawAsync(SQLScript);
-        }
-    }
-
     private async Task CheckCustomersDbAsync()
     {
         if (!_context.Customers.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedCustomers.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckReservationsDbAsync()
+    {
+        if (!_context.Reservations.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedReservations.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }

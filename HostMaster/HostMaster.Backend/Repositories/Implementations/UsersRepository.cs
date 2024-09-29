@@ -1,48 +1,113 @@
 ﻿using HostMaster.Backend.Data;
+using HostMaster.Backend.Helpers;
 using HostMaster.Backend.Repositories.Interfaces;
+using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
+using HostMaster.Shared.Responses;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HostMaster.Backend.Repositories.Implementations;
 
-public class UsersRepository(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager) : IUsersRepository
+public class UsersRepository : GenericRepository<User>, IUsersRepository
 {
-    private readonly DataContext _context = context;
-    private readonly UserManager<User> _userManager = userManager;
-    private readonly RoleManager<IdentityRole> _roleManager = roleManager;
+    private readonly DataContext _dataContext;
 
-    public async Task<IdentityResult> AddUserAsync(User user, string password)
+    public UsersRepository(DataContext context) : base(context)
     {
-        return await _userManager.CreateAsync(user, password);
+        _dataContext = context;
     }
 
-    public async Task AddUserToRoleAsync(User user, string roleName)
+    public async Task<ActionResponse<User>> AddAsync(UserDTO userDTO)
     {
-        await _userManager.AddToRoleAsync(user, roleName);
-    }
-
-    public async Task CheckRoleAsync(string roleName)
-    {
-        var roleExists = await _roleManager.RoleExistsAsync(roleName);
-        if (!roleExists)
+        var user = new User
         {
-            await _roleManager.CreateAsync(new IdentityRole
+            FirstName = userDTO.FirstName,
+            LastName = userDTO.LastName,
+            Email = userDTO.Email,
+            PhoneNumber = userDTO.Phone,
+        };
+
+        _dataContext.Users.Add(user);
+        try
+        {
+            await _dataContext.SaveChangesAsync();
+            return new ActionResponse<User>
             {
-                Name = roleName
-            });
+                WasSuccess = true,
+                Result = user
+            };
+        }
+        catch (DbUpdateException)
+        {
+            return new ActionResponse<User>
+            {
+                WasSuccess = false,
+                Message = "ERR003"
+            };
+        }
+        catch (Exception exception)
+        {
+            return new ActionResponse<User>
+            {
+                WasSuccess = false,
+                Message = exception.Message
+            };
         }
     }
 
-    public async Task<User> GetUserAsync(string email)
+    public Task<IdentityResult> AddUserAsync(User user, string password)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(x => x.Email == email);
-        return user!;
+        throw new NotImplementedException();
     }
 
-    public async Task<bool> IsUserInRoleAsync(User user, string roleName)
+    public Task AddUserToRoleAsync(User user, string roleName)
     {
-        return await _userManager.IsInRoleAsync(user, roleName);
+        throw new NotImplementedException();
+    }
+
+    public Task CheckRoleAsync(string roleName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override async Task<ActionResponse<IEnumerable<User>>> GetAsync()
+    {
+        var users = await _dataContext.Users.ToListAsync();
+
+        return new ActionResponse<IEnumerable<User>>
+        {
+            WasSuccess = true,
+            Result = users
+        };
+    }
+
+    public override async Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _dataContext.Users.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        return new ActionResponse<IEnumerable<User>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .OrderBy(x => x.FirstName)
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
+
+    public Task<User> GetUserAsync(string email)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> IsUserInRoleAsync(User user, string roleName)
+    {
+        throw new NotImplementedException();
     }
 }

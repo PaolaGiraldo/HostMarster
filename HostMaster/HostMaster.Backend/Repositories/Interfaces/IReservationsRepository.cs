@@ -18,6 +18,14 @@ public interface IReservationsRepository
 
     Task<IEnumerable<Reservation>> GetComboAsync(int reservationId);
 
+    Task<ActionResponse<IEnumerable<Reservation>>> GetByAccommodationIdAsync(int accommodationId);
+
+    Task<IEnumerable<Reservation>> GetByRoomIdAsync(int roomId);
+
+    Task<IEnumerable<Reservation>> GetByCustomerAsync(int customerDocument);
+
+    Task<IEnumerable<Reservation>> GetByStartDateAsync(DateTime startDate);
+
     //Task<ActionResponse<IEnumerable<Reservation>>> GetAsync(PaginationDTO pagination);
 
     //Task<ActionResponse<Reservation>> GetTotalRecordsAsync(PaginationDTO pagination);

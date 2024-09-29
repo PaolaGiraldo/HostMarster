@@ -25,4 +25,12 @@ public class ReservationsUnitOfWork : GenericUnitOfWork<Reservation>, IReservati
     public async Task<IEnumerable<Reservation>> GetComboAsync(int roomId) => await _reservationsRepository.GetComboAsync(roomId);
 
     public async Task<ActionResponse<Reservation>> UpdateAsync(ReservationDTO reservationDTO) => await _reservationsRepository.UpdateAsync(reservationDTO);
+
+    public async Task<ActionResponse<IEnumerable<Reservation>>> GetByAccommodationIdAsync(int accommodationId) => await _reservationsRepository.GetByAccommodationIdAsync(accommodationId);
+
+    public async Task<IEnumerable<Reservation>> GetByRoomIdAsync(int roomId) => await _reservationsRepository.GetByRoomIdAsync(roomId);
+
+    public async Task<IEnumerable<Reservation>> GetByCustomerAsync(int customerDocument) => await _reservationsRepository.GetByCustomerAsync(customerDocument);
+
+    public async Task<IEnumerable<Reservation>> GetByStartDateAsync(DateTime startDate) => await _reservationsRepository.GetByStartDateAsync(startDate);
 }

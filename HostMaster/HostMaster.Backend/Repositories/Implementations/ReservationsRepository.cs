@@ -3,7 +3,6 @@ using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace HostMaster.Backend.Repositories.Implementations;
@@ -21,10 +20,10 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
     public override async Task<ActionResponse<IEnumerable<Reservation>>> GetAsync()
     {
         var reservations = await _context.Reservations
-            .Include(r => r.ReservationRooms)
-            .OrderBy(r => r.StartDate)
+            .Include(x => x.Room)
+            .Include(x => x.Customer)
+            .OrderBy(x => x.RoomId)
             .ToListAsync();
-
         return new ActionResponse<IEnumerable<Reservation>>
         {
             WasSuccess = true,
@@ -134,7 +133,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             };
         }
 
-        var room = await _context.Reservations.FindAsync(reservationDTO.RoomId);
+        var room = await _context.Rooms.FindAsync(reservationDTO.RoomId);
         if (room == null)
         {
             return new ActionResponse<Reservation>
@@ -203,5 +202,39 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
                     .Where(x => x.RoomId == roomId)
                     .OrderBy(x => x.Room.RoomNumber)
                     .ToListAsync();
+    }
+
+    public async Task<ActionResponse<IEnumerable<Reservation>>> GetByAccommodationIdAsync(int accommodatioId)
+    {
+        var reservations = await _context.Reservations
+       .Where(r => r.AccommodationId == accommodatioId)
+       .ToListAsync();
+
+        return new ActionResponse<IEnumerable<Reservation>>
+        {
+            WasSuccess = true,
+            Result = reservations
+        };
+    }
+
+    public async Task<IEnumerable<Reservation>> GetByRoomIdAsync(int roomId)
+    {
+        return await _context.Reservations
+         .Where(r => r.RoomId == roomId)
+         .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Reservation>> GetByCustomerAsync(int customerDocument)
+    {
+        return await _context.Reservations
+        .Where(r => r.CustomerDocumentNumber == customerDocument)
+        .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Reservation>> GetByStartDateAsync(DateTime startDate)
+    {
+        return await _context.Reservations
+        .Where(r => r.StartDate == startDate)
+        .ToListAsync();
     }
 }

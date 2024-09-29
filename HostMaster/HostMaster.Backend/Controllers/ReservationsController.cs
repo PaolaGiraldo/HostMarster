@@ -17,15 +17,25 @@ public class ReservationsController : GenericController<Reservation>
     }
 
     [HttpGet]
-    public override Task<IActionResult> GetAsync()
+    public override async Task<IActionResult> GetAsync()
     {
-        return base.GetAsync();
+        var response = await _reservationsUnitOfWork.GetAsync();
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
     }
 
     [HttpGet("{id}")]
-    public override Task<IActionResult> GetAsync(int id)
+    public override async Task<IActionResult> GetAsync(int id)
     {
-        return base.GetAsync(id);
+        var response = await _reservationsUnitOfWork.GetAsync(id);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
     }
 
     [HttpGet("combo/{roomId:int}")]
@@ -43,5 +53,34 @@ public class ReservationsController : GenericController<Reservation>
             return Ok(action.Result);
         }
         return BadRequest(action.Message);
+    }
+
+    [HttpGet("accommodation/{accommodationId:int}")]
+    public async Task<IActionResult> GetByAccommodationIdAsync(int accommodationId)
+    {
+        var action = await _reservationsUnitOfWork.GetByAccommodationIdAsync(accommodationId);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest(action.Message);
+    }
+
+    [HttpGet("room/{roomId:int}")]
+    public async Task<IActionResult> GetByRoomIdAsync(int roomId)
+    {
+        return Ok(await _reservationsUnitOfWork.GetByRoomIdAsync(roomId));
+    }
+
+    [HttpGet("customer/{customerDocument:int}")]
+    public async Task<IActionResult> GetByCustomerAsync(int customerDocument)
+    {
+        return Ok(await _reservationsUnitOfWork.GetByCustomerAsync(customerDocument));
+    }
+
+    [HttpGet("date/{startDate:DateTime}")]
+    public async Task<IActionResult> GetByStartDateAsync(DateTime startDate)
+    {
+        return Ok(await _reservationsUnitOfWork.GetByStartDateAsync(startDate));
     }
 }

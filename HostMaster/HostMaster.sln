@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostMaster.Backend", "HostMaster.Backend\HostMaster.Backend.csproj", "{E97B8722-0AB7-4ED1-A4DE-BF603BA914D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostMaster.Frontend", "HostMaster.Frontend\HostMaster.Frontend.csproj", "{B4BF9C07-FB6C-44E4-B717-77C514468B15}"
+	ProjectSection(ProjectDependencies) = postProject
+		{90BEF2CA-3938-407D-A0E5-F49FA4B890AC} = {90BEF2CA-3938-407D-A0E5-F49FA4B890AC}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostMaster.Shared", "HostMaster.Shared\HostMaster.Shared.csproj", "{90BEF2CA-3938-407D-A0E5-F49FA4B890AC}"
 EndProject

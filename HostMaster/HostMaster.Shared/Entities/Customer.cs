@@ -1,29 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HostMaster.Shared.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace HostMaster.Shared.Entities;
 
-public class Customer
+public class Customer : User
 {
     public int Id { get; set; }
 
     [Required]
-    public string FirstName { get; set; } = null!;
-
-    [Required]
-    public string LastName { get; set; } = null!;
-
-    [Required]
-    public string DocumentType { get; set; } = null!;
-
-    [Required]
-    public int DocumentNumber { get; set; }
-
-    [Required]
-    public string Email { get; set; } = null!;
-
-    [Required]
-    public string PhoneNumber { get; set; } = null!;
-
-    // Relationships
+    [Display(Name = "PhoneNumber", ResourceType = typeof(Literals))]
     public ICollection<Reservation>? Reservations { get; set; }
 }

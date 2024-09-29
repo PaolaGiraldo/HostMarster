@@ -3,24 +3,27 @@
     <div class="input-group">
         <input type="text"
                class="form-control"
-               placeholder="@Localizer["SelectFile"]"
+               placeholder="@Localizer["SelectFiles"]"
                readonly="readonly"
-               value="@fileName" />
+               value="@string.Join(", ", fileNames)" />
         <label class="input-group-btn">
             <span class="btn btn-primary">
-                @Localizer["Search"]<InputFile OnChange="OnChange" class="d-none" accept=".jpg,.jpeg,.png" />
+                @Localizer["Search"]<InputFile OnChange="OnChange" class="d-none" accept=".jpg,.jpeg,.png" multiple />                
             </span>
         </label>
     </div>
 </div>
 
 <div>
-    @if (imageBase64 is not null)
+    @if (imagesBase64.Count > 0)
     {
         <div>
-            <div style="margin: 10px">
-                <img src="data:image/jpeg;base64,@imageBase64" style="height:200px;" />
-            </div>
+            @foreach (var image in imagesBase64)
+            {
+                <div style="margin: 10px">
+                    <img src="data:image/jpeg;base64,@image" style="height:200px;" />
+                </div>
+            }
         </div>
     }
 
@@ -33,3 +36,4 @@
         </div>
     }
 </div>
+

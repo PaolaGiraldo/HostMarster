@@ -1,3 +1,21 @@
+﻿<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">@Localizer["Home"]</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/Accommodations" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.HotelClass">@Localizer["Accommodations"]</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/rooms" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.BedroomChild">@Localizer["Rooms"]</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/roomTypes" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">@Localizer["RoomTypes"]</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/reservations" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.RoomService">@Localizer["Reservations"]</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.CalendarMonth">@Localizer["Calendar"]</MudNavLink>
+    <MudNavLink Href="/countries" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Public">@Localizer["Countries"]</MudNavLink>
+    <MudNavLink Href="/users" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Person">@Localizer["Users"]</MudNavLink>
+    
+    <MudDivider />
+</MudNavMenu>
+
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">HostMaster.Frontend</a>
@@ -14,26 +32,11 @@
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
+
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            <NavLink class="nav-link" href="users">
+                <span class="bi bi-person-fill" aria-hidden="true"></span> Users
             </NavLink>
         </div>
     </nav>
 </div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

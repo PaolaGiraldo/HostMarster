@@ -1,20 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HostMaster.Shared.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace HostMaster.Shared.Entities;
 
-public class State
+public class State : IEntityWithName
 {
     public int Id { get; set; }
 
-    [Required]
+    [Display(Name = "Departamento / Estado")]
+    [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
+    [Required(ErrorMessage = "El campo {0} es requerido.")]
     public string Name { get; set; } = null!;
 
-    // Foreign keys
     public int CountryId { get; set; }
 
-    [Required]
-    public Country Country { get; set; } = null!;
+    public Country? Country { get; set; }
 
-    // Relationships
     public ICollection<City>? Cities { get; set; }
+
+    [Display(Name = "Ciudades")]
+    public int CitiesNumber => Cities == null || Cities.Count == 0 ? 0 : Cities.Count;
 }

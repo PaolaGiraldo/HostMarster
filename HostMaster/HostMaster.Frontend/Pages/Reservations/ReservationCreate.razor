@@ -1,3 +1,5 @@
-﻿<h3>@Localizer["Create"] @Localizer["Reservation"]</h3>
-
-<ReservationForm @ref="reservationForm" ReservationDTO="reservationDTO" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+﻿﻿<MudDialog>
+    <DialogContent>
+        <ReservationForm @ref="reservationForm" ReservationDTO="reservationDTO" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+    </DialogContent>
+</MudDialog>

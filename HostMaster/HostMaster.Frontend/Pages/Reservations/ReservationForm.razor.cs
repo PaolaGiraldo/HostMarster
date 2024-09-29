@@ -1,12 +1,11 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using HostMaster.Frontend.Repositories;
-using HostMaster.Shared.Entities;
+using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Resources;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using HostMaster.Shared.DTOs;
 
 namespace HostMaster.Frontend.Pages.Reservations;
 

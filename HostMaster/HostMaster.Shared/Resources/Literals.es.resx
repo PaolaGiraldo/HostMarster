@@ -341,7 +341,7 @@
     <value>Reserva</value>
   </data>
   <data name="Reservations" xml:space="preserve">
-    <value>Reservaciones</value>
+    <value>Reservas</value>
   </data>
   <data name="ReservationState" xml:space="preserve">
     <value>Estado de reserva</value>

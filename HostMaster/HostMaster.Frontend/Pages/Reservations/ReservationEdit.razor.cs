@@ -5,6 +5,7 @@ using HostMaster.Shared.Entities;
 using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
 
 namespace HostMaster.Frontend.Pages.Reservations;
 
@@ -15,7 +16,9 @@ public partial class ReservationEdit
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+
+    [Inject] private ISnackbar Snackbar { get; set; } = null!;
+
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
     [Parameter] public int Id { get; set; }
@@ -32,7 +35,7 @@ public partial class ReservationEdit
             else
             {
                 var messageError = await responseHttp.GetErrorMessageAsync();
-                await SweetAlertService.FireAsync(Localizer["Error"], messageError, SweetAlertIcon.Error);
+                Snackbar.Add(Localizer[messageError!], Severity.Error);
             }
         }
         else
@@ -57,19 +60,12 @@ public partial class ReservationEdit
         var responseHttp = await Repository.PutAsync("api/reservations/full", reservationDTO);
         if (responseHttp.Error)
         {
-            var mensajeError = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync(Localizer["Error"], Localizer[mensajeError!], SweetAlertIcon.Error);
+            var messageError = await responseHttp.GetErrorMessageAsync();
+            Snackbar.Add(messageError!, Severity.Error);
             return;
         }
         Return();
-        var toast = SweetAlertService.Mixin(new SweetAlertOptions
-        {
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-            ShowConfirmButton = true,
-            Timer = 3000
-        });
-        await toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordSavedOk"]);
+        Snackbar.Add(Localizer["RecordSavedOk"], Severity.Success);
     }
 
     private void Return()

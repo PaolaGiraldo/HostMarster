@@ -1,57 +1,56 @@
 ﻿﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
+    <MudTextField  Label="@Localizer["Accommodation"]"
+                  @bind-Value="@ReservationDTO.AccommodationId"
+                  For="@(() => ReservationDTO.AccommodationId)"
+                  Class="mb-4" />
 
-    <div class="mb-3">
-        <label>@Localizer["Accommodation"]:</label>
-        <div>
-            <InputNumber class="form-control" @bind-Value="@ReservationDTO.AccommodationId" />
-            <ValidationMessage For="@(() => ReservationDTO.AccommodationId)" />
-        </div>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["RoomId"]:</label>
-        <div>
-            <InputNumber class="form-control" @bind-Value="@ReservationDTO.RoomId" />
-            <ValidationMessage For="@(() => ReservationDTO.RoomId)" />
-        </div>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["StartDate"]:</label>
-        <div>
-            <InputDate class="form-control" @bind-Value="@ReservationDTO.StartDate" />
-            <ValidationMessage For="@(() => ReservationDTO.StartDate)" />
-        </div>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["EndDate"]:</label>
-        <div>
-            <InputDate class="form-control" @bind-Value="@ReservationDTO.EndDate" />
-            <ValidationMessage For="@(() => ReservationDTO.EndDate)" />
-        </div>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["NumberOfGuests"]:</label>
-        <div>
-            <InputNumber class="form-control" @bind-Value="@ReservationDTO.NumberOfGuests" />
-            <ValidationMessage For="@(() => ReservationDTO.NumberOfGuests)" />
-        </div>
-    </div><div class="mb-3">
-        <label>@Localizer["Customer"]:</label>
-        <div>
-            <InputNumber class="form-control" @bind-Value="@ReservationDTO.CustomerDocument" />
-            <ValidationMessage For="@(() => ReservationDTO.CustomerDocument)" />
-        </div>
-    </div>
-    <div class="mb-3">
-        <label>@Localizer["ReservationState"]:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@ReservationDTO.ReservationState" />
-            <ValidationMessage For="@(() => ReservationDTO.ReservationState)" />
-        </div>
-    </div>
+    <MudTextField Label="@Localizer["RoomId"]"
+                  @bind-Value="@ReservationDTO.RoomId"
+                  For="@(() => ReservationDTO.RoomId)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["StartDate"]"
+                  @bind-Value="@ReservationDTO.StartDate"
+                  For="@(() => ReservationDTO.StartDate)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["EndDate"]"
+                  @bind-Value="@ReservationDTO.EndDate"
+                  For="@(() => ReservationDTO.EndDate)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["NumberOfGuests"]"
+                  @bind-Value="@ReservationDTO.NumberOfGuests"
+                  For="@(() => ReservationDTO.NumberOfGuests)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["Customer"]"
+                  @bind-Value="@ReservationDTO.CustomerDocument"
+                  For="@(() => ReservationDTO.CustomerDocument)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["ReservationState"]"
+                  @bind-Value="@ReservationDTO.ReservationState"
+                  For="@(() => ReservationDTO.ReservationState)"
+                  Class="mb-4" />
 
 
-    <button class="btn btn-primary" type="submit">@Localizer["SaveChanges"]</button>
-    <button class="btn btn-success" @onclick="ReturnAction">@Localizer["Return"]</button>
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.ArrowBack"
+               Color="Color.Info"
+               OnClick="ReturnAction">
+        @Localizer["Return"]
+    </MudButton>
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.Check"
+               Color="Color.Primary"
+               ButtonType="ButtonType.Submit">
+        @Localizer["SaveChanges"]
+    </MudButton>
 </EditForm>
+
+

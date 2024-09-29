@@ -4,12 +4,7 @@ namespace HostMaster.Shared.Enums;
 
 public enum UserType
 {
-    [Description("Administrador")]
-    Admin,
-
-    [Description("Usuario")]
-    Customer,
-
-    [Description("Empleado")]
-    Employee
+    Admin = 0,
+    Customer = 1,
+    Employee = 2
 }

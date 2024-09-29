@@ -1,3 +1,4 @@
+using Blazored.Modal;
 using CurrieTechnologies.Razor.SweetAlert2;
 using HostMaster.Frontend;
 using HostMaster.Frontend.Repositories;
@@ -20,6 +21,10 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddLocalization();
 builder.Services.AddSweetAlert2();
+builder.Services.AddMudServices();
+
+builder.Services.AddBlazoredModal();
+
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

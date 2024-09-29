@@ -25,7 +25,7 @@ public class Reservation
     // Relationships
     public ICollection<Payment>? Payments { get; set; }
 
-    public ICollection<ExtraService>? ExtraServices { get; set; }
+    //Y public ICollection<ExtraService>? ExtraServices { get; set; }
 
     public ICollection<ReservationRoom> ReservationRooms { get; set; } = null!;
 }

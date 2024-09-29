@@ -1,14 +1,29 @@
 ﻿@page "/reservations"
+@using HostMaster.Frontend.Shared
 
-<h3>
-    @Localizer["Reservations"]
-</h3>
+<h3>@Localizer["Reservations"]</h3>
+<div class="mb-3">
+    <a class="btn btn-primary" href="/reservations/create">@Localizer["New"] @Localizer["Reservation"]</a>
+</div>
+
+@if (Reservations is null)
+{
+    <p>Loading...</p>
+}
+else
+{
 <GenericList MyList="Reservations">
     <Body>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>@Localizer["Reservation"]</th>
+                    <th>@Localizer["Accommodation"]</th>
+                    <th>@Localizer["Room"]</th>
+                    <th>@Localizer["StartDate"]</th>
+                    <th>@Localizer["EndDate"]</th>
+                    <th>@Localizer["ReservationState"]</th>
+                    <th>@Localizer["Customer"]</th>
+                    <th>@Localizer["NumberOfGuests"]</th>
                     <th></th>
                 </tr>
             </thead>
@@ -16,9 +31,18 @@
                 @foreach (var reservation in Reservations!)
                 {
                     <tr>
-                        <td>
-                            @reservation.Room
-                        </td>
+                        <td></td>
+                        <td>@reservation.Room!.RoomNumber</td>
+                        <td>@reservation.StartDate</td>
+                        <td>@reservation.EndDate</td>
+                        <td>@reservation.ReservationState</td>
+                            <td>
+                                @Localizer["Name"]: @reservation.Customer.FirstName<br>
+                                @Localizer["Document"]: @reservation.Customer.DocumentNumber<br>
+                                @Localizer["Phone"]: @reservation.Customer.PhoneNumber<br>
+                                @Localizer["Email"]: @reservation.Customer.Email
+                            </td>
+                        <td>@reservation.NumberOfGuests</td>
                         <td>
                             <a class="btn btn-warning" href="/reservations/edit/@reservation.Id">@Localizer["Edit"]</a>
                             <button class="btn btn-danger" @onclick=@(() => DeleteAsync(reservation))>@Localizer["Delete"]</button>
@@ -29,3 +53,4 @@
         </table>
     </Body>
 </GenericList>
+}

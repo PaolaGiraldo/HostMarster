@@ -211,4 +211,19 @@
   <data name="ERR005" xml:space="preserve">
     <value>El Id del alojamiento no es valido</value>
   </data>
+  <data name="Accommodation" xml:space="preserve">
+    <value>Alojamiento</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Documento</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Correo</value>
+  </data>
 </root>

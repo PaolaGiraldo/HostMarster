@@ -72,14 +72,14 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             };
         }
 
-        if (reservationDTO.StartDate <= reservationDTO.EndDate)
-        {
-            return new ActionResponse<Reservation>
-            {
-                WasSuccess = false,
-                Message = "ERR_RES004"
-            };
-        }
+        /* if (reservationDTO.StartDate <= reservationDTO.EndDate)
+         {
+             return new ActionResponse<Reservation>
+             {
+                 WasSuccess = false,
+                 Message = "ERR_RES004"
+             };
+         }*/
 
         var reservation = new Reservation
         {
@@ -151,14 +151,14 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             };
         }
 
-        if (reservationDTO.StartDate <= reservationDTO.EndDate)
+        /*if (reservationDTO.StartDate <= reservationDTO.EndDate)
         {
             return new ActionResponse<Reservation>
             {
                 WasSuccess = false,
                 Message = "ERR_RES004"
             };
-        }
+        }*/
 
         currentReservation.StartDate = reservationDTO.StartDate;
         currentReservation.EndDate = reservationDTO.EndDate;

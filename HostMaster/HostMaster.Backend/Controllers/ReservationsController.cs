@@ -55,6 +55,17 @@ public class ReservationsController : GenericController<Reservation>
         return BadRequest(action.Message);
     }
 
+    [HttpPut("full")]
+    public async Task<IActionResult> PutAsync(ReservationDTO reservationDTO)
+    {
+        var action = await _reservationsUnitOfWork.UpdateAsync(reservationDTO);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest(action.Message);
+    }
+
     [HttpGet("accommodation/{accommodationId:int}")]
     public async Task<IActionResult> GetByAccommodationIdAsync(int accommodationId)
     {

@@ -39,7 +39,7 @@ public partial class ReservationsIndex
         var result = await SweetAlertService.FireAsync(new SweetAlertOptions
         {
             Title = Localizer["Confirmation"],
-            Text = string.Format(Localizer["DeleteConfirm"], Localizer["Reservation"], reservation.Room),
+            Text = string.Format(Localizer["DeleteConfirm"], Localizer["Reservation"], reservation.Id),
             Icon = SweetAlertIcon.Question,
             ShowCancelButton = true,
             CancelButtonText = Localizer["Cancel"]

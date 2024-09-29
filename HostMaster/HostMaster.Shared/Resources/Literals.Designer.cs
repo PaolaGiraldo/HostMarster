@@ -277,7 +277,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure to delete the {0}: {1}?.
+        ///   Looks up a localized string similar to Are you sure to delete {0}: {1}?.
         /// </summary>
         public static string DeleteConfirm {
             get {

@@ -47,7 +47,7 @@ else
             <MudTd>@context.EndDate</MudTd>
             <MudTd>@context.ReservationState</MudTd>
             <MudTd>
-                @Localizer["Name"]: @context.Customer.FirstName<br>
+                @Localizer["Name"]: @context.Customer.FirstName @context.Customer.LastName<br>
                 @Localizer["Document"]: @context.CustomerDocumentNumber<br>
                 @Localizer["Phone"]: @context.Customer.PhoneNumber<br>
                 @Localizer["Email"]: @context.Customer.Email
@@ -61,6 +61,7 @@ else
                         <MudIcon Icon="@Icons.Material.Filled.Edit" />
                     </MudButton>
                 </MudTooltip>
+                         <MudDivider Vertical="true" Class="my-2"/>
                 <MudTooltip Text="@Localizer["Delete"]">
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Error"

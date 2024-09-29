@@ -170,7 +170,7 @@
     <value>Delete</value>
   </data>
   <data name="DeleteConfirm" xml:space="preserve">
-    <value>Are you sure to delete the {0}: {1}?</value>
+    <value>Are you sure to delete {0}: {1}?</value>
   </data>
   <data name="Department" xml:space="preserve">
     <value>Department</value>

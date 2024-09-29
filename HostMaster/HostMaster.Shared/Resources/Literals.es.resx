@@ -170,7 +170,7 @@
     <value>Borrar</value>
   </data>
   <data name="DeleteConfirm" xml:space="preserve">
-    <value>¿Está seguro de borrar el {0}: {1}?</value>
+    <value>¿Está seguro de borrar {0}: {1}?</value>
   </data>
   <data name="Department" xml:space="preserve">
     <value>Área o departamento</value>

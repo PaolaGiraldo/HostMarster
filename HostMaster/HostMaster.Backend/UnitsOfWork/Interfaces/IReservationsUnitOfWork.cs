@@ -1,6 +1,7 @@
 ﻿using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
+using static MudBlazor.Colors;
 
 namespace HostMaster.Backend.UnitsOfWork.Interfaces;
 
@@ -23,4 +24,8 @@ public interface IReservationsUnitOfWork
     Task<IEnumerable<Reservation>> GetByCustomerAsync(int customerDocument);
 
     Task<IEnumerable<Reservation>> GetByStartDateAsync(DateTime startDate);
+
+    Task<ActionResponse<IEnumerable<Reservation>>> GetAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 }

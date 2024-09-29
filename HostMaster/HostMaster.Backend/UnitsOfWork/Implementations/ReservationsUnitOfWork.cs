@@ -20,6 +20,8 @@ public class ReservationsUnitOfWork : GenericUnitOfWork<Reservation>, IReservati
 
     public override async Task<ActionResponse<Reservation>> GetAsync(int id) => await _reservationsRepository.GetAsync(id);
 
+    public override async Task<ActionResponse<IEnumerable<Reservation>>> GetAsync(PaginationDTO pagination) => await _reservationsRepository.GetAsync(pagination);
+
     public async Task<ActionResponse<Reservation>> AddAsync(ReservationDTO reservationDTO) => await _reservationsRepository.AddAsync(reservationDTO);
 
     public async Task<IEnumerable<Reservation>> GetComboAsync(int roomId) => await _reservationsRepository.GetComboAsync(roomId);
@@ -33,4 +35,6 @@ public class ReservationsUnitOfWork : GenericUnitOfWork<Reservation>, IReservati
     public async Task<IEnumerable<Reservation>> GetByCustomerAsync(int customerDocument) => await _reservationsRepository.GetByCustomerAsync(customerDocument);
 
     public async Task<IEnumerable<Reservation>> GetByStartDateAsync(DateTime startDate) => await _reservationsRepository.GetByStartDateAsync(startDate);
+
+    public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _reservationsRepository.GetTotalRecordsAsync(pagination);
 }

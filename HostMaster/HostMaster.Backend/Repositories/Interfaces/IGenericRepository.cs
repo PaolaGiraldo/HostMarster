@@ -1,4 +1,5 @@
-﻿using HostMaster.Shared.Responses;
+﻿using HostMaster.Shared.DTOs;
+using HostMaster.Shared.Responses;
 
 namespace HostMaster.Backend.Repositories.Interfaces;
 
@@ -14,7 +15,7 @@ public interface IGenericRepository<T> where T : class
 
     Task<ActionResponse<T>> UpdateAsync(T entity);
 
-    //Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination);
+    Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination);
 
-    //Task<ActionResponse<int>> GetTotalRecordsAsync();
+    Task<ActionResponse<int>> GetTotalRecordsAsync();
 }

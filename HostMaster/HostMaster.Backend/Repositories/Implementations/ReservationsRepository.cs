@@ -1,9 +1,11 @@
 ﻿using HostMaster.Backend.Data;
+using HostMaster.Backend.Helpers;
 using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
+using static MudBlazor.Colors;
 
 namespace HostMaster.Backend.Repositories.Implementations;
 
@@ -236,5 +238,43 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
         return await _context.Reservations
         .Where(r => r.StartDate == startDate)
         .ToListAsync();
+    }
+
+    public override async Task<ActionResponse<IEnumerable<Reservation>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Reservations
+            .Include(x => x.Customer)
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Customer!.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        return new ActionResponse<IEnumerable<Reservation>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .OrderBy(x => x.RoomId)
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
+
+    public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Reservations.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Customer!.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
     }
 }

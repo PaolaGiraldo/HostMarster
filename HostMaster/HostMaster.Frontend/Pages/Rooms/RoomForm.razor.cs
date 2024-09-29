@@ -50,7 +50,6 @@ public partial class RoomForm
     private void OnImagesSelected(List<string> imagesBase64)
 
     {
-        //Console.WriteLine("OnImagesSelected");
 
         if (imagesBase64 != null && imagesBase64.Count > 0)
         {
@@ -82,7 +81,6 @@ public partial class RoomForm
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {
-        // Console.Write("CHANGESSSSS");
         var formWasEdited = editContext.IsModified();
 
         if (!formWasEdited || FormPostedSuccessfully)

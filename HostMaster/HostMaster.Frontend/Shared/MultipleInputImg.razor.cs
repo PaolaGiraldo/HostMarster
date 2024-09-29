@@ -50,7 +50,6 @@ public partial class MultipleInputImg
                 
                 if (file.Size > maxAllowedSize)
                 {
-                    Console.WriteLine($"the file {file.Name} exceed the max size 5 MB.");
                     continue; 
                 }
 

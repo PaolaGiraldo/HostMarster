@@ -45,8 +45,7 @@ public partial class RoomEdit
         else
         {
             var roomJson = await responseHttp.HttpResponseMessage.Content.ReadAsStringAsync();
-            Console.WriteLine("Raw JSON Response:");
-            Console.WriteLine(roomJson);
+
             var room = responseHttp.Response;
             roomCreateDTO = new RoomCreateDTO()
             {
@@ -70,11 +69,10 @@ public partial class RoomEdit
             return;
         }
 
-        Console.WriteLine("PHOTOSSSSS EN EDIT");
-        Console.WriteLine(JsonSerializer.Serialize(roomPhotoCreateDTO, new JsonSerializerOptions { WriteIndented = true }));
+        
         if (roomPhotoCreateDTO.Count != 0)
         {
-            Console.WriteLine("DELETE PHOTOS");
+            
             var responseHttp3 = await Repository.DeleteAsync($"api/roomphotos/by-roomId/{roomCreateDTO?.Id}");
             if (responseHttp3.Error)
             {
@@ -86,8 +84,6 @@ public partial class RoomEdit
         foreach (var roomPhotoDTO in roomPhotoCreateDTO)
 
         {
-            Console.WriteLine("EDIT PHOTO ROOM");
-            Console.WriteLine(JsonSerializer.Serialize(roomPhotoDTO, new JsonSerializerOptions { WriteIndented = true }));
 
             var responseHttp2 = await Repository.PostAsync("api/roomphotos/full", roomPhotoDTO);
             if (responseHttp2.Error)

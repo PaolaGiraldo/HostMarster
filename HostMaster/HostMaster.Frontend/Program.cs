@@ -17,6 +17,11 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddLocalization();
 
 builder.Services.AddSweetAlert2();
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5190") });
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddLocalization();
+builder.Services.AddSweetAlert2();
+builder.Services.AddMudServices();
 
 builder.Services.AddBlazoredModal();
 

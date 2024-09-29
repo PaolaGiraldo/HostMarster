@@ -26,6 +26,7 @@
 	<ItemGroup>
     <Folder Include="AuthenticationProviders\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Pages\Cities\" />
     <Folder Include="Services\" />
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>

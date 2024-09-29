@@ -244,6 +244,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
     public override async Task<ActionResponse<IEnumerable<Reservation>>> GetAsync(PaginationDTO pagination)
     {
         var queryable = _context.Reservations
+            .Include(x => x.Room)
             .Include(x => x.Customer)
             .AsQueryable();
 

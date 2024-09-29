@@ -1,30 +1,29 @@
-﻿using Blazored.Modal;
+﻿using System.Net;
+using Blazored.Modal;
 using Blazored.Modal.Services;
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
-using HostMaster.Frontend.Pages.Cities;
+using HostMaster.Frontend.Pages.States;
 using HostMaster.Frontend.Repositories;
 using HostMaster.Shared.Entities;
-using System.Net;
 using HostMaster.Shared.Resources;
 using Microsoft.Extensions.Localization;
 
-namespace HostMaster.Frontend.Pages.States;
+namespace HostMaster.Frontend.Pages.Countries;
 
-public partial class StateDetails
+public partial class CountryDetails
 {
-    private State? state;
-    private List<City>? cities;
+    private Country? country;
+    private List<State>? states;
     private int currentPage = 1;
     private int totalPages;
 
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
-
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
-    [Parameter] public int StateId { get; set; }
+    [Parameter] public int CountryId { get; set; }
     [Parameter, SupplyParameterFromQuery] public string Page { get; set; } = string.Empty;
     [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
     [Parameter, SupplyParameterFromQuery] public int RecordsNumber { get; set; } = 2;
@@ -41,11 +40,11 @@ public partial class StateDetails
 
         if (isEdit)
         {
-            modalReference = Modal.Show<CityEdit>(string.Empty, new ModalParameters().Add("CityId", id));
+            modalReference = Modal.Show<StateEdit>(string.Empty, new ModalParameters().Add("StateId", id));
         }
         else
         {
-            modalReference = Modal.Show<CityCreate>(string.Empty, new ModalParameters().Add("StateId", StateId));
+            modalReference = Modal.Show<StateCreate>(string.Empty, new ModalParameters().Add("CountryId", CountryId));
         }
 
         var result = await modalReference.Result;
@@ -83,10 +82,10 @@ public partial class StateDetails
 
     private async Task LoadAsync(int page = 1)
     {
-        var ok = await LoadStateAsync();
+        var ok = await LoadCountryAsync();
         if (ok)
         {
-            ok = await LoadCitiesAsync(page);
+            ok = await LoadStatesAsync(page);
             if (ok)
             {
                 await LoadPagesAsync();
@@ -105,7 +104,7 @@ public partial class StateDetails
     private async Task LoadPagesAsync()
     {
         ValidateRecordsNumber();
-        var url = $"api/cities/totalPages?id={StateId}&recordsnumber={RecordsNumber}";
+        var url = $"api/states/totalPages?id={CountryId}&recordsnumber={RecordsNumber}";
         if (!string.IsNullOrEmpty(Filter))
         {
             url += $"&filter={Filter}";
@@ -121,23 +120,23 @@ public partial class StateDetails
         totalPages = responseHttp.Response;
     }
 
-    private async Task<bool> LoadCitiesAsync(int page)
+    private async Task<bool> LoadStatesAsync(int page)
     {
         ValidateRecordsNumber();
-        var url = $"api/cities?id={StateId}&page={page}&recordsnumber={RecordsNumber}";
+        var url = $"api/states?id={CountryId}&page={page}&recordsnumber={RecordsNumber}";
         if (!string.IsNullOrEmpty(Filter))
         {
             url += $"&filter={Filter}";
         }
 
-        var responseHttp = await Repository.GetAsync<List<City>>(url);
+        var responseHttp = await Repository.GetAsync<List<State>>(url);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return false;
         }
-        cities = responseHttp.Response;
+        states = responseHttp.Response;
         return true;
     }
 
@@ -148,9 +147,9 @@ public partial class StateDetails
         await SelectedPageAsync(page);
     }
 
-    private async Task<bool> LoadStateAsync()
+    private async Task<bool> LoadCountryAsync()
     {
-        var responseHttp = await Repository.GetAsync<State>($"api/states/{StateId}");
+        var responseHttp = await Repository.GetAsync<Country>($"/api/countries/{CountryId}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
@@ -163,16 +162,16 @@ public partial class StateDetails
             await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return false;
         }
-        state = responseHttp.Response;
+        country = responseHttp.Response;
         return true;
     }
 
-    private async Task DeleteAsync(City city)
+    private async Task DeleteAsync(State state)
     {
         var result = await SweetAlertService.FireAsync(new SweetAlertOptions
         {
             Title = "Confirmación",
-            Text = $"¿Realmente deseas eliminar la ciudad? {city.Name}",
+            Text = $"¿Realmente deseas eliminar el departamento/estado? {state.Name}",
             Icon = SweetAlertIcon.Question,
             ShowCancelButton = true,
             CancelButtonText = "No",
@@ -185,7 +184,7 @@ public partial class StateDetails
             return;
         }
 
-        var responseHttp = await Repository.DeleteAsync($"/api/cities/{city.Id}");
+        var responseHttp = await Repository.DeleteAsync($"/api/states/{state.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode != HttpStatusCode.NotFound)

@@ -1,26 +1,14 @@
-﻿SET IDENTITY_INSERT [dbo].[Countries] ON 
-INSERT [dbo].[Countries] ([Id], [Name]) VALUES (1, N'Colombia')
-SET IDENTITY_INSERT [dbo].[Countries] OFF
-
-SET IDENTITY_INSERT [dbo].[States] ON 
-INSERT [dbo].[States] ([Id], [Name],[CountryId]) VALUES (1, N'Santander',1)
-SET IDENTITY_INSERT [dbo].[States] OFF
-
-SET IDENTITY_INSERT [dbo].[Cities] ON
-INSERT [dbo].[Cities] ([Id], [Name], [StateId]) VALUES (1, N'Barbosa', 1)
-SET IDENTITY_INSERT [dbo].[Cities] OFF
-
-SET IDENTITY_INSERT [dbo].[Accommodations] ON 
+﻿SET IDENTITY_INSERT [dbo].[Accommodations] ON 
 INSERT [dbo].[Accommodations] ([Id], [Name], [Address], [PhoneNumber], [CityId]) VALUES (1, N'Hotel Barbosa', N'carrera 9 centro', N'3112515555',1)
 SET IDENTITY_INSERT [dbo].[Accommodations] OFF
 
-SET IDENTITY_INSERT [dbo].[Customers] ON 
-INSERT [dbo].[Customers] ([Id], [FirstName], [LastName], [DocumentType], [DocumentNumber], [Email], [PhoneNumber]) VALUES (1, N'Oliver Camilo',N'Prieto Garcia','CC',1234567,N'caprirey4@gmail.com',N'3044315484')
-SET IDENTITY_INSERT [dbo].[Customers] OFF
+SET IDENTITY_INSERT [dbo].Users ON 
+INSERT [dbo].Users ([Id], [FirstName], [LastName], [DocumentType], Document, [Email], [PhoneNumber]) VALUES (1, N'Oliver Camilo',N'Prieto Garcia','CC',1234567,N'caprirey4@gmail.com',N'3044315484')
+SET IDENTITY_INSERT [dbo].Users OFF
 
-SET IDENTITY_INSERT [dbo].[Employees] ON 
-INSERT [dbo].[Employees] ([Id], [FirstName], [LastName], [Position],[Email],[PhoneNumber],[AccommodationId]) VALUES (1, N'Nestor Camilo',N'Prieto Reyes', N'Administrator',N'caprirey4@gmail.com',N'3044315484',1 )
-SET IDENTITY_INSERT [dbo].[Employees] OFF
+SET IDENTITY_INSERT [dbo].Users ON 
+INSERT [dbo].Users ([Id], [FirstName], [LastName], [DocumentType], Document, [Email], [PhoneNumber]) VALUES (2, N'Javier',N'Pedroza','CC',1234567,N'javier@gmail.com',N'303335484')
+SET IDENTITY_INSERT [dbo].Users OFF
 
 SET IDENTITY_INSERT [dbo].[ExtraServices] ON 
 INSERT [dbo].[ExtraServices] ([Id], [ServiceName],[Price]) VALUES (1, N'Tour Ciudad', 99.99)

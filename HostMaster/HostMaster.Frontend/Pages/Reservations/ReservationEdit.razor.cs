@@ -1,24 +1,21 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using HostMaster.Frontend.Repositories;
-using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using MudBlazor;
+using System.Diagnostics.Metrics;
 
 namespace HostMaster.Frontend.Pages.Reservations;
 
 public partial class ReservationEdit
 {
+    private Reservation? reservation;
     private ReservationForm? reservationForm;
-    private ReservationDTO reservationDTO = new();
 
-    [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-
-    [Inject] private ISnackbar Snackbar { get; set; } = null!;
-
+    [Inject] private IRepository Repository { get; set; } = null!;
+    [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
     [Parameter] public int Id { get; set; }
@@ -35,42 +32,38 @@ public partial class ReservationEdit
             else
             {
                 var messageError = await responseHttp.GetErrorMessageAsync();
-                Snackbar.Add(Localizer[messageError!], Severity.Error);
+                await SweetAlertService.FireAsync(Localizer["Error"], Localizer[messageError!], SweetAlertIcon.Error);
             }
         }
         else
         {
-            var reservation = responseHttp.Response;
-            reservationDTO = new ReservationDTO()
-            {
-                Id = reservation!.Id,
-                StartDate = reservation!.StartDate,
-                EndDate = reservation!.EndDate,
-                RoomId = reservation!.RoomId,
-                NumberOfGuests = reservation!.NumberOfGuests,
-                CustomerDocument = reservation!.CustomerDocumentNumber,
-                AccommodationId = reservation!.AccommodationId,
-                ReservationState = reservation!.ReservationState,
-            };
+            reservation = responseHttp.Response;
         }
     }
 
     private async Task EditAsync()
     {
-        var responseHttp = await Repository.PutAsync("api/reservations/full", reservationDTO);
+        var responseHttp = await Repository.PutAsync("api/reservations", reservation);
         if (responseHttp.Error)
         {
             var messageError = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(messageError!, Severity.Error);
+            await SweetAlertService.FireAsync(Localizer["Error"], Localizer[messageError!], SweetAlertIcon.Error);
             return;
         }
         Return();
-        Snackbar.Add(Localizer["RecordSavedOk"], Severity.Success);
+        var toast = SweetAlertService.Mixin(new SweetAlertOptions
+        {
+            Toast = true,
+            Position = SweetAlertPosition.BottomEnd,
+            ShowConfirmButton = true,
+            Timer = 3000
+        });
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordSavedOk"]);
     }
 
     private void Return()
     {
         reservationForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo("/reservations");
+        NavigationManager.NavigateTo("reservations");
     }
 }

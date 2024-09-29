@@ -1,86 +1,37 @@
 ﻿@page "/reservations"
-@using HostMaster.Frontend.Shared
+
+<h3>@Localizer["Reservations"]</h3>
+<div class="mb-3">
+    <a class="btn btn-primary" href="/reservations/create">@Localizer["New"] @Localizer["Reservation"]</a>
+</div>
+<GenericList MyList="Reservations">
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Localizer["Reservation"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Reservations!)
+                {
+                    <tr>
+                        <td>
+                            @reservation.Room
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="/reservations/edit/@reservation.Id">@Localizer["Edit"]</a>
+                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(reservation))>@Localizer["Delete"]</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</GenericList>
 
 
-@if (loading)
-{
-    <Loading />
-
-}
-else
-{
-    <MudTable Items="@Reservations"
-              @ref="table"
-              ServerData="LoadListAsync"
-              Dense="true"
-              Hover="true"
-              Striped="true"
-              FixedHeader="true"
-              FixedFooter="true">
-        <ToolBarContent>
-            <div class="d-flex justify-content-between">
-                <MudText Typo="Typo.h6" Class="me-4"> @Localizer["Reservations"]</MudText>
-                <MudButton Variant="Variant.Outlined"
-                           EndIcon="@Icons.Material.Filled.Add"
-                           Color="Color.Info" OnClick="@(() => ShowModalAsync())">
-                    @Localizer["New"]
-                </MudButton>
-            </div>
-            <MudSpacer />
-            <FilterComponent ApplyFilter="SetFilterValue" />
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh>@Localizer["Accommodation"]</MudTh>
-            <MudTh>@Localizer["Room"]</MudTh>
-            <MudTh>@Localizer["StartDate"]</MudTh>
-            <MudTh>@Localizer["EndDate"]</MudTh>
-            <MudTh>@Localizer["ReservationState"]</MudTh>
-            <MudTh>@Localizer["Customer"]</MudTh>
-            <MudTh>@Localizer["NumberOfGuests"]</MudTh>
-            <MudTh>@Localizer["Actions"]</MudTh>
-        </HeaderContent>
-
-        <RowTemplate>
-            <MudTd>@context.AccommodationId</MudTd>
-            <MudTd>@context.Room!.RoomNumber</MudTd>
-            <MudTd>@context.StartDate</MudTd>
-            <MudTd>@context.EndDate</MudTd>
-            <MudTd>@context.ReservationState</MudTd>
-            <MudTd>
-                @Localizer["Name"]: @context.Customer.FirstName @context.Customer.LastName<br>
-                @Localizer["Document"]: @context.CustomerDocumentNumber<br>
-                @Localizer["Phone"]: @context.Customer.PhoneNumber<br>
-                @Localizer["Email"]: @context.Customer.Email
-            </MudTd>
-            <MudTd>@context.NumberOfGuests</MudTd>
-            <MudTd>
-                <MudTooltip Text="@Localizer["Edit"]">
-                    <MudButton Variant="Variant.Filled"
-                               Color="Color.Warning"
-                               OnClick="@(() => ShowModalAsync(context.Id, true))">
-                        <MudIcon Icon="@Icons.Material.Filled.Edit" />
-                    </MudButton>
-                </MudTooltip>
-                         <MudDivider Vertical="true" Class="my-2"/>
-                <MudTooltip Text="@Localizer["Delete"]">
-                    <MudButton Variant="Variant.Filled"
-                               Color="Color.Error"
-                               OnClick="@(() => DeleteAsync(@context))">
-                        <MudIcon Icon="@Icons.Material.Filled.Delete" />
-                    </MudButton>
-                </MudTooltip>
-            </MudTd>
-        </RowTemplate>
-        <NoRecordsContent>
-            <MudText>@Localizer["NoRecords"]</MudText>
-        </NoRecordsContent>
-        <PagerContent>
-            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
-                           PageSizeOptions="pageSizeOptions"
-                           AllItemsText=@Localizer["All"]
-                           InfoFormat="@infoFormat" />
-        </PagerContent>
-    </MudTable>
 
 
-}
+

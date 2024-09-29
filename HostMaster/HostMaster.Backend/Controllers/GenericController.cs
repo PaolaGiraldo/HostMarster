@@ -1,12 +1,16 @@
 ﻿using HostMaster.Backend.UnitsOfWork.Interfaces;
-using HostMaster.Shared.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HostMaster.Backend.Controllers;
 
-public class GenericController<T>(IGenericUnitOfWork<T> unitOfWork) : Controller where T : class
+public class GenericController<T> : Controller where T : class
 {
-    private readonly IGenericUnitOfWork<T> _unitOfWork = unitOfWork;
+    private readonly IGenericUnitOfWork<T> _unitOfWork;
+
+    public GenericController(IGenericUnitOfWork<T> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
 
     [HttpGet]
     public virtual async Task<IActionResult> GetAsync()
@@ -61,38 +65,5 @@ public class GenericController<T>(IGenericUnitOfWork<T> unitOfWork) : Controller
             return NoContent();
         }
         return BadRequest(action.Message);
-    }
-
-    [HttpGet("paginated")]
-    public virtual async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
-    {
-        var action = await _unitOfWork.GetAsync(pagination);
-        if (action.WasSuccess)
-        {
-            return Ok(action.Result);
-        }
-        return BadRequest();
-    }
-
-    [HttpGet("totalPages")]
-    public virtual async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
-    {
-        var action = await _unitOfWork.GetTotalPagesAsync(pagination);
-        if (action.WasSuccess)
-        {
-            return Ok(action.Result);
-        }
-        return BadRequest();
-    }
-
-    [HttpGet("totalRecords")]
-    public virtual async Task<IActionResult> GetTotalRecordsAsync()
-    {
-        var action = await _unitOfWork.GetTotalRecordsAsync();
-        if (action.WasSuccess)
-        {
-            return Ok(action.Result);
-        }
-        return BadRequest();
     }
 }

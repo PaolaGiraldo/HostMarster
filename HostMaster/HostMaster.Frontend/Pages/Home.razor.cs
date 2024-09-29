@@ -2,9 +2,10 @@ using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
-namespace HostMaster.Frontend.Pages;
-
-public partial class Home
+namespace HostMaster.Frontend.Pages
 {
-	[Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
+    public partial class Home
+    {
+        [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
+    }
 }

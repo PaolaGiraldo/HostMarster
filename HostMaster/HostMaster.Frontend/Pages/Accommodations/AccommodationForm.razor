@@ -3,7 +3,7 @@
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label for="nameInput">@Localizer["Accommodation Name"]:</label>
+        <label for="nameInput">@Localizer["AccommodationName"]:</label>
         <div>
             <InputText id="nameInput" class="form-control" @bind-Value="@Accommodation.Name" />
             <ValidationMessage For="@(() => Accommodation.Name)" />
@@ -14,7 +14,7 @@
             <ValidationMessage For="@(() => Accommodation.Address)" />
         </div>
 
-        <label for="phoneNumberInput">@Localizer["Phone Number"]:</label>
+        <label for="phoneNumberInput">@Localizer["AccomodationPhoneNumber"]:</label>
         <div>
             <InputText id="phoneNumberInput" class="form-control" @bind-Value="@Accommodation.PhoneNumber" />
             <ValidationMessage For="@(() => Accommodation.PhoneNumber)" />
@@ -26,6 +26,6 @@
             <ValidationMessage For="@(() => Accommodation.Description)" />
         </div>
     </div>
-    <button class="btn btn-primary" type="submit">@Localizer["Save Changes"]</button>
+    <button class="btn btn-primary" type="submit">@Localizer["SaveChanges"]</button>
     <button class="btn btn-success" @onclick="ReturnAction">@Localizer["Return"]</button>
 </EditForm>

@@ -38,13 +38,13 @@
 			<ValidationMessage For="@(() => User.Document)" />
         </div>
 
-        <label>@Localizer["Tipo de usuario"]:</label>
+        <label>@Localizer["UserType"]:</label>
         <div>
-          <select class="form-control" @bind="@User.UserType">
-            <option value="Admin">@Localizer["Admin"]</option>
-			<option value="Customer">@Localizer["Customer"]</option>
-            <option value="Employee">@Localizer["Employee"]</option>
-        </select>
+            <select class="form-control" @bind="@UserTypeString">
+                <option value="Admin">@Localizer["Admin"]</option>
+                <option value="Customer">@Localizer["Customer"]</option>
+                <option value="Employee">@Localizer["Employee"]</option>
+            </select>
         </div>              
     </div>
     <button class="btn btn-primary" type="submit">@Localizer["SaveChanges"]</button>

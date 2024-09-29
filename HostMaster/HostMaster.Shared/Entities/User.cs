@@ -33,20 +33,12 @@ public class User
     public string LastName { get; set; } = null!;
 
     [Display(Name = "Photo", ResourceType = typeof(Literals))]
-    public string? Photo { get; set; }
+    public string? Photo { get; set; } = null!;
 
-    public string PhoneNumber { get; set; } = null!;
+    public string? PhoneNumber { get; set; } = null!;
 
-    [MaxLength(200, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-    [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     [Display(Name = "UserType", ResourceType = typeof(Literals))]
-    public UserType UserType { get; set; }
-
-    public City? City { get; set; }
-
-    [Display(Name = "Ciudad")]
-    [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-    public int CityId { get; set; }
+    public UserType UserType { get; set; } = UserType.Admin;
 
     public string FullName => $"{FirstName} {LastName}";
 }

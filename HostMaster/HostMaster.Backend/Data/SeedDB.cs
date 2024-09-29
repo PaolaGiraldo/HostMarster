@@ -18,6 +18,7 @@ public class SeedDb
         await _context.Database.EnsureCreatedAsync();
         //await CheckDbAsync();
         await CheckCountriesAsync();
+        await CheckUserAsync("Javier", "Pedroza", "javierpedroza@yopmail.com", "322 311 4620", UserType.Admin);
     }
 
     private async Task CheckDbAsync()
@@ -66,6 +67,24 @@ public class SeedDb
             });
         }
 
+        await _context.SaveChangesAsync();
+    }
+
+    private async Task CheckUserAsync(string firstName, string lastName, string email, string phone, UserType userType)
+    {
+        if (!_context.Users.Any())
+        {
+            _context.Users.Add(new User
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                PhoneNumber = phone,
+                UserType = userType,
+                DocumentType = "CC",
+                Document = "22113344"
+            });
+        }
         await _context.SaveChangesAsync();
     }
 }

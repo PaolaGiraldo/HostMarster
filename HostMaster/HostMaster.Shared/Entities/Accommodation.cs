@@ -19,7 +19,7 @@ public class Accommodation
     public string Description { get; set; } = null!;
 
     // Foreign keys
-    public int CityId { get; set; }
+    public int CityId { get; set; } = 1;
 
     public City? City { get; set; } = null!;
 

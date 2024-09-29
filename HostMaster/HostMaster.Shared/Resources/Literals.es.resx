@@ -396,4 +396,7 @@
   <data name="RoomType" xml:space="preserve">
     <value>Tipo Habitación</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
 </root>

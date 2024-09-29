@@ -5,12 +5,19 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using HostMaster.Shared.Enums;
 
 namespace HostMaster.Frontend.Pages.Users;
 
 public partial class UserForm
 {
     private EditContext editContext = null!;
+
+    private string UserTypeString
+    {
+        get => User.UserType.ToString();
+        set => User.UserType = Enum.Parse<UserType>(value);
+    }
 
     protected override void OnInitialized()
     {

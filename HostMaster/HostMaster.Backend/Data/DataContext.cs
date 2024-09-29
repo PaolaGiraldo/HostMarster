@@ -1,16 +1,11 @@
 ﻿using HostMaster.Shared.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HostMaster.Backend.Data;
 
-public class DataContext : DbContext
+public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 
 {
-    public DataContext(DbContextOptions<DataContext> options) : base(options)
-    {
-    }
-
     public DbSet<Accommodation> Accommodations { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
@@ -31,9 +26,13 @@ public class DataContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Room>().HasIndex(x => new { x.AccommodationId, x.RoomNumber }).IsUnique();
-        //modelBuilder.Entity<Reservation>().HasIndex(x => new { x.RoomId, x.StartDate }).IsUnique();
-        modelBuilder.Entity<ReservationRoom>().HasIndex(x => new { x.ReservationId, x.RoomId }).IsUnique();
-        modelBuilder.Entity<Accommodation>().HasIndex(x => new { x.Id }).IsUnique();
+        modelBuilder.Entity<Reservation>().HasIndex(x => new { x.RoomId, x.AccommodationId, x.StartDate, x.EndDate }).IsUnique();
+
+        modelBuilder.Entity<User>().ToTable("Users");
+        modelBuilder.Entity<User>().HasIndex(u => u.Document).IsUnique();
+        modelBuilder.Entity<Customer>().ToTable("Customers");
+        modelBuilder.Entity<Customer>().HasIndex(c => c.DocumentNumber).IsUnique();
+        modelBuilder.Entity<Employee>().ToTable("Employees");
 
         modelBuilder.Entity<User>().ToTable("Users");
         modelBuilder.Entity<User>().HasIndex(u => u.Document).IsUnique();

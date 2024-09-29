@@ -43,9 +43,6 @@ public partial class RoomTypeEdit
         else
         {
             var roomJson = await responseHttp.HttpResponseMessage.Content.ReadAsStringAsync();
-            Console.WriteLine("Raw JSON Response:");
-            Console.WriteLine(roomJson);
-
             var roomType = responseHttp.Response;
 
             roomTypeDTO = new RoomTypeDTO()

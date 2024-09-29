@@ -1,17 +1,16 @@
 using HostMaster.Backend.Data;
 using HostMaster.Backend.Repositories.Implementations;
+using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Backend.UnitsOfWork.Implementations;
 using HostMaster.Backend.UnitsOfWork.Interfaces;
-using HostMaster.Backend.Repositories.Interfaces;
-
 using Microsoft.EntityFrameworkCore;
-using HostMaster.Backend.Helpers;
-
 using System.Text.Json.Serialization;
+using HostMaster.Backend.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles); ;
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
@@ -38,11 +37,15 @@ builder.Services.AddScoped<IRoomsUnitOfWork, RoomsUnitOfWork>();
 
 builder.Services.AddScoped<IRoomPhotosRepository, RoomPhotosRepository>();
 builder.Services.AddScoped<IRoomPhotosUnitOfWork, RoomPhotosUnitOfWork>();
+builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
+builder.Services.AddScoped<IReservationsUnitOfWork, ReservationsUnitOfWork>();
+builder.Services.AddTransient<SeedDb>();
 
 builder.Services.AddScoped<IRoomTypesRepository, RoomTypesRepository>();
 builder.Services.AddScoped<IRoomTypesUnitOfWork, RoomTypesUnitOfWork>();
-
-builder.Services.AddScoped<IAccommodationsRepository, AccommodationsRepository>();
 
 var app = builder.Build();
 
@@ -64,16 +67,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
     .SetIsOriginAllowed(origin => true)
     .AllowCredentials());
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();

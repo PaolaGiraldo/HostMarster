@@ -1,5 +1,4 @@
 ﻿using HostMaster.Shared.Entities;
-using HostMaster.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace HostMaster.Backend.Data;
@@ -16,16 +15,67 @@ public class SeedDb
     public async Task SeedAsync()
     {
         await _context.Database.EnsureCreatedAsync();
-
+        await CheckCountriesDbAsync();
+        await CheckStatesDbAsync();
+        await CheckCitiesDbAsync();
+        await CheckAccommodationsDbAsync();
+        await CheckRoomsTypesDbAsync();
+        await CheckRoomsDbAsync();
         await CheckCountriesAsync();
-        await CheckDbAsync();
+        await CheckCustomersDbAsync();
+        await CheckReservationsDbAsync();
     }
 
-    private async Task CheckDbAsync()
+    private async Task CheckCountriesDbAsync()
     {
         if (!_context.Rooms.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\Seed.sql");
+            var SQLScript = File.ReadAllText("Data\\SeedCountries.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckStatesDbAsync()
+    {
+        if (!_context.Rooms.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedStates.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckCitiesDbAsync()
+    {
+        if (!_context.Rooms.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedCities.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckAccommodationsDbAsync()
+    {
+        if (!_context.Rooms.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedAccommodations.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckRoomsDbAsync()
+    {
+        if (!_context.Rooms.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedRooms.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckRoomsTypesDbAsync()
+    {
+        if (!_context.RoomTypes.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedRoomTypes.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -65,90 +115,26 @@ public class SeedDb
                         }
                     }
             });
-
-            _context.Countries.Add(new Country
-            {
-                Name = "United States",
-                States = new List<State>()
-        {
-            new State()
-            {
-                Name = "California",
-                Cities = new List<City>()
-                {
-                    new City() { Name = "Los Angeles" },
-                    new City() { Name = "San Francisco" },
-                    new City() { Name = "San Diego" },
-                    new City() { Name = "Sacramento" },
-                    new City() { Name = "San Jose" }
-                }
-            },
-            new State()
-            {
-                Name = "Texas",
-                Cities = new List<City>()
-                {
-                    new City() { Name = "Houston" },
-                    new City() { Name = "Dallas" },
-                    new City() { Name = "Austin" },
-                    new City() { Name = "San Antonio" },
-                    new City() { Name = "Fort Worth" }
-                }
-            }
-        }
-            });
-
-            _context.Countries.Add(new Country
-            {
-                Name = "United Kingdom",
-                States = new List<State>()
-        {
-            new State()
-            {
-                Name = "England",
-                Cities = new List<City>()
-                {
-                    new City() { Name = "London" },
-                    new City() { Name = "Manchester" },
-                    new City() { Name = "Birmingham" },
-                    new City() { Name = "Liverpool" },
-                    new City() { Name = "Leeds" }
-                }
-            },
-            new State()
-            {
-                Name = "Scotland",
-                Cities = new List<City>()
-                {
-                    new City() { Name = "Edinburgh" },
-                    new City() { Name = "Glasgow" },
-                    new City() { Name = "Aberdeen" },
-                    new City() { Name = "Dundee" },
-                    new City() { Name = "Inverness" }
-                }
-            }
-        }
-            });
         }
 
         await _context.SaveChangesAsync();
     }
 
-    private async Task CheckUserAsync(string firstName, string lastName, string email, string phone, UserType userType)
+    private async Task CheckCustomersDbAsync()
     {
-        if (!_context.Users.Any())
+        if (!_context.Customers.Any())
         {
-            _context.Users.Add(new User
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                PhoneNumber = phone,
-                UserType = userType,
-                DocumentType = "CC",
-                Document = "22113344"
-            });
+            var SQLScript = File.ReadAllText("Data\\SeedCustomers.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
-        await _context.SaveChangesAsync();
+    }
+
+    private async Task CheckReservationsDbAsync()
+    {
+        if (!_context.Reservations.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedReservations.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
     }
 }

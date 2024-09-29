@@ -30,4 +30,14 @@
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HostMaster.Shared\HostMaster.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\questionMark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

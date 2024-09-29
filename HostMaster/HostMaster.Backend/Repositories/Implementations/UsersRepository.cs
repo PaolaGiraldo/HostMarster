@@ -6,7 +6,6 @@ using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using static MudBlazor.Colors;
 
 namespace HostMaster.Backend.Repositories.Implementations;
 
@@ -57,6 +56,21 @@ public class UsersRepository : GenericRepository<User>, IUsersRepository
         }
     }
 
+    public Task<IdentityResult> AddUserAsync(User user, string password)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task AddUserToRoleAsync(User user, string roleName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task CheckRoleAsync(string roleName)
+    {
+        throw new NotImplementedException();
+    }
+
     public override async Task<ActionResponse<IEnumerable<User>>> GetAsync()
     {
         var users = await _dataContext.Users.ToListAsync();
@@ -85,5 +99,15 @@ public class UsersRepository : GenericRepository<User>, IUsersRepository
                 .Paginate(pagination)
                 .ToListAsync()
         };
+    }
+
+    public Task<User> GetUserAsync(string email)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> IsUserInRoleAsync(User user, string roleName)
+    {
+        throw new NotImplementedException();
     }
 }

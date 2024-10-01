@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostMaster.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241001023324_HostMaster_V1")]
+    [Migration("20241001213658_HostMaster_V1")]
     partial class HostMaster_V1
     {
         /// <inheritdoc />

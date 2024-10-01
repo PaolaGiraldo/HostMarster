@@ -4,10 +4,14 @@ using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Backend.UnitsOfWork.Implementations;
 using HostMaster.Backend.UnitsOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using HostMaster.Backend.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddScoped<IFileStorage, FileStorage>();
@@ -39,7 +43,26 @@ builder.Services.AddScoped<IRoomPhotosUnitOfWork, RoomPhotosUnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
+builder.Services.AddScoped<IReservationsUnitOfWork, ReservationsUnitOfWork>();
+builder.Services.AddTransient<SeedDb>();
+
+builder.Services.AddScoped<IRoomTypesRepository, RoomTypesRepository>();
+builder.Services.AddScoped<IRoomTypesUnitOfWork, RoomTypesUnitOfWork>();
+
 var app = builder.Build();
+
+SeedData(app);
+void SeedData(WebApplication app)
+{
+    var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopeFactory!.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<SeedDb>();
+        service!.SeedAsync().Wait();
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {

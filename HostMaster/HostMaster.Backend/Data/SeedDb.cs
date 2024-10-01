@@ -21,7 +21,6 @@ public class SeedDb
         await CheckAccommodationsDbAsync();
         await CheckRoomsTypesDbAsync();
         await CheckRoomsDbAsync();
-        await CheckCountriesAsync();
         await CheckCustomersDbAsync();
         await CheckReservationsDbAsync();
     }
@@ -78,46 +77,6 @@ public class SeedDb
             var SQLScript = File.ReadAllText("Data\\SeedRoomTypes.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
-    }
-
-    private async Task CheckCountriesAsync()
-    {
-        if (!_context.Countries.Any())
-        {
-            _context.Countries.Add(new Country
-            {
-                Name = "Colombia",
-                States = new List<State>()
-                    {
-                        new State()
-                        {
-                            Name = "Antioquia",
-                            Cities = new List<City>()
-                            {
-                                new City() { Name = "Medellín" },
-                                new City() { Name = "Intagui" },
-                                new City() { Name = "Envigado" },
-                                new City() { Name = "Bello" },
-                                new City() { Name = "Rionegro" }
-                            }
-                        },
-                        new State()
-                        {
-                            Name = "Bogotá",
-                            Cities = new List<City>()
-                            {
-                                new City() { Name = "Usaquen" },
-                                new City() { Name = "Chapinero" },
-                                new City() { Name = "Santa fe" },
-                                new City() { Name = "Usme" },
-                                new City() { Name = "Bosa" }
-                            }
-                        }
-                    }
-            });
-        }
-
-        await _context.SaveChangesAsync();
     }
 
     private async Task CheckCustomersDbAsync()

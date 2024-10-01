@@ -1,13 +1,12 @@
-﻿@page "/reservations/edit/{Id:int}"
-<h3>@Localizer["Edit"] @Localizer["Reservation"]</h3>
-@if (reservation is null)
+﻿﻿@if (reservationDTO is null)
 {
-    <h3>@Localizer["Reservations"]</h3>
-    <div class="mb-3">
-        <a class="btn btn-primary" href="/reservations/create">@Localizer["New"] @Localizer["Reservation"]</a>
-    </div>
+    <Loading />
 }
 else
 {
-    <ReservationForm @ref="reservationForm" Reservation="reservation" OnValidSubmit="EditAsync" ReturnAction="Return" />
+    <MudDialog>
+        <DialogContent>
+            <ReservationForm @ref="reservationForm" ReservationDTO="reservationDTO" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
 }

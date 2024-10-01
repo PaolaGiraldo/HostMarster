@@ -1,45 +1,42 @@
-using CurrieTechnologies.Razor.SweetAlert2;
 using HostMaster.Frontend.Repositories;
-using HostMaster.Shared.Entities;
+using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
 
-namespace HostMaster.Frontend.Pages.Accommodations;
-
-public partial class AccommodationCreate
+namespace HostMaster.Frontend.Pages.Accommodations
 {
-    private AccommodationForm? accommodationForm;
-    private Accommodation accommodation = new();
-
-    [Inject] private IRepository Repository { get; set; } = null!;
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
-    [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
-
-    private async Task CreateAsync()
+    public partial class AccommodationCreate
     {
-        var responseHttp = await Repository.PostAsync("/api/accommodations", accommodation);
-        if (responseHttp.Error)
+        private AccommodationForm? accommodationForm;
+        private AccommodationCreateDTO accommodationcreateDTO = new();
+
+        [Inject] private IRepository Repository { get; set; } = null!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+        [Inject] private ISnackbar Snackbar { get; set; } = null!;
+        [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
+
+        private async Task CreateAsync()
         {
-            var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync(Localizer["Error"], Localizer[message!]);
-            return;
+            var responseHttp = await Repository.PostAsync("/api/Accommodations", accommodationcreateDTO);
+            if (responseHttp.Error)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                Snackbar.Add(Localizer[message!], Severity.Error);
+                return;
+            }
+
+            Console.Write(responseHttp.HttpResponseMessage.ToString());
+
+            Return();
+            Snackbar.Add(Localizer["RecordCreatedOk"], Severity.Success);
         }
-        Return();
-        var toast = SweetAlertService.Mixin(new SweetAlertOptions
-        {
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-            ShowConfirmButton = true,
-            Timer = 3000
-        });
-        await toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordCreatedOk"]);
-    }
 
-    private void Return()
-    {
-        accommodationForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo("/accommodations");
+        private void Return()
+        {
+            accommodationForm!.FormPostedSuccessfully = true;
+            NavigationManager.NavigateTo("/Accommodations");
+        }
     }
 }

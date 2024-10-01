@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostMaster.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240930203146_v1")]
-    partial class v1
+    [Migration("20241001023324_HostMaster_V1")]
+    partial class HostMaster_V1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,22 +50,21 @@ namespace HostMaster.Backend.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -84,8 +83,8 @@ namespace HostMaster.Backend.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("StateId")
                         .HasColumnType("int");
@@ -413,9 +412,6 @@ namespace HostMaster.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CityId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Document")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -449,8 +445,6 @@ namespace HostMaster.Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
 
                     b.HasIndex("Document")
                         .IsUnique();
@@ -498,7 +492,7 @@ namespace HostMaster.Backend.Migrations
             modelBuilder.Entity("HostMaster.Shared.Entities.Accommodation", b =>
                 {
                     b.HasOne("HostMaster.Shared.Entities.City", "City")
-                        .WithMany()
+                        .WithMany("Accommodations")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -626,14 +620,6 @@ namespace HostMaster.Backend.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("HostMaster.Shared.Entities.User", b =>
-                {
-                    b.HasOne("HostMaster.Shared.Entities.City", null)
-                        .WithMany("Users")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("HostMaster.Shared.Entities.Employee", b =>
                 {
                     b.HasOne("HostMaster.Shared.Entities.Accommodation", "Accommodation")
@@ -662,7 +648,7 @@ namespace HostMaster.Backend.Migrations
 
             modelBuilder.Entity("HostMaster.Shared.Entities.City", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("Accommodations");
                 });
 
             modelBuilder.Entity("HostMaster.Shared.Entities.Country", b =>

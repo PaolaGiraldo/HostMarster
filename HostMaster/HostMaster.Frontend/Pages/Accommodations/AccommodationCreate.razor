@@ -1,5 +1,7 @@
-﻿@page "/accommodations/create"
 ﻿
-<h3>@Localizer["Create"] @Localizer["Accommodation"]</h3>
+<MudDialog>
+    <DialogContent>
+        <AccommodationForm @ref="accommodationForm" AccommodationCreateDTO="accommodationcreateDTO" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+    </DialogContent>
+</MudDialog>
 
-<AccommodationForm @ref="accommodationForm" Accommodation="accommodation" OnValidSubmit="CreateAsync" ReturnAction="Return" />

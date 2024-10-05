@@ -151,6 +151,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrator Registration.
+        /// </summary>
+        public static string AdminRegister {
+            get {
+                return ResourceManager.GetString("AdminRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {
@@ -183,6 +192,15 @@ namespace HostMaster.Shared.Resources {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Password.
+        /// </summary>
+        public static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
             }
         }
         
@@ -232,6 +250,33 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thank you for confirming your email, you can now log in to the system..
+        /// </summary>
+        public static string ConfirmedEmailMessage {
+            get {
+                return ResourceManager.GetString("ConfirmedEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email confirmation.
+        /// </summary>
+        public static string ConfirmEmail {
+            get {
+                return ResourceManager.GetString("ConfirmEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press the button to confirm your account..
+        /// </summary>
+        public static string ConfirmEmailMessage {
+            get {
+                return ResourceManager.GetString("ConfirmEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Countries.
         /// </summary>
         public static string Countries {
@@ -259,6 +304,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Password.
+        /// </summary>
+        public static string CurrentPassword {
+            get {
+                return ResourceManager.GetString("CurrentPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer.
         /// </summary>
         public static string Customer {
@@ -277,7 +331,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure to delete {0}: {1}?.
+        ///   Looks up a localized string similar to Are you sure to delete the {0}: {1}?.
         /// </summary>
         public static string DeleteConfirm {
             get {
@@ -349,11 +403,29 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit User Profile.
+        /// </summary>
+        public static string EditUserProfile {
+            get {
+                return ResourceManager.GetString("EditUserProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The email you entered already exists..
+        /// </summary>
+        public static string EmailAlreadyExists {
+            get {
+                return ResourceManager.GetString("EmailAlreadyExists", resourceCulture);
             }
         }
         
@@ -412,7 +484,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Record not found.
+        ///   Looks up a localized string similar to Record not found..
         /// </summary>
         public static string ERR001 {
             get {
@@ -466,6 +538,24 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have exceeded the maximum number of attempts, your account is blocked, please try again in 5 minutes..
+        /// </summary>
+        public static string ERR007 {
+            get {
+                return ResourceManager.GetString("ERR007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user has not been enabled, you must follow the instructions in the email sent to enable the user..
+        /// </summary>
+        public static string ERR008 {
+            get {
+                return ResourceManager.GetString("ERR008", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -489,6 +579,24 @@ namespace HostMaster.Shared.Resources {
         public static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Have you forgotten your password?.
+        /// </summary>
+        public static string ForgottenYourPassword {
+            get {
+                return ResourceManager.GetString("ForgottenYourPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello.
+        /// </summary>
+        public static string Hello {
+            get {
+                return ResourceManager.GetString("Hello", resourceCulture);
             }
         }
         
@@ -565,6 +673,51 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to log out?.
+        /// </summary>
+        public static string LogoutConfirm {
+            get {
+                return ResourceManager.GetString("LogoutConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you log out, you will need to log back in to access your account..
+        /// </summary>
+        public static string LogoutMessage {
+            get {
+                return ResourceManager.GetString("LogoutMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail Forwarding.
+        /// </summary>
+        public static string MailForwarding {
+            get {
+                return ResourceManager.GetString("MailForwarding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max guests.
         /// </summary>
         public static string MaxGuests {
@@ -606,6 +759,15 @@ namespace HostMaster.Shared.Resources {
         public static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
             }
         }
         
@@ -655,6 +817,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not a user yet? Register here.
+        /// </summary>
+        public static string NotUserYet {
+            get {
+                return ResourceManager.GetString("NotUserYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of guests.
         /// </summary>
         public static string NumberOfGuests {
@@ -682,11 +853,38 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password Changed Successfully..
+        /// </summary>
+        public static string PasswordChangedSuccessfully {
+            get {
+                return ResourceManager.GetString("PasswordChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password Confirm.
         /// </summary>
         public static string PasswordConfirm {
             get {
                 return ResourceManager.GetString("PasswordConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password changed successfully, you can now log in with your new password..
+        /// </summary>
+        public static string PasswordRecoveredMessage {
+            get {
+                return ResourceManager.GetString("PasswordRecoveredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Recovery.
+        /// </summary>
+        public static string PasswordRecovery {
+            get {
+                return ResourceManager.GetString("PasswordRecovery", resourceCulture);
             }
         }
         
@@ -763,11 +961,29 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Records Number.
+        ///   Looks up a localized string similar to RecordsNumber.
         /// </summary>
         public static string RecordsNumber {
             get {
                 return ResourceManager.GetString("RecordsNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An email has been sent to you with instructions on how to recover your password..
+        /// </summary>
+        public static string RecoverPasswordMessage {
+            get {
+                return ResourceManager.GetString("RecoverPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register as new user.
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
             }
         }
         
@@ -777,6 +993,15 @@ namespace HostMaster.Shared.Resources {
         public static string RequiredField {
             get {
                 return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resend account activation email.
+        /// </summary>
+        public static string ResendAccountActivationEmail {
+            get {
+                return ResourceManager.GetString("ResendAccountActivationEmail", resourceCulture);
             }
         }
         
@@ -961,6 +1186,24 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account has been created successfully. An email has been sent to you with instructions on how to activate your account..
+        /// </summary>
+        public static string SendEmailConfirmationMessage {
+            get {
+                return ResourceManager.GetString("SendEmailConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Single Room.
         /// </summary>
         public static string SingleRoom {
@@ -988,7 +1231,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application for the management of small accommodations.
+        ///   Looks up a localized string similar to Soccer predictions app.
         /// </summary>
         public static string Subtitle {
             get {
@@ -1015,7 +1258,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HostMaster.
+        ///   Looks up a localized string similar to Fantasy.
         /// </summary>
         public static string Title {
             get {
@@ -1033,11 +1276,29 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User Registration.
+        /// </summary>
+        public static string UserRegister {
+            get {
+                return ResourceManager.GetString("UserRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Users.
         /// </summary>
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string Users_Duplicate_1_ {
+            get {
+                return ResourceManager.GetString("Users_Duplicate[1]", resourceCulture);
             }
         }
         

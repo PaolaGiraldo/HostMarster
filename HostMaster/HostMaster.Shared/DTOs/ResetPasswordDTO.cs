@@ -1,5 +1,4 @@
-﻿using HostMaster.Shared.Entities;
-using HostMaster.Shared.Resources;
+﻿using HostMaster.Shared.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,20 +8,24 @@ using System.Threading.Tasks;
 
 namespace HostMaster.Shared.DTOs;
 
-public class UserDTO : User
+public class ResetPasswordDTO
 {
+    [Display(Name = "Email", ResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    [EmailAddress(ErrorMessageResourceName = "ValidEmail", ErrorMessageResourceType = typeof(Literals))]
+    public string Email { get; set; } = null!;
+
     [DataType(DataType.Password)]
-    [Display(Name = "Password", ResourceType = typeof(Literals))]
+    [Display(Name = "NewPassword", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     [StringLength(20, MinimumLength = 6, ErrorMessageResourceName = "LengthField", ErrorMessageResourceType = typeof(Literals))]
-    public string Password { get; set; } = null!;
+    public string NewPassword { get; set; } = null!;
 
-    [Compare("Password", ErrorMessageResourceName = "PasswordAndConfirmationDifferent", ErrorMessageResourceType = typeof(Literals))]
+    [Compare("NewPassword", ErrorMessageResourceName = "PasswordAndConfirmationDifferent", ErrorMessageResourceType = typeof(Literals))]
     [Display(Name = "PasswordConfirm", ResourceType = typeof(Literals))]
-    [DataType(DataType.Password)]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     [StringLength(20, MinimumLength = 6, ErrorMessageResourceName = "LengthField", ErrorMessageResourceType = typeof(Literals))]
-    public string PasswordConfirm { get; set; } = null!;
+    public string ConfirmPassword { get; set; } = null!;
 
-    public string Language { get; set; } = null!;
+    public string Token { get; set; } = null!;
 }

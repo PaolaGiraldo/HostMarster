@@ -1,7 +1,10 @@
 using Blazored.Modal;
 using CurrieTechnologies.Razor.SweetAlert2;
 using HostMaster.Frontend;
+using HostMaster.Frontend.AuthenticationProviders;
 using HostMaster.Frontend.Repositories;
+using HostMaster.Frontend.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -17,5 +20,11 @@ builder.Services.AddLocalization();
 builder.Services.AddSweetAlert2();
 builder.Services.AddMudServices();
 builder.Services.AddBlazoredModal();
+
+builder.Services.AddAuthorizationCore();
+
+builder.Services.AddScoped<AuthenticationProviderJWT>();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
+builder.Services.AddScoped<ILoginService, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
 
 await builder.Build().RunAsync();

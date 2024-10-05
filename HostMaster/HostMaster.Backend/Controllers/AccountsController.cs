@@ -15,6 +15,8 @@ using System;
 
 namespace HostMaster.Backend.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class AccountsController : ControllerBase
 {
     private readonly IUsersUnitOfWork _usersUnitOfWork;

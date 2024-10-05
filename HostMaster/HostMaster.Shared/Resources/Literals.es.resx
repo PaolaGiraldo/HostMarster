@@ -97,183 +97,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
-    <value>Polla</value>
-  </data>
-  <data name="Subtitle" xml:space="preserve">
-    <value>Aplicación de pronósticos futboleros</value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>Acerca de</value>
-  </data>
-  <data name="Countries" xml:space="preserve">
-    <value>Países</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Borrar</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Editar</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Inicio</value>
-  </data>
-  <data name="Image" xml:space="preserve">
-    <value>Imagen</value>
-  </data>
-  <data name="NoRecords" xml:space="preserve">
-    <value>No hay registros para mostrar...</value>
-  </data>
-  <data name="New" xml:space="preserve">
-    <value>Nuevo</value>
-  </data>
-  <data name="Country" xml:space="preserve">
-    <value>País</value>
-  </data>
-  <data name="Confirmation" xml:space="preserve">
-    <value>Confirmación</value>
-  </data>
-  <data name="LeaveAndLoseChanges" xml:space="preserve">
-    <value>¿Deseas abandonar la página y perder los cambios?</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Guardar Cambios</value>
-  </data>
-  <data name="Return" xml:space="preserve">
-    <value>Regresar</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>Crear</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancelar</value>
-  </data>
-  <data name="RecordSavedOk" xml:space="preserve">
-    <value>Registro guardado con éxito.</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="DeleteConfirm" xml:space="preserve">
-    <value>¿Está seguro de borrar el {0}: {1}?</value>
-  </data>
-  <data name="RecordDeletedOk" xml:space="preserve">
-    <value>Registro borrado con éxito.</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Sí</value>
-  </data>
-  <data name="RecordCreatedOk" xml:space="preserve">
-    <value>Regisro creado con éxito.</value>
-  </data>
-  <data name="ERR001" xml:space="preserve">
-    <value>Registro no encontrado.</value>
-  </data>
-  <data name="ERR002" xml:space="preserve">
-    <value>No se puede borrar, porque tiene registros relacionados.</value>
-  </data>
-  <data name="ERR003" xml:space="preserve">
-    <value>Ya existe el registro que estas intentando crear.</value>
-  </data>
-  <data name="Team" xml:space="preserve">
-    <value>Equipo</value>
-  </data>
-  <data name="MaxLength" xml:space="preserve">
-    <value>El campo {0} no puede tener más de {1} caracteres.</value>
-  </data>
-  <data name="RequiredField" xml:space="preserve">
-    <value>El campo {0} es obligatorio.</value>
-  </data>
-  <data name="ERR004" xml:space="preserve">
-    <value>El código del país no es válido.</value>
-  </data>
-  <data name="ERR005" xml:space="preserve">
-    <value>El código del equipo no es válido.</value>
-  </data>
-  <data name="Teams" xml:space="preserve">
-    <value>Equipos</value>
-  </data>
-  <data name="SelectFile" xml:space="preserve">
-    <value>Seleccione un archivo...</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Buscar...</value>
-  </data>
-  <data name="SelectACountry" xml:space="preserve">
-    <value>-- Selecciona un País --</value>
-  </data>
-  <data name="RecordsNumber" xml:space="preserve">
-    <value>Número de Registros</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>Todos</value>
-  </data>
-  <data name="Filter" xml:space="preserve">
-    <value>Filtrar</value>
-  </data>
-  <data name="Clean" xml:space="preserve">
-    <value>Limpiar</value>
-  </data>
-  <data name="Actions" xml:space="preserve">
-    <value>Acciones</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="PleaseWait" xml:space="preserve">
-    <value>Por favor espere...</value>
-  </data>
-  <data name="Admin" xml:space="preserve">
-    <value>Administrador</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Usuario</value>
-  </data>
-  <data name="FirstName" xml:space="preserve">
-    <value>Nombres</value>
-  </data>
-  <data name="LastName" xml:space="preserve">
-    <value>Apellidos</value>
-  </data>
-  <data name="UserType" xml:space="preserve">
-    <value>Tipo de usuario</value>
-  </data>
-  <data name="NotFound" xml:space="preserve">
-    <value>No Encontrado</value>
-  </data>
-  <data name="NothingInRoute" xml:space="preserve">
-    <value>Lo sentimos no hay nada en esta ruta.</value>
-  </data>
-  <data name="Authorizing" xml:space="preserve">
-    <value>Autorizando...</value>
-  </data>
-  <data name="NotAuthorized" xml:space="preserve">
-    <value>No estas autorizado para ver este contenido...</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Contraseña</value>
-  </data>
-  <data name="LengthField" xml:space="preserve">
-    <value>El campo {0} debe tener entre {2} y {1} carácteres.</value>
-  </data>
-  <data name="PasswordAndConfirmationDifferent" xml:space="preserve">
-    <value>La contraseña y la confirmación no son iguales.</value>
-  </data>
-  <data name="PasswordConfirm" xml:space="preserve">
-    <value>Confirmación de contraseña</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Correo electrónico</value>
-  </data>
-  <data name="ValidEmail" xml:space="preserve">
-    <value>Debes ingresar un correo válido.</value>
-  </data>
-  <data name="MinLength" xml:space="preserve">
-    <value>El campo {0} debe tener al menos {1} carácteres.</value>
-  </data>
-  <data name="ERR006" xml:space="preserve">
-    <value>Email o contraseña incorrectos.</value>
-  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hola</value>
   </data>
@@ -322,9 +145,6 @@
   <data name="SendEmailConfirmationMessage" xml:space="preserve">
     <value>Su cuenta ha sido creada con exito. Se te ha enviado un correo electrónico con las instrucciones para activar tu usuario.</value>
   </data>
-  <data name="PhoneNumber" xml:space="preserve">
-    <value>Número de teléfono</value>
-  </data>
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>El correo que ingresaste ya existe.</value>
   </data>
@@ -336,9 +156,6 @@
   </data>
   <data name="ResendAccountActivationEmail" xml:space="preserve">
     <value>Reenviar correro de activación de cuenta</value>
-  </data>
-  <data name="CurrentPassword" xml:space="preserve">
-    <value>Contraseña Actual</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
     <value>Nueva Contraseña</value>
@@ -361,6 +178,9 @@
   <data name="ForgottenYourPassword" xml:space="preserve">
     <value>¿Has olvidado tu contraseña?</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
   <data name="Accommodation" xml:space="preserve">
     <value>Alojamiento</value>
   </data>
@@ -379,11 +199,26 @@
   <data name="Accommodations" xml:space="preserve">
     <value>Alojamientos</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Dirección</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="Authorizing" xml:space="preserve">
+    <value>Autorizando...</value>
+  </data>
   <data name="Calendar" xml:space="preserve">
     <value>Calendario</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>Ciudad</value>
@@ -394,8 +229,29 @@
   <data name="CityName" xml:space="preserve">
     <value>Nombre Ciudad</value>
   </data>
+  <data name="Clean" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmación</value>
+  </data>
+  <data name="Countries" xml:space="preserve">
+    <value>Países</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Crear</value>
+  </data>
   <data name="Customer" xml:space="preserve">
     <value>Cliente</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="DeleteConfirm" xml:space="preserve">
+    <value>¿Está seguro de borrar {0}: {1}?</value>
   </data>
   <data name="Department" xml:space="preserve">
     <value>Área o departamento</value>
@@ -415,6 +271,12 @@
   <data name="DoubleRoom" xml:space="preserve">
     <value>Habitación Doble</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
   <data name="EndDate" xml:space="preserve">
     <value>Fecha fin</value>
   </data>
@@ -433,8 +295,41 @@
   <data name="ERR_RES005" xml:space="preserve">
     <value>La habitación no está disponible.</value>
   </data>
+  <data name="ERR001" xml:space="preserve">
+    <value>Registro no encontrado</value>
+  </data>
+  <data name="ERR002" xml:space="preserve">
+    <value>No se puede borrar, porque tiene registros relacionados.</value>
+  </data>
+  <data name="ERR003" xml:space="preserve">
+    <value>Ya existe el registro que estás intentando crear.</value>
+  </data>
+  <data name="ERR004" xml:space="preserve">
+    <value>El código del país no es válido.</value>
+  </data>
+  <data name="ERR005" xml:space="preserve">
+    <value>El código del equipo no es válido.</value>
+  </data>
+  <data name="ERR006" xml:space="preserve">
+    <value>Email o contraseña incorrectos.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrar</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nombres</value>
+  </data>
   <data name="HireDate" xml:space="preserve">
     <value>Fecha de contratación</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Imagen</value>
   </data>
   <data name="InvalidNumber" xml:space="preserve">
     <value>El campo {0} no puede tener más de {1} carácteres.</value>
@@ -442,23 +337,86 @@
   <data name="IsAvailable" xml:space="preserve">
     <value>Disponibilidad</value>
   </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+  <data name="LeaveAndLoseChanges" xml:space="preserve">
+    <value>¿Deseas abandonar la página y perder los cambios?</value>
+  </data>
+  <data name="LengthField" xml:space="preserve">
+    <value>El campo {0} debe tener entre {2} y {1} carácteres.</value>
+  </data>
   <data name="MaxGuests" xml:space="preserve">
     <value>Máximo de huéspedes</value>
+  </data>
+  <data name="MaxLength" xml:space="preserve">
+    <value>El campo {0} no puede tener más de {1} caracteres.</value>
+  </data>
+  <data name="MinLength" xml:space="preserve">
+    <value>El campo {0} debe tener al menos {1} carácteres.</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nombre</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoRecords" xml:space="preserve">
+    <value>No hay registros para mostrar...</value>
+  </data>
+  <data name="NotAuthorized" xml:space="preserve">
+    <value>No estas autorizado para ver este contenido...</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>No Encontrado</value>
+  </data>
+  <data name="NothingInRoute" xml:space="preserve">
+    <value>Lo sentimos no hay nada en esta ruta.</value>
+  </data>
   <data name="NumberOfGuests" xml:space="preserve">
     <value>Número de invitados</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="PasswordAndConfirmationDifferent" xml:space="preserve">
+    <value>La contraseña y la confirmación no son iguales.</value>
+  </data>
+  <data name="PasswordConfirm" xml:space="preserve">
+    <value>Confirmación de contraseña</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Telefono</value>
   </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Numero de Teléfono</value>
+  </data>
   <data name="Photo" xml:space="preserve">
     <value>Foto</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Por favor espere...</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Precio</value>
+  </data>
+  <data name="RecordCreatedOk" xml:space="preserve">
+    <value>Regisro creado con éxito.</value>
+  </data>
+  <data name="RecordDeletedOk" xml:space="preserve">
+    <value>Registro borrado con éxito.</value>
+  </data>
+  <data name="RecordSavedOk" xml:space="preserve">
+    <value>Registro guardado con éxito.</value>
+  </data>
+  <data name="RecordsNumber" xml:space="preserve">
+    <value>Número de registros</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>El campo {0} es obligatorio.</value>
   </data>
   <data name="Reservation" xml:space="preserve">
     <value>Reserva</value>
@@ -468,6 +426,9 @@
   </data>
   <data name="ReservationState" xml:space="preserve">
     <value>Estado de reserva</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Regresar</value>
   </data>
   <data name="Room" xml:space="preserve">
     <value>Habitación</value>
@@ -496,6 +457,15 @@
   <data name="RoomTypes" xml:space="preserve">
     <value>Tipo Habitaciones</value>
   </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Guardar Cambios</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="SelectACountry" xml:space="preserve">
+    <value>-- Selecciona un País --</value>
+  </data>
   <data name="SelectAnAccommodation" xml:space="preserve">
     <value>-- Seleccione un alojamiento --</value>
   </data>
@@ -504,6 +474,9 @@
   </data>
   <data name="SelectARoomType" xml:space="preserve">
     <value>-- Selecciona un tipo de habitacíon --</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Seleccione un archivo...</value>
   </data>
   <data name="SingleRoom" xml:space="preserve">
     <value>Habitación Sencilla</value>
@@ -514,10 +487,37 @@
   <data name="State" xml:space="preserve">
     <value>Estado</value>
   </data>
+  <data name="Subtitle" xml:space="preserve">
+    <value>Aplicación para la gestión de pequeños alojamientos</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Equipo</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Equipos</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>HostMaster</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
   <data name="Users" xml:space="preserve">
     <value>Usuarios</value>
   </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Tipo de usuario</value>
+  </data>
+  <data name="ValidEmail" xml:space="preserve">
+    <value>Debes ingresar un correo válido.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
   <data name="Users_Duplicate[1]" xml:space="preserve">
     <value>Usuarios</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Contraseña actual</value>
   </data>
 </root>

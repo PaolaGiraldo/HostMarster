@@ -331,7 +331,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure to delete the {0}: {1}?.
+        ///   Looks up a localized string similar to Are you sure to delete {0}: {1}?.
         /// </summary>
         public static string DeleteConfirm {
             get {
@@ -484,7 +484,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Record not found..
+        ///   Looks up a localized string similar to Record not found.
         /// </summary>
         public static string ERR001 {
             get {
@@ -961,7 +961,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RecordsNumber.
+        ///   Looks up a localized string similar to Records Number.
         /// </summary>
         public static string RecordsNumber {
             get {
@@ -1231,7 +1231,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Soccer predictions app.
+        ///   Looks up a localized string similar to Application for the management of small accommodations.
         /// </summary>
         public static string Subtitle {
             get {
@@ -1258,7 +1258,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fantasy.
+        ///   Looks up a localized string similar to HostMaster.
         /// </summary>
         public static string Title {
             get {

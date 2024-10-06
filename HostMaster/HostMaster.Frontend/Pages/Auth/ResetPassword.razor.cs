@@ -7,24 +7,24 @@ using MudBlazor;
 
 namespace HostMaster.Frontend.Pages.Auth;
 
-public partial class ResendConfirmationEmailToken
+public partial class ResetPassword
 {
-    private EmailDTO emailDTO = new();
+    private ResetPasswordDTO resetPasswordDTO = new();
     private bool loading;
 
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private IDialogService DialogService { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = null!;
+    [Parameter, SupplyParameterFromQuery] public string Token { get; set; } = string.Empty;
 
-    private async Task ResendConfirmationEmailTokenAsync()
+    private async Task ChangePasswordAsync()
     {
-        emailDTO.Language = System.Globalization.CultureInfo.CurrentCulture.Name.Substring(0, 2);
+        resetPasswordDTO.Token = Token;
         loading = true;
-        var responseHttp = await Repository.PostAsync("/api/accounts/ResendToken", emailDTO);
+        var responseHttp = await Repository.PostAsync("/api/accounts/ResetPassword", resetPasswordDTO);
         loading = false;
-
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -32,8 +32,8 @@ public partial class ResendConfirmationEmailToken
             return;
         }
 
-        MudDialog.Cancel();
-        NavigationManager.NavigateTo("/");
-        Snackbar.Add(Localizer["SendEmailConfirmationMessage"], Severity.Success);
+        Snackbar.Add(Localizer["PasswordRecoveredMessage"], Severity.Success);
+        var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true };
+        DialogService.Show<Login>(Localizer["Login"], closeOnEscapeKey);
     }
 }

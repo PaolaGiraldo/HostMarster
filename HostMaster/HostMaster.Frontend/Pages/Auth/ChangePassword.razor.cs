@@ -7,24 +7,23 @@ using MudBlazor;
 
 namespace HostMaster.Frontend.Pages.Auth;
 
-public partial class ResendConfirmationEmailToken
+public partial class ChangePassword
 {
-    private EmailDTO emailDTO = new();
+    private ChangePasswordDTO changePasswordDTO = new();
     private bool loading;
 
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private IDialogService DialogService { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
     [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = null!;
 
-    private async Task ResendConfirmationEmailTokenAsync()
+    private async Task ChangePasswordAsync()
     {
-        emailDTO.Language = System.Globalization.CultureInfo.CurrentCulture.Name.Substring(0, 2);
         loading = true;
-        var responseHttp = await Repository.PostAsync("/api/accounts/ResendToken", emailDTO);
+        var responseHttp = await Repository.PostAsync("/api/accounts/changePassword", changePasswordDTO);
         loading = false;
-
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -33,7 +32,13 @@ public partial class ResendConfirmationEmailToken
         }
 
         MudDialog.Cancel();
-        NavigationManager.NavigateTo("/");
-        Snackbar.Add(Localizer["SendEmailConfirmationMessage"], Severity.Success);
+        NavigationManager.NavigateTo("/EditUser");
+        Snackbar.Add(Localizer["PasswordChangedSuccessfully"], Severity.Success);
+    }
+
+    private void ReturnAction()
+    {
+        MudDialog.Cancel();
+        NavigationManager.NavigateTo("/EditUser");
     }
 }

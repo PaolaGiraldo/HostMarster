@@ -139,8 +139,8 @@ public class AccountsController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("ResedToken")]
-    public async Task<IActionResult> ResedTokenAsync([FromBody] EmailDTO model)
+    [HttpPost("ResendToken")]
+    public async Task<IActionResult> ResendTokenAsync([FromBody] EmailDTO model)
     {
         var user = await _usersUnitOfWork.GetUserAsync(model.Email);
         if (user == null)

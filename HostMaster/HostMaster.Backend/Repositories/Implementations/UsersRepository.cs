@@ -1,113 +1,107 @@
 ﻿using HostMaster.Backend.Data;
-using HostMaster.Backend.Helpers;
 using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
-using HostMaster.Shared.Responses;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HostMaster.Backend.Repositories.Implementations;
 
-public class UsersRepository : GenericRepository<User>, IUsersRepository
+public class UsersRepository : IUsersRepository
 {
-    private readonly DataContext _dataContext;
+    private readonly DataContext _context;
+    private readonly UserManager<User> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly SignInManager<User> _signInManager;
 
-    public UsersRepository(DataContext context) : base(context)
+    public UsersRepository(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
     {
-        _dataContext = context;
+        _context = context;
+        _userManager = userManager;
+        _roleManager = roleManager;
+        _signInManager = signInManager;
     }
 
-    public async Task<ActionResponse<User>> AddAsync(UserDTO userDTO)
+    public async Task<string> GeneratePasswordResetTokenAsync(User user)
     {
-        var user = new User
-        {
-            FirstName = userDTO.FirstName,
-            LastName = userDTO.LastName,
-            Email = userDTO.Email,
-            PhoneNumber = userDTO.Phone,
-        };
+        return await _userManager.GeneratePasswordResetTokenAsync(user);
+    }
 
-        _dataContext.Users.Add(user);
-        try
+    public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+    {
+        return await _userManager.ResetPasswordAsync(user, token, password);
+    }
+
+    public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword)
+    {
+        return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+    }
+
+    public async Task<IdentityResult> UpdateUserAsync(User user)
+    {
+        return await _userManager.UpdateAsync(user);
+    }
+
+    public async Task<IdentityResult> AddUserAsync(User user, string password)
+    {
+        return await _userManager.CreateAsync(user, password);
+    }
+
+    public async Task AddUserToRoleAsync(User user, string roleName)
+    {
+        await _userManager.AddToRoleAsync(user, roleName);
+    }
+
+    public async Task CheckRoleAsync(string roleName)
+    {
+        var roleExists = await _roleManager.RoleExistsAsync(roleName);
+        if (!roleExists)
         {
-            await _dataContext.SaveChangesAsync();
-            return new ActionResponse<User>
+            await _roleManager.CreateAsync(new IdentityRole
             {
-                WasSuccess = true,
-                Result = user
-            };
-        }
-        catch (DbUpdateException)
-        {
-            return new ActionResponse<User>
-            {
-                WasSuccess = false,
-                Message = "ERR003"
-            };
-        }
-        catch (Exception exception)
-        {
-            return new ActionResponse<User>
-            {
-                WasSuccess = false,
-                Message = exception.Message
-            };
+                Name = roleName
+            });
         }
     }
 
-    public Task<IdentityResult> AddUserAsync(User user, string password)
+    public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
     {
-        throw new NotImplementedException();
+        return await _userManager.ConfirmEmailAsync(user, token);
     }
 
-    public Task AddUserToRoleAsync(User user, string roleName)
+    public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
     {
-        throw new NotImplementedException();
+        return await _userManager.GenerateEmailConfirmationTokenAsync(user);
     }
 
-    public Task CheckRoleAsync(string roleName)
+    public async Task<User> GetUserAsync(string email)
     {
-        throw new NotImplementedException();
+        var user = await _context.Users
+            .Include(u => u.Country)
+            .FirstOrDefaultAsync(x => x.Email == email);
+        return user!;
     }
 
-    public override async Task<ActionResponse<IEnumerable<User>>> GetAsync()
+    public async Task<User> GetUserAsync(Guid userId)
     {
-        var users = await _dataContext.Users.ToListAsync();
-
-        return new ActionResponse<IEnumerable<User>>
-        {
-            WasSuccess = true,
-            Result = users
-        };
+        var user = await _context.Users
+            .Include(u => u.Country)
+            .FirstOrDefaultAsync(x => x.Id == userId.ToString());
+        return user!;
     }
 
-    public override async Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination)
+    public async Task<bool> IsUserInRoleAsync(User user, string roleName)
     {
-        var queryable = _dataContext.Users.AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(pagination.Filter))
-        {
-            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
-        }
-
-        return new ActionResponse<IEnumerable<User>>
-        {
-            WasSuccess = true,
-            Result = await queryable
-                .OrderBy(x => x.FirstName)
-                .Paginate(pagination)
-                .ToListAsync()
-        };
+        return await _userManager.IsInRoleAsync(user, roleName);
     }
 
-    public Task<User> GetUserAsync(string email)
+    public async Task<SignInResult> LoginAsync(LoginDTO model)
     {
-        throw new NotImplementedException();
+        return await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
     }
 
-    public Task<bool> IsUserInRoleAsync(User user, string roleName)
+    public async Task LogoutAsync()
     {
-        throw new NotImplementedException();
+        await _signInManager.SignOutAsync();
     }
 }

@@ -24,7 +24,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <Folder Include="Pages\Cities\" />
     <Folder Include="Pages\Users\" />
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>

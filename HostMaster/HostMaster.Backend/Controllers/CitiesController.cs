@@ -1,8 +1,7 @@
-﻿using HostMaster.Backend.UnitsOfWork.Implementations;
+﻿using Microsoft.AspNetCore.Mvc;
 using HostMaster.Backend.UnitsOfWork.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace HostMaster.Backend.Controllers;
 
@@ -17,7 +16,13 @@ public class CitiesController : GenericController<City>
         _citiesUnitOfWork = citiesUnitOfWork;
     }
 
-    [HttpGet("paginated")]
+    [HttpGet("combo/{stateId:int}")]
+    public async Task<IActionResult> GetComboAsync(int stateId)
+    {
+        return Ok(await _citiesUnitOfWork.GetComboAsync(stateId));
+    }
+
+    [HttpGet]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
         var response = await _citiesUnitOfWork.GetAsync(pagination);
@@ -28,47 +33,14 @@ public class CitiesController : GenericController<City>
         return BadRequest();
     }
 
-    [HttpGet]
-    public override async Task<IActionResult> GetAsync()
+    [HttpGet("totalPages")]
+    public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
-        var response = await _citiesUnitOfWork.GetAsync();
-        if (response.WasSuccess)
-        {
-            return Ok(response.Result);
-        }
-        return BadRequest();
-    }
-
-    [HttpGet("{id}")]
-    public override async Task<IActionResult> GetAsync(int id)
-    {
-        var response = await _citiesUnitOfWork.GetAsync(id);
-        if (response.WasSuccess)
-        {
-            return Ok(response.Result);
-        }
-        return NotFound(response.Message);
-    }
-
-    [HttpGet("totalRecordsPaginated")]
-    public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
-    {
-        var action = await _citiesUnitOfWork.GetTotalRecordsAsync(pagination);
+        var action = await _citiesUnitOfWork.GetTotalPagesAsync(pagination);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
         }
         return BadRequest();
-    }
-
-    [HttpPut("full")]
-    public async Task<IActionResult> PutAsync(CityCreateDTO cityCreateDTO)
-    {
-        var action = await _citiesUnitOfWork.UpdateAsync(cityCreateDTO);
-        if (action.WasSuccess)
-        {
-            return Ok(action.Result);
-        }
-        return BadRequest(action.Message);
     }
 }

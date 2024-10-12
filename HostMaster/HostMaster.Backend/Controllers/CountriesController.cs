@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using HostMaster.Backend.UnitsOfWork.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
@@ -9,11 +7,15 @@ namespace HostMaster.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CountriesController(IGenericUnitOfWork<Country> unitOfWork, ICountriesUnitOfWork countriesUnitOfWork) : GenericController<Country>(unitOfWork)
+public class CountriesController : GenericController<Country>
 {
-    private readonly ICountriesUnitOfWork _countriesUnitOfWork = countriesUnitOfWork;
+    private readonly ICountriesUnitOfWork _countriesUnitOfWork;
 
-    [AllowAnonymous]
+    public CountriesController(IGenericUnitOfWork<Country> unitOfWork, ICountriesUnitOfWork countriesUnitOfWork) : base(unitOfWork)
+    {
+        _countriesUnitOfWork = countriesUnitOfWork;
+    }
+
     [HttpGet("combo")]
     public async Task<IActionResult> GetComboAsync()
     {

@@ -3,6 +3,7 @@ using HostMaster.Frontend.Repositories;
 using HostMaster.Frontend.Shared;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
@@ -10,6 +11,7 @@ using System.Net;
 
 namespace HostMaster.Frontend.Pages.Accommodations;
 
+[Authorize(Roles = "Admin")]
 public partial class AccommodationsIndex
 {
     private List<Accommodation>? Accommodations { get; set; }

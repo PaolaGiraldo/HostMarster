@@ -7,38 +7,44 @@
             Calendario para @CurrentMonth.ToString("MMMM yyyy")
         </MudText>
 
-        <!-- Usar una tabla HTML estándar para el calendario -->
-        <table class="mud-table calendar-table">
-            <thead>
-                <tr>
-                    <th>Lunes</th>
-                    <th>Martes</th>
-                    <th>Miércoles</th>
-                    <th>Jueves</th>
-                    <th>Viernes</th>
-                    <th>Sábado</th>
-                    <th>Domingo</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var week in WeeksInMonth)
-                {
-                    <tr>
-                        @foreach (var day in week)
-                        {
-                            <td>
-                                @if (day.HasValue)
-                                {
-                                    <MudButton @onclick="() => OnDateSelected(day.Value)" Class="calendar-button">
-                                        @day?.Day
-                                    </MudButton>
-                                }
-                            </td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <!-- Envolver el MudTable en un contenedor centrado -->
+        <div class="calendar-table-container">
+            <!-- Utilizar MudTablePlain para el calendario -->
+            <MudTablePlain Class="calendar-table" Bordered="true">
+                <MudTHead>
+                    <MudTr>
+                        <MudTh>Lunes</MudTh>
+                        <MudTh>Martes</MudTh>
+                        <MudTh>Miércoles</MudTh>
+                        <MudTh>Jueves</MudTh>
+                        <MudTh>Viernes</MudTh>
+                        <MudTh>Sábado</MudTh>
+                        <MudTh>Domingo</MudTh>
+                    </MudTr>
+                </MudTHead>
+                <MudTBody>
+                    @foreach (var week in WeeksInMonth)
+                    {
+                        <MudTr>
+                            @foreach (var day in week)
+                            {
+                                <MudTd>
+                                    @if (day.HasValue)
+                                    {
+                                        <MudButton @onclick="() => OnDateSelected(day.Value)"
+                                                   Class="calendar-button"
+                                                   Style="@(IsToday(day.Value) ? "background-color: yellow; color: black;" : "")">
+                                            @day?.Day
+                                        </MudButton>
+
+                                    }
+                                </MudTd>
+                            }
+                        </MudTr>
+                    }
+                </MudTBody>
+            </MudTablePlain>
+        </div>
 
         <div class="calendar-navigation">
             <MudButton Variant="Variant.Outlined" OnClick="PreviousMonth" Class="calendar-nav-button">Mes Anterior</MudButton>

@@ -78,4 +78,10 @@ public class CalendarBase : ComponentBase
         // Aquí puedes hacer la lógica para mostrar las reservas de la fecha seleccionada
         Console.WriteLine($"Fecha seleccionada: {date}");
     }
+
+    protected bool IsToday(DateTime date)
+    {
+        return date.Date == DateTime.Now.Date;
+    }
+
 }

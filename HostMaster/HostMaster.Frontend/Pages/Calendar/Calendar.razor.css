@@ -15,17 +15,58 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Nuevo estilo para centrar la tabla */
+.calendar-table-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Estilos para la tabla de calendario */
 .calendar-table {
-    width: 100%;
-    border-collapse: collapse;
+    width: auto; /* Ajustamos el ancho para que la tabla ocupe solo lo necesario */
     text-align: center;
 }
 
+    .calendar-table .mud-table-cell {
+        padding: 0;
+        height: 60px; /* Altura fija para las celdas */
+    }
+
+    /* Estilo para los encabezados */
+    .calendar-table .mud-table-head {
+        background-color: #f1f3f5; /* Color de fondo para los días de la semana */
+        font-weight: bold;
+    }
+
+/* Botones dentro de las celdas del calendario */
 .calendar-button {
     width: 100%;
-    height: 40px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+    /* Efecto hover en los botones */
+    .calendar-button:hover {
+        background-color: #e9ecef;
+        border-radius: 4px;
+    }
+
+    /* Estilo para el día actual */
+    .calendar-button.today {
+        background-color: yellow !important;
+        color: black !important;
+    }
+
+/* Navegación del calendario */
 .calendar-navigation {
     display: flex;
     justify-content: space-between;
@@ -34,4 +75,10 @@
 
 .calendar-nav-button {
     min-width: 150px;
+}
+
+/* Estilo para el día actual */
+.calendar-table .mud-button.calendar-button.today {
+    background-color: yellow !important;
+    color: black !important;
 }

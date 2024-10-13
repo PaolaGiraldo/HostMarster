@@ -1,49 +1,54 @@
 ﻿@page "/calendar"
 @inherits CalendarBase
 
+@using MudBlazor
+
 <MudContainer Class="calendar-container">
     <MudPaper Class="pa-4 calendar-paper">
         <MudText Typo="Typo.h5" Align="Align.Center">
             Calendario para @CurrentMonth.ToString("MMMM") @CurrentMonth.ToString("yyyy")
         </MudText>
 
-        <!-- Envolver el MudTable en un contenedor centrado -->
+        <!-- Envolver el calendario en un contenedor centrado -->
         <div class="calendar-table-container">
-            <!-- Utilizar MudTablePlain para el calendario -->
-            <div Class="calendar-table" Bordered="true">
-                <div>
-                    <MudTr>
-                        <MudTh>Lunes</MudTh>
-                        <MudTh>Martes</MudTh>
-                        <MudTh>Miércoles</MudTh>
-                        <MudTh>Jueves</MudTh>
-                        <MudTh>Viernes</MudTh>
-                        <MudTh>Sábado</MudTh>
-                        <MudTh>Domingo</MudTh>
-                    </MudTr>
-                </div>
-                <div>
+            <!-- Utilizar MudSimpleTable para el calendario -->
+            <MudSimpleTable Class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miércoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                        <th>Sábado</th>
+                        <th>Domingo</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach (var week in WeeksInMonth)
                     {
-                        <MudTr>
+                        <tr>
                             @foreach (var day in week)
                             {
-                                <MudTd>
+                                <td>
                                     @if (day.HasValue)
                                     {
                                         <MudButton @onclick="() => OnDateSelected(day.Value)"
                                                    Class="calendar-button"
                                                    Style="@(IsToday(day.Value) ? "background-color: yellow; color: black;" : "")">
-                                            @day?.Day
+                                            @day.Value.Day
                                         </MudButton>
-
                                     }
-                                </MudTd>
+                                    else
+                                    {
+                                        @:<span>&nbsp;</span>
+                                    }
+                                </td>
                             }
-                        </MudTr>
+                        </tr>
                     }
-                </div>
-            </div>
+                </tbody>
+            </MudSimpleTable>
         </div>
 
         <div class="calendar-navigation">

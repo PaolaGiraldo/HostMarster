@@ -1,0 +1,31 @@
+﻿@page "/CalendarReservations"
+@using HostMaster.Frontend.Services
+@inject DateSelectionService DateSelectionService
+@inject NavigationManager NavigationManager
+
+
+<h3>Reservas para @selectedDate.ToString("dd/MM/yyyy")</h3>
+
+@code {
+    private DateTime selectedDate;
+
+    protected override void OnInitialized()
+    {
+        // Obtenemos la fecha seleccionada del servicio
+        selectedDate = DateSelectionService.SelectedDate;
+
+        if (selectedDate == default)
+        {
+            // Manejo de error si no se ha establecido una fecha
+            Console.WriteLine("No se ha seleccionado ninguna fecha.");
+            // Opcionalmente, podrías redirigir al usuario al calendario
+            NavigationManager.NavigateTo("/calendar");
+        }
+        else
+        {
+            // Lógica para usar la fecha seleccionada
+            Console.WriteLine($"Fecha recibida: {selectedDate}");
+            // Aquí puedes cargar las reservas para la fecha seleccionada
+        }
+    }
+}

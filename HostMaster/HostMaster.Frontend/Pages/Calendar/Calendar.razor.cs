@@ -1,9 +1,16 @@
+using HostMaster.Frontend.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace HostMaster.Frontend.Pages.Calendar;
 
 public class CalendarBase : ComponentBase
 {
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; }
+
+    [Inject]
+    protected DateSelectionService DateSelectionService { get; set; }
+
     protected DateTime CurrentMonth { get; set; } = DateTime.Now;
     protected List<List<DateTime?>> WeeksInMonth { get; set; }
 
@@ -75,8 +82,11 @@ public class CalendarBase : ComponentBase
 
     protected void OnDateSelected(DateTime date)
     {
-        // Aquí puedes hacer la lógica para mostrar las reservas de la fecha seleccionada
-        Console.WriteLine($"Fecha seleccionada: {date}");
+        // Guardamos la fecha seleccionada en el servicio
+        DateSelectionService.SelectedDate = date;
+
+        // Navegamos a la página de reservas sin pasar parámetros en la URL
+        NavigationManager.NavigateTo("/CalendarReservations");
     }
 
     protected bool IsToday(DateTime date)

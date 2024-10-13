@@ -4,14 +4,14 @@
 <MudContainer Class="calendar-container">
     <MudPaper Class="pa-4 calendar-paper">
         <MudText Typo="Typo.h5" Align="Align.Center">
-            Calendario para @CurrentMonth.ToString("MMMM yyyy")
+            Calendario para @CurrentMonth.ToString("MMMM") @CurrentMonth.ToString("yyyy")
         </MudText>
 
         <!-- Envolver el MudTable en un contenedor centrado -->
         <div class="calendar-table-container">
             <!-- Utilizar MudTablePlain para el calendario -->
-            <MudTablePlain Class="calendar-table" Bordered="true">
-                <MudTHead>
+            <div Class="calendar-table" Bordered="true">
+                <div>
                     <MudTr>
                         <MudTh>Lunes</MudTh>
                         <MudTh>Martes</MudTh>
@@ -21,8 +21,8 @@
                         <MudTh>Sábado</MudTh>
                         <MudTh>Domingo</MudTh>
                     </MudTr>
-                </MudTHead>
-                <MudTBody>
+                </div>
+                <div>
                     @foreach (var week in WeeksInMonth)
                     {
                         <MudTr>
@@ -42,8 +42,8 @@
                             }
                         </MudTr>
                     }
-                </MudTBody>
-            </MudTablePlain>
+                </div>
+            </div>
         </div>
 
         <div class="calendar-navigation">

@@ -15,4 +15,6 @@ public interface ICountriesRepository
     Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
 
     Task<IEnumerable<Country>> GetComboAsync();
+
+    Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 }

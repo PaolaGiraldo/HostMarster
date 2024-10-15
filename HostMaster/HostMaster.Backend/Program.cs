@@ -87,6 +87,9 @@ builder.Services.AddScoped<IRoomTypesUnitOfWork, RoomTypesUnitOfWork>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
+builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
+builder.Services.AddScoped<ICalendarUnitOfWork, CalendarUnitOfWork>();
+
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
     x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;

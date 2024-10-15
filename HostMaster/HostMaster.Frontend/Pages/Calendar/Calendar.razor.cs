@@ -86,7 +86,7 @@ public class CalendarBase : ComponentBase
         DateSelectionService.SelectedDate = date;
 
         // Navegamos a la página de reservas sin pasar parámetros en la URL
-        NavigationManager.NavigateTo("/CalendarReservations");
+        NavigationManager.NavigateTo("/CalendarList");
     }
 
     protected bool IsToday(DateTime date)

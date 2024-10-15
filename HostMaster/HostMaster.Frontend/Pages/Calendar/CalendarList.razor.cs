@@ -6,6 +6,7 @@ using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using System.Net;
@@ -104,6 +105,11 @@ public partial class CalendarList
         Filter = value;
         await LoadTotalRecordsAsync();
         await table.ReloadServerData();
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/Calendar");
     }
 
 }

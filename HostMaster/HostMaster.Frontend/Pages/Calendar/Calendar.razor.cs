@@ -11,6 +11,9 @@ public class CalendarBase : ComponentBase
     [Inject]
     protected DateSelectionService DateSelectionService { get; set; }
 
+    // add if to load currentMonth when go back page.
+    //################################TO DO #######################
+    // if service date null then calculate currentMonth otherwise load from service 
     protected DateTime CurrentMonth { get; set; } = DateTime.Now;
     protected List<List<DateTime?>> WeeksInMonth { get; set; }
 

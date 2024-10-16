@@ -124,6 +124,24 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A charming hotel with history and personality..
+        /// </summary>
+        public static string AccommodationSlogan {
+            get {
+                return ResourceManager.GetString("AccommodationSlogan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hotel Name.
+        /// </summary>
+        public static string AccomodationName {
+            get {
+                return ResourceManager.GetString("AccomodationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string Actions {

@@ -520,4 +520,10 @@
   <data name="CurrentPassword" xml:space="preserve">
     <value>Contraseña actual</value>
   </data>
+  <data name="AccomodationName" xml:space="preserve">
+    <value>Nombre Hotel</value>
+  </data>
+  <data name="AccommodationSlogan" xml:space="preserve">
+    <value>Un hotel con encanto, historia y personalidad.</value>
+  </data>
 </root>

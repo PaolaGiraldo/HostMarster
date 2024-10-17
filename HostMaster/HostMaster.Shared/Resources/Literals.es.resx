@@ -535,4 +535,7 @@
   <data name="StartDateLess" xml:space="preserve">
     <value>La fecha de inicio de la reserva debe ser menor que la fecha de finalización.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
 </root>

@@ -535,4 +535,28 @@
   <data name="StartDateLess" xml:space="preserve">
     <value>La fecha de inicio de la reserva debe ser menor que la fecha de finalización.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="ReservationForm" xml:space="preserve">
+    <value>Formulario de Reserva</value>
+  </data>
+  <data name="AccommodationsForm" xml:space="preserve">
+    <value>Formulario de Alojamientos</value>
+  </data>
+  <data name="RegisterPageName" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="EditUserPageName" xml:space="preserve">
+    <value>Editar Usuario</value>
+  </data>
+  <data name="CountryForm" xml:space="preserve">
+    <value>Formulario País</value>
+  </data>
+  <data name="RoomForm" xml:space="preserve">
+    <value>Formulario Habitación</value>
+  </data>
+  <data name="RoomTypeForm" xml:space="preserve">
+    <value>Formulario Tipo Habitación</value>
+  </data>
 </root>

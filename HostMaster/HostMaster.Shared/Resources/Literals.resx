@@ -535,4 +535,28 @@
   <data name="StartDateLess" xml:space="preserve">
     <value>The start date of the reservation must be less than the end date.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="ReservationForm" xml:space="preserve">
+    <value>Reservation Form</value>
+  </data>
+  <data name="AccommodationsForm" xml:space="preserve">
+    <value>Accommodations Form</value>
+  </data>
+  <data name="RegisterPageName" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="EditUserPageName" xml:space="preserve">
+    <value>Edit user</value>
+  </data>
+  <data name="CountryForm" xml:space="preserve">
+    <value>Country Form</value>
+  </data>
+  <data name="RoomForm" xml:space="preserve">
+    <value>Room Form</value>
+  </data>
+  <data name="RoomTypeForm" xml:space="preserve">
+    <value>Room Type Form</value>
+  </data>
 </root>

@@ -2,10 +2,19 @@
 
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
-    <MudTextField  Label="@Localizer["Accommodation"]"
-                  @bind-Value="@ReservationDTO.AccommodationId"
-                  For="@(() => ReservationDTO.AccommodationId)"
-                  Class="mb-4" />
+
+    <MudAutocomplete T="Accommodation"
+                     Label=@Localizer["Accommodation"]
+                     Placeholder=@Localizer["SelectAnAccommodation"]
+                     SearchFunc="SearchAccommodation"
+                     Value="selectedAccommodation"
+                     ValueChanged="AccommodationChanged"
+                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
+                     Class="mb-4">
+        <ItemTemplate Context="itemContext">
+            @itemContext.Name
+        </ItemTemplate>
+    </MudAutocomplete>
 
     <MudTextField Label="@Localizer["RoomId"]"
                   @bind-Value="@ReservationDTO.RoomId"

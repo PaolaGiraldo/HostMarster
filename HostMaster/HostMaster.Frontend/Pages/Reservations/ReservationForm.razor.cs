@@ -1,6 +1,7 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using HostMaster.Frontend.Repositories;
 using HostMaster.Shared.DTOs;
+using HostMaster.Shared.Entities;
 using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -13,12 +14,19 @@ namespace HostMaster.Frontend.Pages.Reservations;
 public partial class ReservationForm
 {
     private EditContext editContext = null!;
+    private Accommodation selectedAccommodation = new();
+    private List<Accommodation>? accommodations;
 
     protected override void OnInitialized()
     {
         editContext = new(ReservationDTO);
         ReservationDTO.StartDate = DateTime.Now;
         ReservationDTO.EndDate = DateTime.Today.AddDays(3);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAccommodationsAsync();
     }
 
     [EditorRequired, Parameter] public ReservationDTO ReservationDTO { get; set; } = null!;
@@ -55,5 +63,38 @@ public partial class ReservationForm
             return;
         }
         context.PreventNavigation();
+    }
+
+    private async Task LoadAccommodationsAsync()
+    {
+        var responseHttp = await Repository.GetAsync<List<Accommodation>>("/api/accommodations");
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+        accommodations = responseHttp.Response;
+        Console.WriteLine(accommodations);
+    }
+
+    private async Task<IEnumerable<Accommodation>> SearchAccommodation(string searchText, CancellationToken cancellationToken)
+    {
+        await Task.Delay(5);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return accommodations!;
+        }
+
+        return accommodations!
+            .Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase))
+            .ToList();
+    }
+
+    private void AccommodationChanged(Accommodation accommodation)
+    {
+        selectedAccommodation = accommodation;
+        ReservationDTO.AccommodationId = accommodation.Id;
     }
 }

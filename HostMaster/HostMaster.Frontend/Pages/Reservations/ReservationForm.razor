@@ -12,13 +12,13 @@
                   For="@(() => ReservationDTO.RoomId)"
                   Class="mb-4" />
 
-    <MudTextField Label="@Localizer["StartDate"]"
-                  @bind-Value="@ReservationDTO.StartDate"
+    <MudDatePicker Label="@Localizer["StartDate"]"
+                  @bind-Date ="@ReservationDTO.StartDate"
                   For="@(() => ReservationDTO.StartDate)"
                   Class="mb-4" />
 
-    <MudTextField Label="@Localizer["EndDate"]"
-                  @bind-Value="@ReservationDTO.EndDate"
+    <MudDatePicker Label="@Localizer["EndDate"]"
+                  @bind-Date="@ReservationDTO.EndDate"
                   For="@(() => ReservationDTO.EndDate)"
                   Class="mb-4" />
 

@@ -15,11 +15,11 @@ public class ReservationDTO
 
     [Display(Name = "StartDate", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public DateTime StartDate { get; set; }
+    public DateTime? StartDate { get; set; }
 
     [Display(Name = "EndDate", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public DateTime EndDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     [Display(Name = "NumberOfGuests", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
 
 namespace HostMaster.Frontend.Pages.Reservations;
 
@@ -16,6 +17,8 @@ public partial class ReservationForm
     protected override void OnInitialized()
     {
         editContext = new(ReservationDTO);
+        ReservationDTO.StartDate = DateTime.Now;
+        ReservationDTO.EndDate = DateTime.Today.AddDays(3);
     }
 
     [EditorRequired, Parameter] public ReservationDTO ReservationDTO { get; set; } = null!;

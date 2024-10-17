@@ -26,7 +26,6 @@ public class ReservationDTO
     public int NumberOfGuests { get; set; }
 
     [Display(Name = "ReservationState", ResourceType = typeof(Literals))]
-    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public string ReservationState { get; set; } = null!;
 
     //Foreign keys
@@ -38,5 +37,7 @@ public class ReservationDTO
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int AccommodationId { get; set; }
 
+    [Display(Name = "CustomerDocument", ResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int CustomerDocument { get; set; }
 }

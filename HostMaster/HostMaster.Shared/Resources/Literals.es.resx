@@ -514,9 +514,6 @@
   <data name="Yes" xml:space="preserve">
     <value>Sí</value>
   </data>
-  <data name="Users_Duplicate[1]" xml:space="preserve">
-    <value>Usuarios</value>
-  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Contraseña actual</value>
   </data>
@@ -525,5 +522,14 @@
   </data>
   <data name="AccommodationSlogan" xml:space="preserve">
     <value>Un hotel con encanto, historia y personalidad.</value>
+  </data>
+  <data name="SelectDateRange" xml:space="preserve">
+    <value>Seleccione un rango de fechas</value>
+  </data>
+  <data name="ValidGuestsNumber" xml:space="preserve">
+    <value>{0} debe ser mayor que 0.</value>
+  </data>
+  <data name="CustomerDocument" xml:space="preserve">
+    <value>Documento del cliente</value>
   </data>
 </root>

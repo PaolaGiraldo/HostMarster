@@ -22,7 +22,8 @@
                   For="@(() => ReservationDTO.EndDate)"
                   Class="mb-4" />
 
-    <MudTextField Label="@Localizer["NumberOfGuests"]"
+    <MudNumericField Label="@Localizer["NumberOfGuests"]"
+                     Min="1" Max="100"
                   @bind-Value="@ReservationDTO.NumberOfGuests"
                   For="@(() => ReservationDTO.NumberOfGuests)"
                   Class="mb-4" />

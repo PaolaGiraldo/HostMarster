@@ -340,6 +340,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer document.
+        /// </summary>
+        public static string CustomerDocument {
+            get {
+                return ResourceManager.GetString("CustomerDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -1195,6 +1204,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Date Range.
+        /// </summary>
+        public static string SelectDateRange {
+            get {
+                return ResourceManager.GetString("SelectDateRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a file....
         /// </summary>
         public static string SelectFile {
@@ -1312,15 +1330,6 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Users.
-        /// </summary>
-        public static string Users_Duplicate_1_ {
-            get {
-                return ResourceManager.GetString("Users_Duplicate[1]", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to User type.
         /// </summary>
         public static string UserType {
@@ -1335,6 +1344,15 @@ namespace HostMaster.Shared.Resources {
         public static string ValidEmail {
             get {
                 return ResourceManager.GetString("ValidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} must be greater than 0..
+        /// </summary>
+        public static string ValidGuestsNumber {
+            get {
+                return ResourceManager.GetString("ValidGuestsNumber", resourceCulture);
             }
         }
         

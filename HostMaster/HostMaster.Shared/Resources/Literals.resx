@@ -289,7 +289,7 @@
   <data name="ERR_RES003" xml:space="preserve">
     <value>The Reservation Id is not valid</value>
   </data>
-  <data name="ERR_RES004" xml:space="preserve">
+  <data name="EndDateGreater" xml:space="preserve">
     <value>The end date of the reservation must be greater than the start date.</value>
   </data>
   <data name="ERR_RES005" xml:space="preserve">
@@ -531,5 +531,8 @@
   </data>
   <data name="CustomerDocument" xml:space="preserve">
     <value>Customer document</value>
+  </data>
+  <data name="StartDateLess" xml:space="preserve">
+    <value>The start date of the reservation must be less than the end date.</value>
   </data>
 </root>

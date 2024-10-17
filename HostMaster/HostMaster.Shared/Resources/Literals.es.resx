@@ -289,7 +289,7 @@
   <data name="ERR_RES003" xml:space="preserve">
     <value>El Id de la reserva no es valido</value>
   </data>
-  <data name="ERR_RES004" xml:space="preserve">
+  <data name="EndDateGreater" xml:space="preserve">
     <value>La fecha de finalización de la reserva debe ser mayor que la fecha de inicio.</value>
   </data>
   <data name="ERR_RES005" xml:space="preserve">
@@ -531,5 +531,8 @@
   </data>
   <data name="CustomerDocument" xml:space="preserve">
     <value>Documento del cliente</value>
+  </data>
+  <data name="StartDateLess" xml:space="preserve">
+    <value>La fecha de inicio de la reserva debe ser menor que la fecha de finalización.</value>
   </data>
 </root>

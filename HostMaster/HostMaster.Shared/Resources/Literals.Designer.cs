@@ -466,6 +466,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The end date of the reservation must be greater than the start date..
+        /// </summary>
+        public static string EndDateGreater {
+            get {
+                return ResourceManager.GetString("EndDateGreater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Room Id is not valid.
         /// </summary>
         public static string ERR_RES001 {
@@ -489,15 +498,6 @@ namespace HostMaster.Shared.Resources {
         public static string ERR_RES003 {
             get {
                 return ResourceManager.GetString("ERR_RES003", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The end date of the reservation must be greater than the start date..
-        /// </summary>
-        public static string ERR_RES004 {
-            get {
-                return ResourceManager.GetString("ERR_RES004", resourceCulture);
             }
         }
         
@@ -1254,6 +1254,15 @@ namespace HostMaster.Shared.Resources {
         public static string StartDate {
             get {
                 return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The start date of the reservation must be less than the end date..
+        /// </summary>
+        public static string StartDateLess {
+            get {
+                return ResourceManager.GetString("StartDateLess", resourceCulture);
             }
         }
         

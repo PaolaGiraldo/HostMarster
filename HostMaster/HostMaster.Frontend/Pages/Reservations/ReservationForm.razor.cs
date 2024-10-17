@@ -17,6 +17,9 @@ public partial class ReservationForm
     private Accommodation selectedAccommodation = new();
     private List<Accommodation>? accommodations;
 
+    private Room selectedRoom = new();
+    private List<Room>? rooms;
+
     protected override void OnInitialized()
     {
         editContext = new(ReservationDTO);
@@ -27,6 +30,7 @@ public partial class ReservationForm
     protected override async Task OnInitializedAsync()
     {
         await LoadAccommodationsAsync();
+        await LoadRoomsAsync();
     }
 
     [EditorRequired, Parameter] public ReservationDTO ReservationDTO { get; set; } = null!;
@@ -76,7 +80,6 @@ public partial class ReservationForm
         }
 
         accommodations = responseHttp.Response;
-        Console.WriteLine(accommodations);
     }
 
     private async Task<IEnumerable<Accommodation>> SearchAccommodation(string searchText, CancellationToken cancellationToken)
@@ -96,5 +99,38 @@ public partial class ReservationForm
     {
         selectedAccommodation = accommodation;
         ReservationDTO.AccommodationId = accommodation.Id;
+    }
+
+    private async Task LoadRoomsAsync()
+    {
+        var responseHttp = await Repository.GetAsync<List<Room>>("/api/rooms");
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+        rooms = responseHttp.Response;
+    }
+
+    private async Task<IEnumerable<Room>> SearchRoom(string searchText, CancellationToken cancellationToken)
+    {
+        await Task.Delay(5);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return rooms!;
+        }
+
+        return rooms!
+            .Where(x => x.AccommodationId.Equals(selectedAccommodation))
+            .Where(x => x.RoomNumber.Contains(searchText, StringComparison.InvariantCultureIgnoreCase))
+            .ToList();
+    }
+
+    private void RoomChanged(Room room)
+    {
+        selectedRoom = room;
+        ReservationDTO.AccommodationId = room.Id;
     }
 }

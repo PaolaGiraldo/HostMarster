@@ -16,10 +16,19 @@
         </ItemTemplate>
     </MudAutocomplete>
 
-    <MudTextField Label="@Localizer["RoomId"]"
-                  @bind-Value="@ReservationDTO.RoomId"
-                  For="@(() => ReservationDTO.RoomId)"
-                  Class="mb-4" />
+    <MudAutocomplete T="Room"
+                     Label=@Localizer["Room"]
+                     Placeholder=@Localizer["SelectARoom"]
+                     SearchFunc="SearchRoom"
+                     Value="selectedRoom"
+                     ValueChanged="RoomChanged"
+                     ToStringFunc="@(e=> e==null?null : $"{e.RoomNumber}")"
+                     Class="mb-4">
+        <ItemTemplate Context="itemContext">
+            @itemContext.RoomNumber
+        </ItemTemplate>
+    </MudAutocomplete>
+
 
     <MudDatePicker Label="@Localizer["StartDate"]"
                   @bind-Date ="@ReservationDTO.StartDate"

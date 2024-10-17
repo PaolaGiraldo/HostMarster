@@ -289,7 +289,7 @@
   <data name="ERR_RES003" xml:space="preserve">
     <value>El Id de la reserva no es valido</value>
   </data>
-  <data name="ERR_RES004" xml:space="preserve">
+  <data name="EndDateGreater" xml:space="preserve">
     <value>La fecha de finalización de la reserva debe ser mayor que la fecha de inicio.</value>
   </data>
   <data name="ERR_RES005" xml:space="preserve">
@@ -514,10 +514,25 @@
   <data name="Yes" xml:space="preserve">
     <value>Sí</value>
   </data>
-  <data name="Users_Duplicate[1]" xml:space="preserve">
-    <value>Usuarios</value>
-  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Contraseña actual</value>
+  </data>
+  <data name="AccomodationName" xml:space="preserve">
+    <value>Nombre Hotel</value>
+  </data>
+  <data name="AccommodationSlogan" xml:space="preserve">
+    <value>Un hotel con encanto, historia y personalidad.</value>
+  </data>
+  <data name="SelectDateRange" xml:space="preserve">
+    <value>Seleccione un rango de fechas</value>
+  </data>
+  <data name="ValidGuestsNumber" xml:space="preserve">
+    <value>{0} debe ser mayor que 0.</value>
+  </data>
+  <data name="CustomerDocument" xml:space="preserve">
+    <value>Documento del cliente</value>
+  </data>
+  <data name="StartDateLess" xml:space="preserve">
+    <value>La fecha de inicio de la reserva debe ser menor que la fecha de finalización.</value>
   </data>
 </root>

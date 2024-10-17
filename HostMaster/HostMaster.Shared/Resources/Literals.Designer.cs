@@ -124,6 +124,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accommodations Form.
+        /// </summary>
+        public static string AccommodationsForm {
+            get {
+                return ResourceManager.GetString("AccommodationsForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A charming hotel with history and personality..
         /// </summary>
         public static string AccommodationSlogan {
@@ -322,6 +331,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Country Form.
+        /// </summary>
+        public static string CountryForm {
+            get {
+                return ResourceManager.GetString("CountryForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Create {
@@ -435,6 +453,15 @@ namespace HostMaster.Shared.Resources {
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit user.
+        /// </summary>
+        public static string EditUserPageName {
+            get {
+                return ResourceManager.GetString("EditUserPageName", resourceCulture);
             }
         }
         
@@ -1024,6 +1051,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string RegisterPageName {
+            get {
+                return ResourceManager.GetString("RegisterPageName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field {0} is required..
         /// </summary>
         public static string RequiredField {
@@ -1047,6 +1083,15 @@ namespace HostMaster.Shared.Resources {
         public static string Reservation {
             get {
                 return ResourceManager.GetString("Reservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reservation Form.
+        /// </summary>
+        public static string ReservationForm {
+            get {
+                return ResourceManager.GetString("ReservationForm", resourceCulture);
             }
         }
         
@@ -1083,6 +1128,15 @@ namespace HostMaster.Shared.Resources {
         public static string Room {
             get {
                 return ResourceManager.GetString("Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room Form.
+        /// </summary>
+        public static string RoomForm {
+            get {
+                return ResourceManager.GetString("RoomForm", resourceCulture);
             }
         }
         
@@ -1128,6 +1182,15 @@ namespace HostMaster.Shared.Resources {
         public static string RoomType {
             get {
                 return ResourceManager.GetString("RoomType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room Type Form.
+        /// </summary>
+        public static string RoomTypeForm {
+            get {
+                return ResourceManager.GetString("RoomTypeForm", resourceCulture);
             }
         }
         

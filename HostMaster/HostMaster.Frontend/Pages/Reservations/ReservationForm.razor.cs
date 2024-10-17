@@ -131,6 +131,6 @@ public partial class ReservationForm
     private void RoomChanged(Room room)
     {
         selectedRoom = room;
-        ReservationDTO.AccommodationId = room.Id;
+        ReservationDTO.RoomId = room.Id;
     }
 }

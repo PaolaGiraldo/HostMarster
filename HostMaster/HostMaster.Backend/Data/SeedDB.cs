@@ -69,7 +69,7 @@ public class SeedDb
 
     private async Task CheckCountriesDbAsync()
     {
-        if (!_context.Rooms.Any())
+        if (!_context.Countries.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedCountries.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);

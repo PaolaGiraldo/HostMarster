@@ -1,0 +1,5 @@
+﻿@page "/extraServices/create"
+
+<h3>@Localizer["New"] @Localizer["Service"]</h3>
+
+<ExtraServicesForm @ref="extraServiceForm" ExtraService="extraService" OnValidSubmit="CreateAsync" ReturnAction="Return" />

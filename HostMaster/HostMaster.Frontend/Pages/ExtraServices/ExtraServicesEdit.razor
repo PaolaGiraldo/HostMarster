@@ -1,0 +1,13 @@
+﻿@page "/extraServices/edit/{Id:int}"
+
+<h3>@Localizer["Edit"] @Localizer["Service"]</h3>
+
+@if (extraService is null)
+{
+    <Loading />
+}
+else
+{
+    <ExtraServicesForm @ref="extraServicesForm" ExtraService="extraService" OnValidSubmit="EditAsync" ReturnAction="Return" />
+}
+

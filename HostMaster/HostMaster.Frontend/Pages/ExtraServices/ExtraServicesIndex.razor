@@ -1,0 +1,43 @@
+﻿@page "/extraServices"
+
+<h3>@Localizer["Service"]</h3>
+
+<div class="mb-3">
+    <a class="btn btn-primary" href="/extraServices/create">@Localizer["New"] @Localizer["Service"]</a>
+</div>
+
+<GenericList MyList="ExtraServices">
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Localizer["Service"]</th>
+                    <th>@Localizer["Description"]</th>
+                    <th>@Localizer["Price"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var extraService in ExtraServices!)
+                {
+                    <tr>
+                        <td>
+                            @extraService.ServiceName
+                        </td>
+                        <td>
+                            @extraService.ServiceDescription
+                        </td>
+                        <td>
+                            @extraService.Price
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="/extraServices/edit/@extraService.Id">@Localizer["Edit"]</a>
+                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(extraService))>@Localizer["Delete"]</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</GenericList>
+

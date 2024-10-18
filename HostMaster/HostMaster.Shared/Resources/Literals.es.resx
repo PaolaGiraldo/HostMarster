@@ -559,4 +559,10 @@
   <data name="RoomTypeForm" xml:space="preserve">
     <value>Formulario Tipo Habitación</value>
   </data>
+  <data name="Services" xml:space="preserve">
+    <value>Servicios</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Servicio</value>
+  </data>
 </root>

@@ -78,7 +78,7 @@ public class SeedDb
 
     private async Task CheckStatesDbAsync()
     {
-        if (!_context.Rooms.Any())
+        if (!_context.States.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedStates.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
@@ -87,7 +87,7 @@ public class SeedDb
 
     private async Task CheckCitiesDbAsync()
     {
-        if (!_context.Rooms.Any())
+        if (!_context.Cities.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedCities.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
@@ -96,7 +96,7 @@ public class SeedDb
 
     private async Task CheckAccommodationsDbAsync()
     {
-        if (!_context.Rooms.Any())
+        if (!_context.Accommodations.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedAccommodations.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);

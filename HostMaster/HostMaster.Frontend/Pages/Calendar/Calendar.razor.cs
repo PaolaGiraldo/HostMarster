@@ -1,5 +1,7 @@
 using HostMaster.Frontend.Services;
+using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace HostMaster.Frontend.Pages.Calendar;
 
@@ -10,6 +12,8 @@ public class CalendarBase : ComponentBase
 
     [Inject]
     protected DateSelectionService DateSelectionService { get; set; }
+
+    [Inject] public IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
     // add if to load currentMonth when go back page.
     //################################TO DO #######################

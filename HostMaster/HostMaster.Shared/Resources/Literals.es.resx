@@ -514,10 +514,70 @@
   <data name="Yes" xml:space="preserve">
     <value>Sí</value>
   </data>
-  <data name="Users_Duplicate[1]" xml:space="preserve">
-    <value>Usuarios</value>
-  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Contraseña actual</value>
+  </data>
+  <data name="january" xml:space="preserve">
+    <value>enero</value>
+  </data>
+  <data name="february" xml:space="preserve">
+    <value>febrero</value>
+  </data>
+  <data name="march" xml:space="preserve">
+    <value>marzo</value>
+  </data>
+  <data name="april" xml:space="preserve">
+    <value>abril</value>
+  </data>
+  <data name="may" xml:space="preserve">
+    <value>mayo</value>
+  </data>
+  <data name="june" xml:space="preserve">
+    <value>junio</value>
+  </data>
+  <data name="july" xml:space="preserve">
+    <value>julio</value>
+  </data>
+  <data name="august" xml:space="preserve">
+    <value>agosto</value>
+  </data>
+  <data name="september" xml:space="preserve">
+    <value>septiembre</value>
+  </data>
+  <data name="october" xml:space="preserve">
+    <value>octubre</value>
+  </data>
+  <data name="november" xml:space="preserve">
+    <value>noviembre</value>
+  </data>
+  <data name="december" xml:space="preserve">
+    <value>diciembre</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Lunes</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Martes</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Miércoles</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Jueves</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Viernes</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sábado</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Domingo</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Mes anterior</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Mes siguiente</value>
   </data>
 </root>

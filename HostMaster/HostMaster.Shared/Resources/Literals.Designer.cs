@@ -169,6 +169,24 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to april.
+        /// </summary>
+        public static string april {
+            get {
+                return ResourceManager.GetString("april", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to august.
+        /// </summary>
+        public static string august {
+            get {
+                return ResourceManager.GetString("august", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authorizing....
         /// </summary>
         public static string Authorizing {
@@ -318,6 +336,15 @@ namespace HostMaster.Shared.Resources {
         public static string Customer {
             get {
                 return ResourceManager.GetString("Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to december.
+        /// </summary>
+        public static string december {
+            get {
+                return ResourceManager.GetString("december", resourceCulture);
             }
         }
         
@@ -565,6 +592,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to february.
+        /// </summary>
+        public static string february {
+            get {
+                return ResourceManager.GetString("february", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Filter {
@@ -588,6 +624,15 @@ namespace HostMaster.Shared.Resources {
         public static string ForgottenYourPassword {
             get {
                 return ResourceManager.GetString("ForgottenYourPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friday.
+        /// </summary>
+        public static string Friday {
+            get {
+                return ResourceManager.GetString("Friday", resourceCulture);
             }
         }
         
@@ -642,6 +687,33 @@ namespace HostMaster.Shared.Resources {
         public static string IsAvailable {
             get {
                 return ResourceManager.GetString("IsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to january.
+        /// </summary>
+        public static string january {
+            get {
+                return ResourceManager.GetString("january", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to july.
+        /// </summary>
+        public static string july {
+            get {
+                return ResourceManager.GetString("july", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to june.
+        /// </summary>
+        public static string june {
+            get {
+                return ResourceManager.GetString("june", resourceCulture);
             }
         }
         
@@ -718,6 +790,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to march.
+        /// </summary>
+        public static string march {
+            get {
+                return ResourceManager.GetString("march", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max guests.
         /// </summary>
         public static string MaxGuests {
@@ -736,11 +817,29 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to may.
+        /// </summary>
+        public static string may {
+            get {
+                return ResourceManager.GetString("may", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {0} field must have at least {1} characters..
         /// </summary>
         public static string MinLength {
             get {
                 return ResourceManager.GetString("MinLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monday.
+        /// </summary>
+        public static string Monday {
+            get {
+                return ResourceManager.GetString("Monday", resourceCulture);
             }
         }
         
@@ -768,6 +867,15 @@ namespace HostMaster.Shared.Resources {
         public static string NewPassword {
             get {
                 return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next month.
+        /// </summary>
+        public static string NextMonth {
+            get {
+                return ResourceManager.GetString("NextMonth", resourceCulture);
             }
         }
         
@@ -826,11 +934,29 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to november.
+        /// </summary>
+        public static string november {
+            get {
+                return ResourceManager.GetString("november", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of guests.
         /// </summary>
         public static string NumberOfGuests {
             get {
                 return ResourceManager.GetString("NumberOfGuests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to october.
+        /// </summary>
+        public static string october {
+            get {
+                return ResourceManager.GetString("october", resourceCulture);
             }
         }
         
@@ -921,6 +1047,15 @@ namespace HostMaster.Shared.Resources {
         public static string PleaseWait {
             get {
                 return ResourceManager.GetString("PleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous month.
+        /// </summary>
+        public static string PreviousMonth {
+            get {
+                return ResourceManager.GetString("PreviousMonth", resourceCulture);
             }
         }
         
@@ -1123,6 +1258,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saturday.
+        /// </summary>
+        public static string Saturday {
+            get {
+                return ResourceManager.GetString("Saturday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save Changes.
         /// </summary>
         public static string SaveChanges {
@@ -1204,6 +1348,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to september.
+        /// </summary>
+        public static string september {
+            get {
+                return ResourceManager.GetString("september", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Single Room.
         /// </summary>
         public static string SingleRoom {
@@ -1240,6 +1393,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sunday.
+        /// </summary>
+        public static string Sunday {
+            get {
+                return ResourceManager.GetString("Sunday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Team.
         /// </summary>
         public static string Team {
@@ -1258,11 +1420,29 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thursday.
+        /// </summary>
+        public static string Thursday {
+            get {
+                return ResourceManager.GetString("Thursday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HostMaster.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tuesday.
+        /// </summary>
+        public static string Tuesday {
+            get {
+                return ResourceManager.GetString("Tuesday", resourceCulture);
             }
         }
         
@@ -1294,15 +1474,6 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Users.
-        /// </summary>
-        public static string Users_Duplicate_1_ {
-            get {
-                return ResourceManager.GetString("Users_Duplicate[1]", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to User type.
         /// </summary>
         public static string UserType {
@@ -1317,6 +1488,15 @@ namespace HostMaster.Shared.Resources {
         public static string ValidEmail {
             get {
                 return ResourceManager.GetString("ValidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wednesday.
+        /// </summary>
+        public static string Wednesday {
+            get {
+                return ResourceManager.GetString("Wednesday", resourceCulture);
             }
         }
         

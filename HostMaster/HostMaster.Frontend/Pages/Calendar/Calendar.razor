@@ -6,7 +6,7 @@
 <MudContainer Class="calendar-container">
     <MudPaper Class="pa-4 calendar-paper">
         <MudText Typo="Typo.h5" Align="Align.Center">
-            Calendario para @CurrentMonth.ToString("MMMM") @CurrentMonth.ToString("yyyy")
+            @Localizer["Calendar"] @Localizer[@CurrentMonth.ToString("MMMM")] @CurrentMonth.ToString("yyyy")
         </MudText>
 
         <!-- Envolver el calendario en un contenedor centrado -->
@@ -15,13 +15,13 @@
             <MudSimpleTable Class="calendar-table">
                 <thead>
                     <tr>
-                        <th>Lunes</th>
-                        <th>Martes</th>
-                        <th>Miércoles</th>
-                        <th>Jueves</th>
-                        <th>Viernes</th>
-                        <th>Sábado</th>
-                        <th>Domingo</th>
+                        <th>@Localizer["Monday"]</th>
+                        <th>@Localizer["Tuesday"]</th>
+                        <th>@Localizer["Wednesday"]</th>
+                        <th>@Localizer["Thursday"]</th>
+                        <th>@Localizer["Friday"]</th>
+                        <th>@Localizer["Saturday"]</th>
+                        <th>@Localizer["Sunday"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,7 +35,7 @@
                                     {
                                         <MudButton @onclick="() => OnDateSelected(day.Value)"
                                                    Class="calendar-button"
-                                                   Style="@(IsToday(day.Value) ? "background-color: yellow; color: black;" : "")">
+                                                   Style="@(IsToday(day.Value) ? "background-purple: blue; color: black;" : "")">
                                             @day.Value.Day
                                         </MudButton>
                                     }
@@ -52,8 +52,8 @@
         </div>
 
         <div class="calendar-navigation">
-            <MudButton Variant="Variant.Outlined" OnClick="PreviousMonth" Class="calendar-nav-button">Mes Anterior</MudButton>
-            <MudButton Variant="Variant.Outlined" OnClick="NextMonth" Class="calendar-nav-button">Mes Siguiente</MudButton>
+            <MudButton Variant="Variant.Outlined" OnClick="PreviousMonth" Class="calendar-nav-button"> @Localizer["PreviousMonth"] </MudButton>
+            <MudButton Variant="Variant.Outlined" OnClick="NextMonth" Class="calendar-nav-button"> @Localizer["NextMonth"]</MudButton>
         </div>
     </MudPaper>
 </MudContainer>

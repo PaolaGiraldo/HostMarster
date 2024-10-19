@@ -1,4 +1,5 @@
-﻿using HostMaster.Shared.Resources;
+﻿using HostMaster.Shared.Entities;
+using HostMaster.Shared.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -32,6 +33,8 @@ public class CalendarListDTO
     [Display(Name = "RoomId", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int RoomId { get; set; }
+
+    public Room? Room { get; set; }
 
     [Display(Name = "RoomNumber", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]

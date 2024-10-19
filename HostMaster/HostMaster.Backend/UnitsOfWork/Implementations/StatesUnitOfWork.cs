@@ -1,4 +1,5 @@
-﻿using HostMaster.Backend.Repositories.Interfaces;
+﻿using HostMaster.Backend.Repositories.Implementations;
+using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Backend.UnitsOfWork.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
@@ -24,4 +25,8 @@ public class StatesUnitOfWork : GenericUnitOfWork<State>, IStatesUnitOfWork
     public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination) => await _statesRepository.GetTotalPagesAsync(pagination);
 
     public async Task<IEnumerable<State>> GetComboAsync(int countryId) => await _statesRepository.GetComboAsync(countryId);
+
+    public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _statesRepository.GetTotalRecordsAsync(pagination);
+
+    public async Task<ActionResponse<State>> AddAsync(StateDTO stateDTO) => await _statesRepository.AddAsync(stateDTO);
 }

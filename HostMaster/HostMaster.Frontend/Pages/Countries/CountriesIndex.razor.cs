@@ -1,7 +1,5 @@
-using Blazored.Modal;
 using Blazored.Modal.Services;
 using CurrieTechnologies.Razor.SweetAlert2;
-using HostMaster.Frontend.Pages.Accommodations;
 using HostMaster.Frontend.Repositories;
 using HostMaster.Frontend.Shared;
 using HostMaster.Shared.Entities;
@@ -61,11 +59,11 @@ public partial class CountriesIndex
                      { "Id", id }
                  };
 
-            dialog = DialogService.Show<CountryEdit>($"{Localizer["Edit"]} {Localizer["Accommodation"]}", parameters, options);
+            dialog = DialogService.Show<CountryEdit>($"{Localizer["Edit"]} {Localizer["Country"]}", parameters, options);
         }
         else
         {
-            dialog = DialogService.Show<CountryCreate>($"{Localizer["New"]} {Localizer["Accommodation"]}", options);
+            dialog = DialogService.Show<CountryCreate>($"{Localizer["New"]} {Localizer["Country"]}", options);
         }
 
         var result = await dialog.Result;
@@ -123,38 +121,29 @@ public partial class CountriesIndex
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
-        var url = $"{baseUrl}/?Id={countryId}&page={page}&recordsnumber={pageSize}";
+
+        var url = $"{baseUrl}/paginated/?page={page}&recordsnumber={pageSize}";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {
             url += $"&filter={Filter}";
         }
 
-        var responseHttp = await Repository.GetAsync<IEnumerable<Country>>(url);
-
+        var responseHttp = await Repository.GetAsync<List<Country>>(url);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
-            return new TableData<Country>
-            {
-                Items = Array.Empty<Country>(),
-                TotalItems = 0
-            };
+            Snackbar.Add(Localizer[message!], Severity.Error);
+            return new TableData<Country> { Items = [], TotalItems = 0 };
         }
         if (responseHttp.Response == null)
         {
-            return new TableData<Country>
-            {
-                Items = Array.Empty<Country>(),
-                TotalItems = 0
-            };
+            return new TableData<Country> { Items = [], TotalItems = 0 };
         }
-
         return new TableData<Country>
         {
             Items = responseHttp.Response,
-            TotalItems = responseHttp.Response.Count()
+            TotalItems = totalRecords
         };
     }
 

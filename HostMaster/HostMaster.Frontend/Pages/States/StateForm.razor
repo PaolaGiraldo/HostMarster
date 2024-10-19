@@ -2,10 +2,24 @@
 
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
-    <MudTextField Label="@Localizer["Country"]"
-                  @bind-Value="@Country.Name"
-                  For="@(() => Country.Name)"
+
+    <MudTextField Label="@Localizer["State"]"
+                  @bind-Value="@StateDTO.Name"
+                  For="@(() => StateDTO.Name)"
                   Class="mb-4" />
+
+    <MudAutocomplete T="Country"
+                     Label=@Localizer["Country"]
+                     Placeholder=@Localizer["SelectACountry"]
+                     SearchFunc="SearchCountry"
+                     Value="selectedCountry"
+                     ValueChanged="CountryChanged"
+                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+        <ItemTemplate Context="itemContext">
+            @itemContext.Name
+        </ItemTemplate>
+    </MudAutocomplete>
+
 
     <MudButton Variant="Variant.Outlined"
                StartIcon="@Icons.Material.Filled.ArrowBack"

@@ -1294,15 +1294,6 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Users.
-        /// </summary>
-        public static string Users_Duplicate_1_ {
-            get {
-                return ResourceManager.GetString("Users_Duplicate[1]", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to User type.
         /// </summary>
         public static string UserType {

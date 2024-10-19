@@ -1,5 +1,6 @@
 ﻿@page "/accommodations"
 @using HostMaster.Frontend.Shared
+<PageTitle>@Localizer["Accommodations"]</PageTitle>
 
 @if (loading)
 {
@@ -36,6 +37,7 @@ else
             <MudTh>@Localizer["Address"]</MudTh>
             <MudTh>@Localizer["PhoneNumber"]</MudTh>
             <MudTh>@Localizer["City"]</MudTh>
+            <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>

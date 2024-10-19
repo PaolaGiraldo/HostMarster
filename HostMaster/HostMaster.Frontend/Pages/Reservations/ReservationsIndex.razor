@@ -1,6 +1,6 @@
 ﻿@page "/reservations"
 @using HostMaster.Frontend.Shared
-
+<PageTitle>@Localizer["Reservations"]</PageTitle>
 
 @if (loading)
 {
@@ -43,8 +43,8 @@ else
         <RowTemplate>
             <MudTd>@context.AccommodationId</MudTd>
             <MudTd>@context.Room!.RoomNumber</MudTd>
-            <MudTd>@context.StartDate</MudTd>
-            <MudTd>@context.EndDate</MudTd>
+            <MudTd>@context.StartDate.ToShortDateString()</MudTd>
+            <MudTd>@context.EndDate.ToShortDateString()</MudTd>
             <MudTd>@context.ReservationState</MudTd>
             <MudTd>
                 @Localizer["Name"]: @context.Customer.FirstName @context.Customer.LastName<br>

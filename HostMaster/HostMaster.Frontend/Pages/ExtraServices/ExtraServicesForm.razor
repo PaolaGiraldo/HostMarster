@@ -1,0 +1,25 @@
+﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>@Localizer["Service"]:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@ExtraService.ServiceName" />
+            <ValidationMessage For="@(() => ExtraService.ServiceName)" />
+        </div>
+        <label>@Localizer["Description"]:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@ExtraService.ServiceDescription" />
+            <ValidationMessage For="@(() => ExtraService.ServiceDescription)" />
+        </div>
+        <label>@Localizer["Price"]:</label>
+        <div>
+            <InputNumber class="form-control" @bind-Value="@ExtraService.Price" />
+            <ValidationMessage For="@(() => ExtraService.Price)" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">@Localizer["SaveChanges"]</button>
+    <button class="btn btn-success" @onclick="ReturnAction">@Localizer["Return"]</button>
+</EditForm>

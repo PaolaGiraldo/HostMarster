@@ -52,8 +52,12 @@
         </div>
 
         <div class="calendar-navigation">
-            <MudButton Variant="Variant.Outlined" OnClick="PreviousMonth" Class="calendar-nav-button"> @Localizer["PreviousMonth"] </MudButton>
-            <MudButton Variant="Variant.Outlined" OnClick="NextMonth" Class="calendar-nav-button"> @Localizer["NextMonth"]</MudButton>
+            <MudButton Variant="Variant.Outlined" OnClick="PreviousMonth" Class="calendar-nav-button">
+                <MudIcon Icon="@Icons.Material.Filled.ArrowBack" />
+            </MudButton>
+            <MudButton Variant="Variant.Outlined" OnClick="NextMonth" Class="calendar-nav-button" >
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />
+            </MudButton>
         </div>
     </MudPaper>
 </MudContainer>

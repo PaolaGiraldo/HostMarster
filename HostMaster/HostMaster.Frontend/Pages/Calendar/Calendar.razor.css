@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
+    min-height: 80vh;*/
 }
 
 .calendar-paper {
@@ -69,12 +69,13 @@
 /* Navegación del calendario */
 .calendar-navigation {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-top: 20px;
 }
 
 .calendar-nav-button {
     min-width: 150px;
+    justify-content: space-around;
 }
 
 /* Estilo para el día actual */

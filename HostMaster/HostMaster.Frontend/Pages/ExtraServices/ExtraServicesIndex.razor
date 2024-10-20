@@ -1,43 +1,70 @@
 ﻿@page "/extraServices"
+@using HostMaster.Frontend.Shared
 
-<h3>@Localizer["Service"]</h3>
+<PageTitle>@Localizer["Services"]</PageTitle>
 
-<div class="mb-3">
-    <a class="btn btn-primary" href="/extraServices/create">@Localizer["New"] @Localizer["Service"]</a>
-</div>
 
-<GenericList MyList="ExtraServices">
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>@Localizer["Service"]</th>
-                    <th>@Localizer["Description"]</th>
-                    <th>@Localizer["Price"]</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var extraService in ExtraServices!)
-                {
-                    <tr>
-                        <td>
-                            @extraService.ServiceName
-                        </td>
-                        <td>
-                            @extraService.ServiceDescription
-                        </td>
-                        <td>
-                            @extraService.Price
-                        </td>
-                        <td>
-                            <a class="btn btn-warning" href="/extraServices/edit/@extraService.Id">@Localizer["Edit"]</a>
-                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(extraService))>@Localizer["Delete"]</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </Body>
-</GenericList>
-
+@if (loading)
+{
+    <HostMaster.Frontend.Shared.Loading />
+}
+else
+{
+    <MudTable Items="@ExtraServices"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true">
+        <ToolBarContent>
+            <div class="d-flex justify-content-between">
+                <MudText Typo="Typo.h6" Class="me-4"> @Localizer["Service"]</MudText>
+                <MudButton Variant="Variant.Outlined"
+                           EndIcon="@Icons.Material.Filled.Add"
+                           Color="Color.Info" OnClick="@(() => ShowModalAsync())">
+                    @Localizer["New"]
+                </MudButton>
+            </div>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>@Localizer["Service"]</MudTh>
+            <MudTh>@Localizer["Description"]</MudTh>
+            <MudTh>@Localizer["Price"]</MudTh>
+            <MudTh>@Localizer["Actions"]</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.ServiceName</MudTd>
+            <MudTd>@context.ServiceDescription</MudTd>
+            <MudTd>@context.Price</MudTd>
+            <MudTd>
+                <MudTooltip Text="@Localizer["Edit"]">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Warning"
+                               OnClick="@(() => ShowModalAsync(context.Id, true))">
+                        <MudIcon Icon="@Icons.Material.Filled.Edit" />
+                    </MudButton>
+                </MudTooltip>
+                <MudTooltip Text="@Localizer["Delete"]">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               OnClick="@(() => DeleteAsync(@context))">
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" />
+                    </MudButton>
+                </MudTooltip>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>@Localizer["NoRecords"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=@Localizer["All"]
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}

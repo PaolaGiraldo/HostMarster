@@ -1,25 +1,36 @@
-﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+﻿﻿@using HostMaster.Frontend.Shared
+<PageTitle>@Localizer["Service"]</PageTitle>
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
 
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
-    <div class="mb-3">
-        <label>@Localizer["Service"]:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@ExtraService.ServiceName" />
-            <ValidationMessage For="@(() => ExtraService.ServiceName)" />
-        </div>
-        <label>@Localizer["Description"]:</label>
-        <div>
-            <InputText class="form-control" @bind-Value="@ExtraService.ServiceDescription" />
-            <ValidationMessage For="@(() => ExtraService.ServiceDescription)" />
-        </div>
-        <label>@Localizer["Price"]:</label>
-        <div>
-            <InputNumber class="form-control" @bind-Value="@ExtraService.Price" />
-            <ValidationMessage For="@(() => ExtraService.Price)" />
-        </div>
-    </div>
 
-    <button class="btn btn-primary" type="submit">@Localizer["SaveChanges"]</button>
-    <button class="btn btn-success" @onclick="ReturnAction">@Localizer["Return"]</button>
+    <MudTextField Label="@Localizer["Service"]"
+                  @bind-Value="@ExtraServiceDTO.ServiceName"
+                  For="@(() => ExtraServiceDTO.ServiceName)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["Description"]"
+                  @bind-Value="@ExtraServiceDTO.ServiceDescription"
+                  For="@(() => ExtraServiceDTO.ServiceDescription)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["Price"]"
+                  @bind-Value="@ExtraServiceDTO.Price"
+                  For="@(() => ExtraServiceDTO.Price)"
+                  Class="mb-4" />
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.ArrowBack"
+               Color="Color.Info"
+               OnClick="ReturnAction">
+        @Localizer["Return"]
+    </MudButton>
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.Check"
+               Color="Color.Primary"
+               ButtonType="ButtonType.Submit">
+        @Localizer["SaveChanges"]
+    </MudButton>
 </EditForm>

@@ -1,21 +1,21 @@
-using CurrieTechnologies.Razor.SweetAlert2;
-using HostMaster.Frontend.Pages.Countries;
 using HostMaster.Frontend.Repositories;
+using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
 
 namespace HostMaster.Frontend.Pages.ExtraServices;
 
 public partial class ExtraServicesEdit
 {
-    private ExtraService? extraService;
+    private ExtraServiceDTO? extraServiceDTO;
     private ExtraServicesForm? extraServicesForm;
 
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
-    [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+    [Inject] private ISnackbar Snackbar { get; set; } = null!;
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
     [Parameter] public int Id { get; set; }
@@ -33,35 +33,37 @@ public partial class ExtraServicesEdit
             else
             {
                 var messageError = await responseHttp.GetErrorMessageAsync();
-                await SweetAlertService.FireAsync(Localizer["Error"], messageError, SweetAlertIcon.Error);
+                Snackbar.Add(messageError!, Severity.Error);
             }
         }
         else
         {
-            extraService = responseHttp.Response;
+            var extraServiceJson = await responseHttp.HttpResponseMessage.Content.ReadAsStringAsync();
+            var extraServiceType = responseHttp.Response;
+
+            extraServiceDTO = new ExtraServiceDTO()
+            {
+                Id = extraServiceDTO!.Id,
+                ServiceName = extraServiceDTO.ServiceName,
+                ServiceDescription = extraServiceDTO.ServiceDescription,
+                Price = extraServiceDTO.Price,
+            };
         }
     }
 
     private async Task EditAsync()
     {
-        var responseHttp = await Repository.PutAsync("api/extraServices", extraService);
+        var responseHttp = await Repository.PutAsync("api/extraServices", extraServiceDTO);
 
         if (responseHttp.Error)
         {
             var mensajeError = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync(Localizer["Error"], mensajeError, SweetAlertIcon.Error);
+            Snackbar.Add(Localizer["Error"], Severity.Error);
             return;
         }
 
         Return();
-        var toast = SweetAlertService.Mixin(new SweetAlertOptions
-        {
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-            ShowConfirmButton = true,
-            Timer = 3000
-        });
-        await toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordSavedOk"]);
+        Snackbar.Add(Localizer["RecordSavedOk"], Severity.Success);
     }
 
     private void Return()

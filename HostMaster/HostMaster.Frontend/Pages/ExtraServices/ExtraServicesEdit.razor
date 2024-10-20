@@ -1,13 +1,13 @@
-﻿@page "/extraServices/edit/{Id:int}"
-
-<h3>@Localizer["Edit"] @Localizer["Service"]</h3>
-
-@if (extraService is null)
+﻿﻿@using HostMaster.Frontend.Shared
+@if (extraServiceDTO is null)
 {
     <Loading />
 }
 else
 {
-    <ExtraServicesForm @ref="extraServicesForm" ExtraService="extraService" OnValidSubmit="EditAsync" ReturnAction="Return" />
+    <MudDialog>
+        <DialogContent>
+            <ExtraServicesForm @ref="extraServicesForm" ExtraServiceDTO="extraServiceDTO" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
 }
-

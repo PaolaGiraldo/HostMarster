@@ -83,6 +83,9 @@ builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IRoomTypesRepository, RoomTypesRepository>();
 builder.Services.AddScoped<IRoomTypesUnitOfWork, RoomTypesUnitOfWork>();
 
+builder.Services.AddScoped<IExtraServicesRepository, ExtraServicesRepository>();
+builder.Services.AddScoped<IExtraServicesUnitOfWork, ExtraServicesUnitOfWork>();
+
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 

@@ -1,9 +1,14 @@
 ﻿using HostMaster.Shared.Resources;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HostMaster.Shared.Entities;
+namespace HostMaster.Shared.DTOs;
 
-public class ExtraService
+public class ExtraServiceDTO
 {
     public int Id { get; set; }
 
@@ -19,7 +24,4 @@ public class ExtraService
 
     [Display(Name = "Price", ResourceType = typeof(Literals))]
     public decimal Price { get; set; }
-
-    // Relationships
-    public ICollection<Reservation>? Reservations { get; set; }
 }

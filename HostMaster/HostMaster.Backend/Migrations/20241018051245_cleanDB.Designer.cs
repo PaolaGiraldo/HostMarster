@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostMaster.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241016041342_AlterEntityExtraServices")]
-    partial class AlterEntityExtraServices
+    [Migration("20241018051245_cleanDB")]
+    partial class cleanDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

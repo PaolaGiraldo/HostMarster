@@ -1,5 +1,5 @@
-﻿@page "/states/create/{CountryId:int}"
-
-<h3>Nuevo Estado/Departamento</h3>
-
-<FormWithName @ref="stateForm" Label="Estado/Departamento:" Model="state" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+﻿<MudDialog>
+    <DialogContent>
+        <StateForm @ref="stateForm" StateDTO="stateDTO" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+    </DialogContent>
+</MudDialog>

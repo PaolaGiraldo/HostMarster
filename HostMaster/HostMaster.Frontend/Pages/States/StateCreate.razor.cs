@@ -6,47 +6,43 @@ using Microsoft.AspNetCore.Components;
 using HostMaster.Frontend.Repositories;
 using HostMaster.Frontend.Shared;
 using HostMaster.Shared.Entities;
+using HostMaster.Shared.DTOs;
+using Microsoft.Extensions.Localization;
+using HostMaster.Shared.Resources;
+using MudBlazor;
 
 namespace HostMaster.Frontend.Pages.States;
 
 public partial class StateCreate
 {
-    private State state = new();
-    private FormWithName<State>? stateForm;
+	private StateDTO stateDTO = new();
+	private StateForm? stateForm;
 
-    [Parameter] public int CountryId { get; set; }
-    [Inject] private IRepository Repository { get; set; } = null!;
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
-    [CascadingParameter] private BlazoredModalInstance BlazoredModal { get; set; } = default!;
+	[Inject] private IRepository Repository { get; set; } = null!;
+	[Inject] private NavigationManager NavigationManager { get; set; } = null!;
+	[Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
 
-    private async Task CreateAsync()
-    {
-        state.CountryId = CountryId;
-        var responseHttp = await Repository.PostAsync("/api/states", state);
-        if (responseHttp.Error)
-        {
-            var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
-            return;
-        }
+	[Inject] private ISnackbar Snackbar { get; set; } = null!;
 
-        await BlazoredModal.CloseAsync(ModalResult.Ok());
-        Return();
+	[Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
-        var toast = SweetAlertService.Mixin(new SweetAlertOptions
-        {
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-            ShowConfirmButton = true,
-            Timer = 3000
-        });
-        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con éxito.");
-    }
+	private async Task CreateAsync()
+	{
+		var responseHttp = await Repository.PostAsync("/api/states/full", stateDTO);
+		if (responseHttp.Error)
+		{
+			var message = await responseHttp.GetErrorMessageAsync();
+			Snackbar.Add(Localizer[message!], Severity.Error);
+			return;
+		}
 
-    private void Return()
-    {
-        stateForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo($"/countries/details/{CountryId}");
-    }
+		Return();
+		Snackbar.Add(Localizer["RecordCreatedOk"], Severity.Success);
+	}
+
+	private void Return()
+	{
+		stateForm!.FormPostedSuccessfully = true;
+		NavigationManager.NavigateTo($"/states");
+	}
 }

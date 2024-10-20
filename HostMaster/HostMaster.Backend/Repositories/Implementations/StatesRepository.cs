@@ -5,6 +5,7 @@ using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
+using static MudBlazor.Colors;
 
 namespace HostMaster.Backend.Repositories.Implementations;
 
@@ -22,13 +23,12 @@ public class StatesRepository : GenericRepository<State>, IStatesRepository
 		return await _context.States
 			.Where(s => s.CountryId == countryId)
 			.OrderBy(s => s.Name)
-			.ToListAsync();
+		.ToListAsync();
 	}
 
 	public override async Task<ActionResponse<State>> GetAsync(int id)
 	{
 		var state = await _context.States
-			 .Include(s => s.Cities)
 			 .FirstOrDefaultAsync(s => s.Id == id);
 
 		if (state == null)
@@ -51,7 +51,6 @@ public class StatesRepository : GenericRepository<State>, IStatesRepository
 	{
 		var states = await _context.States
 			.OrderBy(x => x.Name)
-			.Include(s => s.Cities)
 			.ToListAsync();
 		return new ActionResponse<IEnumerable<State>>
 		{
@@ -63,8 +62,6 @@ public class StatesRepository : GenericRepository<State>, IStatesRepository
 	public override async Task<ActionResponse<IEnumerable<State>>> GetAsync(PaginationDTO pagination)
 	{
 		var queryable = _context.States
-			.Include(x => x.Cities)
-			.Where(x => x.Country!.Id == pagination.Id)
 			.AsQueryable();
 
 		if (!string.IsNullOrWhiteSpace(pagination.Filter))
@@ -100,5 +97,68 @@ public class StatesRepository : GenericRepository<State>, IStatesRepository
 			WasSuccess = true,
 			Result = totalPages
 		};
+	}
+
+	async Task<ActionResponse<int>> IStatesRepository.GetTotalRecordsAsync(PaginationDTO pagination)
+	{
+		var queryable = _context.States.AsQueryable();
+
+		if (!string.IsNullOrWhiteSpace(pagination.Filter))
+		{
+			queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+		}
+
+		double count = await queryable.CountAsync();
+		return new ActionResponse<int>
+		{
+			WasSuccess = true,
+			Result = (int)count
+		};
+	}
+
+	async Task<ActionResponse<State>> IStatesRepository.AddAsync(StateDTO stateDTO)
+	{
+		var country = await _context.Countries.FindAsync(stateDTO.CountryId);
+		if (country == null)
+		{
+			return new ActionResponse<State>
+			{
+				WasSuccess = false,
+				Message = "ERR004"
+			};
+		}
+
+		var state = new State
+		{
+			Country = country,
+			Name = stateDTO.Name,
+		};
+
+		_context.Add(state);
+		try
+		{
+			await _context.SaveChangesAsync();
+			return new ActionResponse<State>
+			{
+				WasSuccess = true,
+				Result = state
+			};
+		}
+		catch (DbUpdateException)
+		{
+			return new ActionResponse<State>
+			{
+				WasSuccess = false,
+				Message = "ERR003"
+			};
+		}
+		catch (Exception exception)
+		{
+			return new ActionResponse<State>
+			{
+				WasSuccess = false,
+				Message = exception.Message
+			};
+		}
 	}
 }

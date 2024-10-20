@@ -1,45 +1,62 @@
 ﻿@page "/countries"
-<PageTitle>@Localizer["Countries"]</PageTitle>
+@using HostMaster.Frontend.Shared
 
-﻿
-<div class="card">
-    <div class="card-header">
-        <div class="mb-3">
-            <a href="countries/create" class="btn btn-primary">@Localizer["New"]</a>
-        </div>
-    </div>
-    <div class="card-body">
-        <Filter PlaceHolder="Buscar país..." Callback=@FilterCallBack />
-        <GenericList MyList="Countries">
-            <Body>
-                <Pagination CurrentPage="currentPage"
-                            TotalPages="totalPages"
-                            SelectedPage="SelectedPageAsync"
-                            RecordsNumber="SelectedRecordsNumberAsync" />
+@if(loading)
+{
+    <Loading/>
+}
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>País</th>
-                            <th style="width:210px">Estados / Departamentos</th>
-                            <th style="width:168px"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var country in Countries!)
-                        {
-                            <tr>
-                                <td><a href="/countries/details/@country.Id"> @country.Name</a></td>
-                                <td>@country.StatesNumber</td>
-                                <td>
-                                    <a @onclick=@(() => ShowModalAsync(country.Id, true)) class="btn btn-sm btn-warning"><i class="bi bi-pencil" /> Editar</a>
-                                    <button @onclick=@(() => DeleteAsycn(country)) class="btn btn-sm btn-danger"><i class="bi bi-trash" /> Borrar</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </Body>
-        </GenericList>
-    </div>
-</div>
+
+<MudTable Items="@Countries"
+        @ref="table"
+        ServerData="LoadListAsync"
+        Dense="true"
+        Hover="true"
+        Striped="true"
+        FixedHeader="true"
+        FixedFooter="true">
+        <ToolBarContent>
+            <div class="d-flex justify-content-between">
+				<MudText Typo="Typo.h6" Class="me-4"> @Localizer["Countries"]</MudText>
+				<AuthorizeView Roles="Admin">
+					<Authorized>
+						<MudButton Variant="Variant.Outlined"
+								   EndIcon="@Icons.Material.Filled.Add"
+								   Color="Color.Info" OnClick="@(() => ShowModalAsync())">
+							@Localizer["New"]
+						</MudButton>
+					</Authorized>
+				</AuthorizeView>
+			</div>
+			<MudSpacer />
+			<FilterComponent ApplyFilter="SetFilterValue" />
+                </ToolBarContent>
+		<HeaderContent>
+			<MudTh>@Localizer["Country"]</MudTh>
+			<MudTh>@Localizer["States"]</MudTh>
+		<MudTh>@Localizer["Actions"]</MudTh>
+		</HeaderContent>
+		<RowTemplate>
+			<MudTd>@context.Name</MudTd>
+			<MudTd>@context.StatesNumber</MudTd>
+			<MudTd>
+				<Authorized>
+					<MudTooltip Text="@Localizer["Edit"]">
+						<MudButton Variant="Variant.Filled"
+								   Color="Color.Warning"
+								   OnClick="@(() => ShowModalAsync(context.Id, true))">
+							<MudIcon Icon="@Icons.Material.Filled.Edit" />
+						</MudButton>
+					</MudTooltip>
+					<MudTooltip Text="@Localizer["Delete"]">
+						<MudButton Variant="Variant.Filled"
+								   Color="Color.Error"
+								   OnClick="@(() => DeleteAsync(@context))">
+							<MudIcon Icon="@Icons.Material.Filled.Delete" />
+						</MudButton>
+					</MudTooltip>
+				</Authorized>
+			</MudTd>
+		</RowTemplate>
+
+</MudTable>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostMaster.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241005033849_v33")]
-    partial class v33
+    [Migration("20241123050919_AddUsersEntities")]
+    partial class AddUsersEntities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

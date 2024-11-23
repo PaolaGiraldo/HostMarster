@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HostMaster.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class v33 : Migration
+    public partial class AddUsersEntities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

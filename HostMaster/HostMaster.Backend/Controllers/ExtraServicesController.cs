@@ -104,7 +104,7 @@ namespace HostMaster.Backend.Controllers
             Console.WriteLine(response.Result); // Log the response
             if (response.WasSuccess)
             {
-                return Ok(response.Result);
+                return Ok(response.Result.ToList());
             }
             return NotFound(response.Message);
         }

@@ -9,7 +9,7 @@ using static MudBlazor.CategoryTypes;
 namespace HostMaster.Backend.Controllers;
 
 [ApiController]
-//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("/api/[controller]")]
 public class MaintenancesController : GenericController<Maintenance>
 {

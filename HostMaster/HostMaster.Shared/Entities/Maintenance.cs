@@ -15,6 +15,8 @@ public class Maintenance
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public DateTime EndDate { get; set; }
 
+    public String? Observations { get; set; }
+
     //Foreign keys
     [Display(Name = "RoomId", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]

@@ -83,6 +83,7 @@ public class MaintenanceRepository(DataContext context) : GenericRepository<Main
             EndDate = maintenanceDTO.EndDate ?? DateTime.Now,
             RoomId = maintenanceDTO.RoomId,
             AccommodationId = maintenanceDTO.AccommodationId,
+            Observations = maintenanceDTO.Observations
         };
 
         _context.Add(maintenance);
@@ -157,6 +158,7 @@ public class MaintenanceRepository(DataContext context) : GenericRepository<Main
         currentMaintenance.EndDate = maintenanceDTO.EndDate ?? DateTime.Now;
         currentMaintenance.RoomId = maintenanceDTO.RoomId;
         currentMaintenance.AccommodationId = maintenanceDTO.AccommodationId;
+        currentMaintenance.Observations = maintenanceDTO.Observations;
 
         _context.Update(currentMaintenance);
         try

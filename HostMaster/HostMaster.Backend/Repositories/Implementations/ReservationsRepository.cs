@@ -83,6 +83,15 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
              };
          }*/
 
+        if (!await IsRoomAvailableForReservationAsync(reservationDTO.RoomId, reservationDTO.StartDate, reservationDTO.EndDate))
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = "ERR_RES006"
+            };
+        }
+
         var reservation = new Reservation
         {
             StartDate = reservationDTO.StartDate ?? DateTime.Now,
@@ -278,5 +287,27 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             WasSuccess = true,
             Result = (int)count
         };
+    }
+
+    public async Task<bool> IsRoomAvailableForReservationAsync(int roomId, DateTime? startDate, DateTime? endDate)
+    {
+        // Verificar si hay reservas superpuestas
+        var overlappingReservation = await _context.Reservations
+            .Where(r => r.RoomId == roomId)
+            .AnyAsync(r =>
+                (startDate < r.EndDate && endDate > r.StartDate)); // Verifica superposición de fechas
+
+        if (overlappingReservation)
+        {
+            return false; // Hay una reserva superpuesta
+        }
+
+        // Verificar si hay mantenimientos superpuestos
+        var overlappingMaintenance = await _context.Maintenances
+            .Where(m => m.RoomId == roomId)
+            .AnyAsync(m =>
+                (startDate < m.EndDate && endDate > m.StartDate)); // Verifica superposición de fechas
+
+        return !overlappingMaintenance; // Retorna verdadero si no hay mantenimiento superpuesto
     }
 }

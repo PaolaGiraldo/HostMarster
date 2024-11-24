@@ -568,4 +568,7 @@
   <data name="Observations" xml:space="preserve">
     <value>Observaciones</value>
   </data>
+  <data name="ERR_RES006" xml:space="preserve">
+    <value>La habitación no está disponible para reservas en las fechas seleccionadas.</value>
+  </data>
 </root>

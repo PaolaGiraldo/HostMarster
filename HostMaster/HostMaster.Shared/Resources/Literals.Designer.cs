@@ -547,6 +547,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The room is not available for reservations on the selected dates..
+        /// </summary>
+        public static string ERR_RES006 {
+            get {
+                return ResourceManager.GetString("ERR_RES006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Record not found.
         /// </summary>
         public static string ERR001 {

@@ -37,4 +37,6 @@ public class ReservationsUnitOfWork : GenericUnitOfWork<Reservation>, IReservati
     public async Task<IEnumerable<Reservation>> GetByStartDateAsync(DateTime startDate) => await _reservationsRepository.GetByStartDateAsync(startDate);
 
     public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _reservationsRepository.GetTotalRecordsAsync(pagination);
+
+    public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination) => await _reservationsRepository.GetTotalPagesAsync(pagination);
 }

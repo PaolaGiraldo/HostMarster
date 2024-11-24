@@ -254,7 +254,9 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
     {
         var queryable = _context.Reservations
             .Include(x => x.Room)
+            .ThenInclude(x => x!.RoomType)
             .Include(x => x.Customer)
+            .Include(x => x.Accommodation)
             .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
@@ -268,6 +270,39 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             Result = await queryable
                 .OrderBy(x => x.RoomId)
                 .Paginate(pagination)
+                .Select(x => new Reservation
+                {
+                    Id = x.Id,
+                    RoomId = x.RoomId,
+                    CustomerDocumentNumber = x.CustomerDocumentNumber,
+                    ReservationState = x.ReservationState,
+                    NumberOfGuests = x.NumberOfGuests,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    Room = new Room
+                    {
+                        Id = x.Room!.Id,
+                        RoomNumber = x.Room.RoomNumber,
+                        RoomType = x.Room.RoomType,
+
+                        // Agrega solo las propiedades necesarias de la entidad Room
+                    },
+                    Customer = new Customer
+                    {
+                        Id = x.Customer.Id,
+                        FirstName = x.Customer.FirstName,
+                        LastName = x.Customer.LastName,
+                        Email = x.Customer.Email,
+                        PhoneNumber = x.Customer.PhoneNumber
+
+                        // Agrega solo las propiedades necesarias de la entidad Customer
+                    },
+                    Accommodation = new Accommodation
+                    {
+                        Id = x.AccommodationId,
+                        Name = x.Accommodation!.Name
+                    }
+                })
                 .ToListAsync()
         };
     }

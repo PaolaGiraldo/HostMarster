@@ -23,7 +23,7 @@ public partial class MaintenanceForm
     protected override void OnInitialized()
     {
         editContext = new(MaintenanceDTO);
-        MaintenanceDTO.StartDate = DateTime.Now;
+        MaintenanceDTO.StartDate = DateTime.Today;
         MaintenanceDTO.EndDate = DateTime.Today.AddDays(3);
     }
 

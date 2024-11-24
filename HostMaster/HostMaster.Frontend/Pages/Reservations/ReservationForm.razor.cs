@@ -23,7 +23,7 @@ public partial class ReservationForm
     protected override void OnInitialized()
     {
         editContext = new(ReservationDTO);
-        ReservationDTO.StartDate = DateTime.Now;
+        ReservationDTO.StartDate = DateTime.Today;
         ReservationDTO.EndDate = DateTime.Today.AddDays(3);
     }
 

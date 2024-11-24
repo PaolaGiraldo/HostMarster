@@ -1,4 +1,5 @@
-﻿using HostMaster.Shared.Resources;
+﻿using HostMaster.Shared.Entities;
+using HostMaster.Shared.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,4 +25,10 @@ public class ExtraServiceDTO
 
     [Display(Name = "Price", ResourceType = typeof(Literals))]
     public decimal Price { get; set; }
+
+    // add reservation to allow the relationship with the Reservation entity
+    public ICollection<Reservation>? Reservations { get; set; } = null!;
+
+    // add availabilities to allow the relationship with the ServiceAvailability entity
+    public ICollection<ServiceAvailability> Availabilities { get; set; } = new List<ServiceAvailability>();
 }

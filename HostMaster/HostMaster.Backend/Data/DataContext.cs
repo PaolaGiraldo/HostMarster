@@ -9,6 +9,7 @@ public class DataContext : IdentityDbContext<User>
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
     }
+
     public DbSet<Accommodation> Accommodations { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
@@ -23,6 +24,8 @@ public class DataContext : IdentityDbContext<User>
     public DbSet<RoomType> RoomTypes { get; set; }
     public DbSet<State> States { get; set; }
     public DbSet<ReservationRoom> ReservationRooms { get; set; }
+
+    public DbSet<ServiceAvailability> ServiceAvailabilities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

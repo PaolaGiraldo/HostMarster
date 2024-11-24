@@ -152,4 +152,9 @@ public partial class ExtraServicesIndex
         await table.ReloadServerData();
         Snackbar.Add(Localizer["RecordDeletedOk"], Severity.Success);
     }
+
+    private void ShowAvailabilitiesAsync(int id)
+    {
+        NavigationManager.NavigateTo($"/extraServices/{id}/availabilities");
+    }
 }

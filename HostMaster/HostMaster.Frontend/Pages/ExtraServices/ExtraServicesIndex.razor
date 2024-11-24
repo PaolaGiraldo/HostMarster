@@ -31,12 +31,14 @@ else
             <FilterComponent ApplyFilter="SetFilterValue" />
         </ToolBarContent>
         <HeaderContent>
+            <MudTh>@Localizer["ID"]</MudTh>
             <MudTh>@Localizer["Service"]</MudTh>
             <MudTh>@Localizer["Description"]</MudTh>
             <MudTh>@Localizer["Price"]</MudTh>
             <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
+            <MudTd>@context.Id</MudTd>
             <MudTd>@context.ServiceName</MudTd>
             <MudTd>@context.ServiceDescription</MudTd>
             <MudTd>@context.Price</MudTd>
@@ -54,6 +56,15 @@ else
                                OnClick="@(() => DeleteAsync(@context))">
                         <MudIcon Icon="@Icons.Material.Filled.Delete" />
                     </MudButton>
+                </MudTooltip>
+                <MudTooltip>
+                    <MudButton Variant="Variant.Filled"
+							   Color="Color.Info"
+							   OnClick="@(() => ShowAvailabilitiesAsync(context.Id))">
+						<MudIcon Icon="@Icons.Material.Filled.DateRange" />
+					</MudButton>
+					<MudTooltip Text="@Localizer["Availabilities"]">
+					</MudTooltip>
                 </MudTooltip>
             </MudTd>
         </RowTemplate>

@@ -21,6 +21,7 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     public DbSet<State> States { get; set; }
     public DbSet<ReservationRoom> ReservationRooms { get; set; }
     public DbSet<Maintenance> Maintenances { get; set; }
+    public DbSet<MaintenanceRoom> MaintenanceRooms { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

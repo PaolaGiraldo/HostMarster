@@ -898,6 +898,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Observations.
+        /// </summary>
+        public static string Observations {
+            get {
+                return ResourceManager.GetString("Observations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {

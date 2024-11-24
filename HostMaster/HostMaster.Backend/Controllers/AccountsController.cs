@@ -294,4 +294,25 @@ public class AccountsController : ControllerBase
             Expiration = expiration
         };
     }
+
+    [HttpPost("ContactForm")]
+    public async Task<IActionResult> SubmitContactFormAsync([FromBody] ContactFormDTO model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var subject = "New Contact Form Submission";
+        var body = $"First Name: {model.FirstName}\nLast Name: {model.LastName}\nEmail: {model.Email}\nPhone: {model.Phone}\nMessage: {model.Message}";
+
+        var response = _mailHelper.SendMail(model.FirstName, "hostmaster2024@gmail.com", subject, body, "en-US");
+
+        if (!response.WasSuccess)
+        {
+            return StatusCode(500, response.Message);
+        }
+
+        return Ok(new { message = "Contact form submitted successfully." });
+    }
 }

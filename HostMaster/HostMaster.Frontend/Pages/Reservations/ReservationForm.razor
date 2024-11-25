@@ -79,6 +79,10 @@
         }
     </MudSelect>
 
+    <MudTextField Label="@Localizer["Comments"]"
+                  @bind-Value="@ReservationDTO.Comments"
+                  For="@(() => ReservationDTO.Comments)"
+                  Class="mb-4" />
 
     <MudButton Variant="Variant.Outlined"
                StartIcon="@Icons.Material.Filled.ArrowBack"

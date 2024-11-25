@@ -44,6 +44,8 @@ public class ReservationDTO
     public int CustomerDocument { get; set; }
 
     public IEnumerable<String>? ExtraServices { get; set; }
+
+    public String? Comments { get; set; }
 }
 
 public class CompareDateAttribute : ValidationAttribute

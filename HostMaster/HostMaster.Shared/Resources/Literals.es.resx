@@ -610,4 +610,7 @@
   <data name="ERR_RES007" xml:space="preserve">
     <value>El número de invitados supera los permitidos para esta habitación.</value>
   </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comentarios</value>
+  </data>
 </root>

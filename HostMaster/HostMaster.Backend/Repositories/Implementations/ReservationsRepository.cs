@@ -58,7 +58,10 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
 
     public async Task<ActionResponse<Reservation>> AddAsync(ReservationDTO reservationDTO)
     {
-        var room = await _context.Rooms.FindAsync(reservationDTO.RoomId);
+        var room = await _context.Rooms
+            .Include(x => x.RoomType)
+            .FirstAsync(x => x.Id == reservationDTO.RoomId);
+
         if (room == null)
         {
             return new ActionResponse<Reservation>
@@ -72,15 +75,15 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             return new ActionResponse<Reservation>
             {
                 WasSuccess = false,
-                Message = "ERR_RES007"
+                Message = "ERR_RES005"
             };
         }
-        else if (room.RoomType.MaxGuests <= reservationDTO.NumberOfGuests)
+        else if (room.RoomType!.MaxGuests < reservationDTO.NumberOfGuests)
         {
             return new ActionResponse<Reservation>
             {
                 WasSuccess = false,
-                Message = "ERR_RES005"
+                Message = "ERR_RES007"
             };
         }
 
@@ -102,7 +105,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             };
         }
 
-        var extraServices = CreateExtraServices(reservationDTO.ExtraServices);
+        var extraServices = CreateExtraServicesAsync(reservationDTO.ExtraServices!);
 
         var reservation = new Reservation
         {
@@ -113,7 +116,8 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             NumberOfGuests = reservationDTO.NumberOfGuests,
             CustomerDocumentNumber = reservationDTO.CustomerDocument,
             AccommodationId = reservationDTO.AccommodationId,
-            ExtraServices = await extraServices
+            ExtraServices = await extraServices,
+            Comments = reservationDTO.Comments
         };
 
         _context.Add(reservation);
@@ -358,17 +362,22 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
         return !overlappingMaintenance; // Retorna verdadero si no hay mantenimiento superpuesto
     }
 
-    public async Task<List<ExtraService>> CreateExtraServices(IEnumerable<String> extraServices)
+    public async Task<List<ExtraService>> CreateExtraServicesAsync(IEnumerable<string> extraServices)
     {
         var reservationServices = new List<ExtraService>();
 
-        foreach (var serviceId in extraServices)
+        // Verifica si extraServices es null o está vacío
+        if (extraServices != null && extraServices.Any())
         {
-            var service = _context.ExtraServices
-                .Where(s => s.ServiceName == serviceId)
-                .FirstAsync();
+            foreach (var serviceName in extraServices)
+            {
+                // Encuentra el servicio usando su nombre
+                var service = await _context.ExtraServices
+                    .Where(s => s.ServiceName == serviceName)
+                    .FirstOrDefaultAsync(); // Usamos FirstOrDefaultAsync en lugar de FirstAsync
 
-            reservationServices.Add(service.Result);
+                reservationServices.Add(service!);
+            }
         }
 
         return reservationServices;

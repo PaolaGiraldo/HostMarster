@@ -571,4 +571,43 @@
   <data name="ERR_RES006" xml:space="preserve">
     <value>The room is not available for reservations on the selected dates.</value>
   </data>
+  <data name="NoServicesAvailable" xml:space="preserve">
+    <value>No extra services available.</value>
+  </data>
+  <data name="ExtraServices" xml:space="preserve">
+    <value>Additional Services</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>Confirmed</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="NoShow" xml:space="preserve">
+    <value>No Show</value>
+  </data>
+  <data name="PaymentPending" xml:space="preserve">
+    <value>Payment Pending</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="CheckedOut" xml:space="preserve">
+    <value>Check-Out</value>
+  </data>
+  <data name="CheckedIn" xml:space="preserve">
+    <value>Check-In</value>
+  </data>
+  <data name="Refunded" xml:space="preserve">
+    <value>Refunded</value>
+  </data>
+  <data name="ERR_RES007" xml:space="preserve">
+    <value>The number of guests exceeds the allowed limit for this room.</value>
+  </data>
 </root>

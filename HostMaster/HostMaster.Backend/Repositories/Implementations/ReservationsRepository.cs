@@ -1,6 +1,8 @@
-﻿using HostMaster.Backend.Data;
+﻿using CurrieTechnologies.Razor.SweetAlert2;
+using HostMaster.Backend.Data;
 using HostMaster.Backend.Helpers;
 using HostMaster.Backend.Repositories.Interfaces;
+using HostMaster.Frontend.Repositories;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
@@ -70,6 +72,14 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             return new ActionResponse<Reservation>
             {
                 WasSuccess = false,
+                Message = "ERR_RES007"
+            };
+        }
+        else if (room.RoomType.MaxGuests <= reservationDTO.NumberOfGuests)
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
                 Message = "ERR_RES005"
             };
         }
@@ -92,15 +102,18 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             };
         }
 
+        var extraServices = CreateExtraServices(reservationDTO.ExtraServices);
+
         var reservation = new Reservation
         {
-            StartDate = reservationDTO.StartDate ?? DateTime.Now,
-            EndDate = reservationDTO.EndDate ?? DateTime.Now,
+            StartDate = reservationDTO.StartDate ?? DateTime.Today,
+            EndDate = reservationDTO.EndDate ?? DateTime.Today.AddDays(3),
             ReservationState = reservationDTO.ReservationState,
             RoomId = reservationDTO.RoomId,
             NumberOfGuests = reservationDTO.NumberOfGuests,
             CustomerDocumentNumber = reservationDTO.CustomerDocument,
             AccommodationId = reservationDTO.AccommodationId,
+            ExtraServices = await extraServices
         };
 
         _context.Add(reservation);
@@ -178,6 +191,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
         currentReservation.AccommodationId = reservationDTO.AccommodationId;
         currentReservation.CustomerDocumentNumber = reservationDTO.CustomerDocument;
         currentReservation.ReservationState = reservationDTO.ReservationState;
+        //currentReservation.ExtraServices = reservationDTO.ExtraServices;
 
         _context.Update(currentReservation);
         try
@@ -257,6 +271,7 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             .ThenInclude(x => x!.RoomType)
             .Include(x => x.Customer)
             .Include(x => x.Accommodation)
+            .Include(x => x.ExtraServices)
             .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
@@ -284,8 +299,6 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
                         Id = x.Room!.Id,
                         RoomNumber = x.Room.RoomNumber,
                         RoomType = x.Room.RoomType,
-
-                        // Agrega solo las propiedades necesarias de la entidad Room
                     },
                     Customer = new Customer
                     {
@@ -294,14 +307,13 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
                         LastName = x.Customer.LastName,
                         Email = x.Customer.Email,
                         PhoneNumber = x.Customer.PhoneNumber
-
-                        // Agrega solo las propiedades necesarias de la entidad Customer
                     },
                     Accommodation = new Accommodation
                     {
                         Id = x.AccommodationId,
                         Name = x.Accommodation!.Name
-                    }
+                    },
+                    ExtraServices = x.ExtraServices
                 })
                 .ToListAsync()
         };
@@ -344,5 +356,21 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
                 (startDate < m.EndDate && endDate > m.StartDate)); // Verifica superposición de fechas
 
         return !overlappingMaintenance; // Retorna verdadero si no hay mantenimiento superpuesto
+    }
+
+    public async Task<List<ExtraService>> CreateExtraServices(IEnumerable<String> extraServices)
+    {
+        var reservationServices = new List<ExtraService>();
+
+        foreach (var serviceId in extraServices)
+        {
+            var service = _context.ExtraServices
+                .Where(s => s.ServiceName == serviceId)
+                .FirstAsync();
+
+            reservationServices.Add(service.Result);
+        }
+
+        return reservationServices;
     }
 }

@@ -1,0 +1,19 @@
+﻿@page "/reports"
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+
+<MudCard>
+    <MudCardContent>
+        <MudTextField @bind-Value="AccommodationId" Label="Accommodation ID" Variant="Variant.Outlined" />
+        <MudDateRangePicker Label="Seleccione un rango de fechas"
+                            @bind-DateRange="DateRange" />
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton OnClick="DownloadReport" Disabled="@IsDownloadDisabled" Color="Color.Primary">
+            Descargar Reporte
+        </MudButton>
+    </MudCardActions>
+</MudCard>
+
+<MudSnackbarProvider />
+

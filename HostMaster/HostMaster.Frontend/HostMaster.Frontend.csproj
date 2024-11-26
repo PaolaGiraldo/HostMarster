@@ -25,7 +25,6 @@
 
 	<ItemGroup>
     <Folder Include="Pages\Cities\" />
-    <Folder Include="Pages\Reports\" />
     <Folder Include="Pages\Users\" />
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>

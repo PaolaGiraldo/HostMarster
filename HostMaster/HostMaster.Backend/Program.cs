@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,7 +49,12 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
           }
         });
+
 });
+
+
+
+
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddScoped<IFileStorage, FileStorage>();
 builder.Services.AddTransient<SeedDb>();
@@ -137,6 +143,9 @@ void SeedData(WebApplication app)
         service!.SeedAsync().Wait();
     }
 }
+
+
+
 
 if (app.Environment.IsDevelopment())
 {

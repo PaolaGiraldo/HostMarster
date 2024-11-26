@@ -1,5 +1,5 @@
 ﻿﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
-<PageTitle>@Localizer["ReservationForm"]</PageTitle>
+<PageTitle>@Localizer["MaintenanceForm"]</PageTitle>
 <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
 
@@ -31,58 +31,20 @@
 
 
     <MudDatePicker Label="@Localizer["StartDate"]"
-                  @bind-Date ="@ReservationDTO.StartDate"
-                  For="@(() => ReservationDTO.StartDate)"
+                  @bind-Date ="@MaintenanceDTO.StartDate"
+                  For="@(() => MaintenanceDTO.StartDate)"
                   Class="mb-4" />
 
     <MudDatePicker Label="@Localizer["EndDate"]"
-                  @bind-Date="@ReservationDTO.EndDate"
-                  For="@(() => ReservationDTO.EndDate)"
+                  @bind-Date="@MaintenanceDTO.EndDate"
+                  For="@(() => MaintenanceDTO.EndDate)"
                   Class="mb-4" />
 
-    <MudNumericField Label="@Localizer["NumberOfGuests"]"
-                     Min="1" Max="100"
-                  @bind-Value="@ReservationDTO.NumberOfGuests"
-                  For="@(() => ReservationDTO.NumberOfGuests)"
+    <MudTextField Label="@Localizer["Observatons"]"
+                  @bind-Value="@MaintenanceDTO.Observations"
+                  For="@(() => MaintenanceDTO.Observations)"
                   Class="mb-4" />
 
-    <MudTextField Label="@Localizer["Customer"]"
-                  @bind-Value="@ReservationDTO.CustomerDocument"
-                  For="@(() => ReservationDTO.CustomerDocument)"
-                  Class="mb-4" />
-
-    @if (services != null && services.Any())
-    {
-        <MudSelect T="String" 
-            Label="@Localizer["ExtraServices"]" 
-            MultiSelection="true" 
-            @bind-SelectedValues="ReservationDTO.ExtraServices"
-                   Class="mb-4">
-            @foreach (var service in services)
-            {
-                <MudSelectItem T="String" Value="@service.ServiceName">@service.ServiceName</MudSelectItem>
-            }
-        </MudSelect>
-    }
-    else
-    {
-        <p>@Localizer["NoServicesAvailable"]</p>
-    }
-
-    <MudSelect Label="@Localizer["ReservationState"]"
-                  @bind-Value="@ReservationDTO.ReservationState"
-                  For="@(() => ReservationDTO.ReservationState)"
-                  Class="mb-4">
-        @foreach (var state in _reservationStates)
-        {
-            <MudSelectItem Value="state">@Localizer[state]</MudSelectItem>
-        }
-    </MudSelect>
-
-    <MudTextField Label="@Localizer["Comments"]"
-                  @bind-Value="@ReservationDTO.Comments"
-                  For="@(() => ReservationDTO.Comments)"
-                  Class="mb-4" />
 
     <MudButton Variant="Variant.Outlined"
                StartIcon="@Icons.Material.Filled.ArrowBack"

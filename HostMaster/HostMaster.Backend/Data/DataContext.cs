@@ -4,11 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HostMaster.Backend.Data;
 
-public class DataContext : IdentityDbContext<User>
+public class DataContext(DbContextOptions<DataContext> options) : IdentityDbContext<User>(options)
 {
-    public DataContext(DbContextOptions<DataContext> options) : base(options)
-    {
-    }
     public DbSet<Accommodation> Accommodations { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
@@ -23,17 +20,20 @@ public class DataContext : IdentityDbContext<User>
     public DbSet<RoomType> RoomTypes { get; set; }
     public DbSet<State> States { get; set; }
     public DbSet<ReservationRoom> ReservationRooms { get; set; }
+    public DbSet<Maintenance> Maintenances { get; set; }
+    public DbSet<MaintenanceRoom> MaintenanceRooms { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Room>().HasIndex(x => new { x.AccommodationId, x.RoomNumber }).IsUnique();
         modelBuilder.Entity<Reservation>().HasIndex(x => new { x.RoomId, x.AccommodationId, x.StartDate, x.EndDate }).IsUnique();
+        modelBuilder.Entity<Maintenance>().HasIndex(x => new { x.RoomId, x.AccommodationId, x.StartDate, x.EndDate }).IsUnique();
 
         DisableCascadingDelete(modelBuilder);
     }
 
-    private void DisableCascadingDelete(ModelBuilder modelBuilder)
+    private static void DisableCascadingDelete(ModelBuilder modelBuilder)
     {
         var relationships = modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys());
         foreach (var relationship in relationships)

@@ -28,4 +28,6 @@ public interface IReservationsUnitOfWork
     Task<ActionResponse<IEnumerable<Reservation>>> GetAsync(PaginationDTO pagination);
 
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
 }

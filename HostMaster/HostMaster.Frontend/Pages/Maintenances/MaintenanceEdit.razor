@@ -1,0 +1,12 @@
+﻿﻿@if (maintenanceDTO is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <MaintenanceForm @ref="maintenanceForm" MaintenanceDTO="maintenanceDTO" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

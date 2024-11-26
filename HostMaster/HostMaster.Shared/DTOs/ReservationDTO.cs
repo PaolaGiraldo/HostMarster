@@ -42,6 +42,10 @@ public class ReservationDTO
     [Display(Name = "CustomerDocument", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int CustomerDocument { get; set; }
+
+    public IEnumerable<String>? ExtraServices { get; set; }
+
+    public String? Comments { get; set; }
 }
 
 public class CompareDateAttribute : ValidationAttribute

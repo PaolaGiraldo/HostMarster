@@ -89,6 +89,9 @@ builder.Services.AddScoped<IExtraServicesUnitOfWork, ExtraServicesUnitOfWork>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
+builder.Services.AddScoped<IMaitenanceRepository, MaintenanceRepository>();
+builder.Services.AddScoped<IMaintenancesUnitOfWork, MaintenancesUnitOfWork>();
+
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
     x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;

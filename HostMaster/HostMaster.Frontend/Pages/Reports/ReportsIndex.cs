@@ -46,20 +46,35 @@ public partial class ReportsIndex
 
     public List<ChartSeries> Series { get; set; } = new List<ChartSeries>();
 
-    public string[] XAxisLabels { get; set; }
+    public string[] XAxisLabels { get; set; } = Array.Empty<string>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchOccupancyData();
+    }
 
     private async Task FetchOccupancyData()
     {
-        if (IsDownloadDisabled)
+        //if (IsDownloadDisabled)
+        //{
+        //     Snackbar.Add("Por favor, complete los campos necesarios.", Severity.Error);
+        //     return;
+        // }
+
+        if (string.IsNullOrWhiteSpace(AccommodationId))
         {
-            Snackbar.Add("Por favor, complete los campos necesarios.", Severity.Error);
-            return;
+            AccommodationId = "1";
         }
 
         try
         {
-            var startDate = DateRange.Start.Value.ToString("yyyy-MM-dd");
-            var endDate = DateRange.End.Value.ToString("yyyy-MM-dd");
+            // Establecer valores predeterminados si DateRange es null o si sus propiedades Start/End son null
+            var startDate = (DateRange?.Start ?? DateTime.Today.AddYears(-1)).ToString("yyyy-MM-dd");
+            var endDate = (DateRange?.End ?? DateTime.Today).ToString("yyyy-MM-dd");
+
+            // var startDate = DateRange.Start.Value.ToString("yyyy-MM-dd");
+            // var endDate = DateRange.End.Value.ToString("yyyy-MM-dd");
             var url = $"OccupationData?accommodationId={AccommodationId}&startDate={startDate}&endDate={endDate}";
 
             var response = await HttpClient.GetFromJsonAsync<List<OccupationDataDto>>(url);
@@ -69,14 +84,21 @@ public partial class ReportsIndex
                 ChartLabels.Clear();
                 var occupancyPercentages = new List<double>();
 
-                XAxisLabels = new string[] { };
+               
+
+
 
                 // Convertir los valores de OccupiedPercentage a un arreglo de double[]
                 var percentages = response.Select(item => item.OccupiedPercentage).ToArray();
 
+                XAxisLabels = percentages.Select(value => value.ToString("F2")).ToArray();
+
                 // Crear la serie con los datos convertidos
-                Series = new List<ChartSeries> { new ChartSeries()
-                      { Name = "Ocupación (%)", Data = percentages }};
+                Series = new List<ChartSeries> { 
+                    new ChartSeries() {
+                        Name = "Ocupación (%)", 
+                        Data = percentages 
+                    }};
             }
             else
             {

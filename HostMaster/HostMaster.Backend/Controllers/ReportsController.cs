@@ -20,8 +20,7 @@ public class ReportsController : GenericController<OccupationDataDto>
     [HttpGet("OccupationData")]
     public async Task<IActionResult> GetOccupancyPercentageByAccommodationAsync([FromQuery] int accommodationId, DateTime startDate, DateTime endDate)
     {
-
-        var response = await _reportsUnitOfWork.GetOccupancyPercentageByAccommodationAsync( accommodationId,  startDate,  endDate);
+        var response = await _reportsUnitOfWork.GetOccupancyPercentageByAccommodationAsync(accommodationId, startDate, endDate);
         if (response.WasSuccess)
         {
             return Ok(response.Result);
@@ -112,7 +111,7 @@ public class ReportsController : GenericController<OccupationDataDto>
 
         foreach (var item in data)
         {
-            table.AddCell(new PdfPCell(new Phrase(item.Date.ToString("yyyy-MM-dd HH:mm"), cellFont)) { Padding = 5 });
+            table.AddCell(new PdfPCell(new Phrase(item.Date.ToString("yyyy-MM-dd"), cellFont)) { Padding = 5 });
             table.AddCell(new PdfPCell(new Phrase(item.OccupiedRooms.ToString(), cellFont)) { Padding = 5 });
             table.AddCell(new PdfPCell(new Phrase(item.TotalRooms.ToString(), cellFont)) { Padding = 5 });
             table.AddCell(new PdfPCell(new Phrase(item.OccupiedPercentage.ToString("F2") + "%", cellFont)) { Padding = 5 });
@@ -125,7 +124,6 @@ public class ReportsController : GenericController<OccupationDataDto>
 
         return stream.ToArray();
     }
-
 
     private PdfPCell CreateCell(string content, bool isHeader = false)
     {
@@ -142,5 +140,4 @@ public class ReportsController : GenericController<OccupationDataDto>
 
         return cell;
     }
-
 }

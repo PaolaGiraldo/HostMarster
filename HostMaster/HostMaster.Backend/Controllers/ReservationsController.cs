@@ -1,4 +1,5 @@
-﻿using HostMaster.Backend.UnitsOfWork.Interfaces;
+﻿using HostMaster.Backend.UnitsOfWork.Implementations;
+using HostMaster.Backend.UnitsOfWork.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -57,6 +58,17 @@ public class ReservationsController : GenericController<Reservation>
     public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
     {
         var action = await _reservationsUnitOfWork.GetTotalRecordsAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("totalPages")]
+    public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
+    {
+        var action = await _reservationsUnitOfWork.GetTotalPagesAsync(pagination);
         if (action.WasSuccess)
         {
             return Ok(action.Result);

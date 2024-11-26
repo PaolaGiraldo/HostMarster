@@ -5,15 +5,41 @@
 <MudCard>
     <MudCardContent>
         <MudTextField @bind-Value="AccommodationId" Label="Accommodation ID" Variant="Variant.Outlined" />
+
         <MudDateRangePicker Label="Seleccione un rango de fechas"
                             @bind-DateRange="DateRange" />
+
+
     </MudCardContent>
     <MudCardActions>
-        <MudButton OnClick="DownloadReport" Disabled="@IsDownloadDisabled" Color="Color.Primary">
+        <MudButton EndIcon="@Icons.Material.Filled.ArrowDownward" OnClick="DownloadReport" Disabled="@IsDownloadDisabled" Color="Color.Primary">
             Descargar Reporte
         </MudButton>
     </MudCardActions>
 </MudCard>
 
-<MudSnackbarProvider />
+<MudCard>
+<div>
+    <MudChart ChartType="ChartType.Line"
+              ChartSeries="@Series"
+              @bind-SelectedIndex="Index"
+              XAxisLabels="@XAxisLabels"
+              Width="100%"
+              Height="350px"
+              ChartOptions="@Options" />
+</div>
+</MudCard>
 
+<MudTable Items="@ChartLabels" Bordered>
+    <HeaderContent>
+        <MudTh>Fecha</MudTh>
+        <MudTh>Ocupación (%)</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context</MudTd>
+        <MudTd>@ChartData.First().Data[ChartLabels.IndexOf(@context)]</MudTd>
+    </RowTemplate>
+</MudTable>
+
+
+<MudSnackbarProvider />

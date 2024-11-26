@@ -33,6 +33,7 @@ public class SeedDb
         await CheckRolesAsync();
         await CheckUserAsync("admin", "admin", "admin@yopmail.com", "322 311 4620", UserType.Admin);
         await CheckExtraServicesDbAsync();
+        await CheckMaintenancesDbAsync();
     }
 
     private async Task CheckRolesAsync()
@@ -145,6 +146,15 @@ public class SeedDb
         if (!_context.ExtraServices.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedExtraServices.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckMaintenancesDbAsync()
+    {
+        if (!_context.Maintenances.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedMaintenances.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }

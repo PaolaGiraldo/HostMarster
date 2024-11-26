@@ -188,6 +188,8 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             };
         }*/
 
+        var extraServices = CreateExtraServicesAsync(reservationDTO.ExtraServices!);
+
         currentReservation.StartDate = reservationDTO.StartDate ?? DateTime.Now;
         currentReservation.EndDate = reservationDTO.EndDate ?? DateTime.Now;
         currentReservation.RoomId = reservationDTO.RoomId;
@@ -195,7 +197,8 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
         currentReservation.AccommodationId = reservationDTO.AccommodationId;
         currentReservation.CustomerDocumentNumber = reservationDTO.CustomerDocument;
         currentReservation.ReservationState = reservationDTO.ReservationState;
-        //currentReservation.ExtraServices = reservationDTO.ExtraServices;
+        currentReservation.ExtraServices = await extraServices;
+        currentReservation.Comments = reservationDTO.Comments;
 
         _context.Update(currentReservation);
         try

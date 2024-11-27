@@ -9,6 +9,7 @@ public class DataContext : IdentityDbContext<User>
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
     }
+
     public DbSet<Accommodation> Accommodations { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
@@ -29,6 +30,8 @@ public class DataContext : IdentityDbContext<User>
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Room>().HasIndex(x => new { x.AccommodationId, x.RoomNumber }).IsUnique();
         modelBuilder.Entity<Reservation>().HasIndex(x => new { x.RoomId, x.AccommodationId, x.StartDate, x.EndDate }).IsUnique();
+
+        modelBuilder.Entity<Customer>(entity => { entity.HasKey(e => e.DocumentNumber); entity.Property(e => e.DocumentNumber).ValueGeneratedNever(); });
 
         DisableCascadingDelete(modelBuilder);
     }

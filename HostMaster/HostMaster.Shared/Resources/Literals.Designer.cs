@@ -205,6 +205,24 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Awesome!.
+        /// </summary>
+        public static string Awesome {
+            get {
+                return ResourceManager.GetString("Awesome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad.
+        /// </summary>
+        public static string Bad {
+            get {
+                return ResourceManager.GetString("Bad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calendar.
         /// </summary>
         public static string Calendar {
@@ -214,7 +232,25 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Calification.
+        /// </summary>
+        public static string Calification {
+            get {
+                return ResourceManager.GetString("Calification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We Value Your Opinion.
+        /// </summary>
+        public static string Califications {
+            get {
+                return ResourceManager.GetString("Califications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mayor.
         /// </summary>
         public static string Cancel {
             get {
@@ -291,6 +327,15 @@ namespace HostMaster.Shared.Resources {
         public static string Clean {
             get {
                 return ResourceManager.GetString("Clean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our clients&apos; opinion.
+        /// </summary>
+        public static string ClientsOpinion {
+            get {
+                return ResourceManager.GetString("ClientsOpinion", resourceCulture);
             }
         }
         
@@ -399,6 +444,15 @@ namespace HostMaster.Shared.Resources {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creation date.
+        /// </summary>
+        public static string CreatedDate {
+            get {
+                return ResourceManager.GetString("CreatedDate", resourceCulture);
             }
         }
         
@@ -736,6 +790,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Good.
+        /// </summary>
+        public static string Good {
+            get {
+                return ResourceManager.GetString("Good", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hello.
         /// </summary>
         public static string Hello {
@@ -759,6 +822,15 @@ namespace HostMaster.Shared.Resources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
             }
         }
         
@@ -907,6 +979,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Negative.
+        /// </summary>
+        public static string Negatives {
+            get {
+                return ResourceManager.GetString("Negatives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string New {
@@ -1011,6 +1092,15 @@ namespace HostMaster.Shared.Resources {
         public static string Observations {
             get {
                 return ResourceManager.GetString("Observations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opinions.
+        /// </summary>
+        public static string Opinions {
+            get {
+                return ResourceManager.GetString("Opinions", resourceCulture);
             }
         }
         
@@ -1123,11 +1213,29 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Positive.
+        /// </summary>
+        public static string Positives {
+            get {
+                return ResourceManager.GetString("Positives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         public static string Price {
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rate your experience.
+        /// </summary>
+        public static string RateYourExperience {
+            get {
+                return ResourceManager.GetString("RateYourExperience", resourceCulture);
             }
         }
         
@@ -1263,6 +1371,15 @@ namespace HostMaster.Shared.Resources {
         public static string Return {
             get {
                 return ResourceManager.GetString("Return", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviews.
+        /// </summary>
+        public static string Reviews {
+            get {
+                return ResourceManager.GetString("Reviews", resourceCulture);
             }
         }
         
@@ -1519,6 +1636,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sufficient.
+        /// </summary>
+        public static string Sufficient {
+            get {
+                return ResourceManager.GetString("Sufficient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Team.
         /// </summary>
         public static string Team {
@@ -1596,6 +1722,15 @@ namespace HostMaster.Shared.Resources {
         public static string ValidGuestsNumber {
             get {
                 return ResourceManager.GetString("ValidGuestsNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Very bad.
+        /// </summary>
+        public static string VeryBad {
+            get {
+                return ResourceManager.GetString("VeryBad", resourceCulture);
             }
         }
         

@@ -7,9 +7,9 @@ using HostMaster.Shared.Responses;
 
 namespace HostMaster.Backend.UnitsOfWork.Implementations;
 
-public class MaintenancesUnitOfWork(IGenericRepository<Maintenance> repository, IMaitenanceRepository maintenancesRepository) : GenericUnitOfWork<Maintenance>(repository), IMaintenancesUnitOfWork
+public class MaintenancesUnitOfWork(IGenericRepository<Maintenance> repository, IMaitenancesRepository maintenancesRepository) : GenericUnitOfWork<Maintenance>(repository), IMaintenancesUnitOfWork
 {
-    private readonly IMaitenanceRepository _maintenancesRepository = maintenancesRepository;
+    private readonly IMaitenancesRepository _maintenancesRepository = maintenancesRepository;
 
     public override async Task<ActionResponse<IEnumerable<Maintenance>>> GetAsync() => await _maintenancesRepository.GetAsync();
 

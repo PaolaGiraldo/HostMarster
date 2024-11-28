@@ -13,11 +13,11 @@ public interface IMaintenancesUnitOfWork
 
     Task<ActionResponse<Maintenance>> AddAsync(MaintenanceDTO MaintenanceDTO);
 
-    Task<ActionResponse<Maintenance>> UpdateAsync(MaintenanceDTO reservationDTO);
+    Task<ActionResponse<Maintenance>> UpdateAsync(MaintenanceDTO maintenanceDTO);
 
     Task<ActionResponse<IEnumerable<Maintenance>>> GetAsync();
 
-    Task<ActionResponse<Maintenance>> GetAsync(int reservationId);
+    Task<ActionResponse<Maintenance>> GetAsync(int maintenanceId);
 
     Task<ActionResponse<IEnumerable<Maintenance>>> GetByAccommodationIdAsync(int accommodationId);
 

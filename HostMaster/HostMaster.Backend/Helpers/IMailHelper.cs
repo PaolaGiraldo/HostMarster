@@ -6,4 +6,5 @@ public interface IMailHelper
 {
     ActionResponse<string> SendMail(string toName, string toEmail, string subject, string body, string language);
 
+    ActionResponse<string> SendQuotationMail(string toEmail, string subject, string body);
 }

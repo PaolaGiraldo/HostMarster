@@ -676,4 +676,7 @@
   <data name="Reports" xml:space="preserve">
     <value>Reportes</value>
   </data>
+  <data name="Revenue" xml:space="preserve">
+    <value>Ganancia</value>
+  </data>
 </root>

@@ -671,9 +671,12 @@
     <value>Unexpected error: {0}</value>
   </data>
   <data name="OccupancyPercentage" xml:space="preserve">
-    <value>Porcentage Ocupación</value>
+    <value>Occupancy percentage</value>
   </data>
   <data name="Reports" xml:space="preserve">
     <value>Reports</value>
+  </data>
+  <data name="Revenue" xml:space="preserve">
+    <value>Revenue</value>
   </data>
 </root>

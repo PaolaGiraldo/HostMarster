@@ -1105,7 +1105,7 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Porcentage Ocupación.
+        ///   Looks up a localized string similar to Occupancy percentage.
         /// </summary>
         public static string OccupancyPercentage {
             get {
@@ -1389,6 +1389,15 @@ namespace HostMaster.Shared.Resources {
         public static string Return {
             get {
                 return ResourceManager.GetString("Return", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenue.
+        /// </summary>
+        public static string Revenue {
+            get {
+                return ResourceManager.GetString("Revenue", resourceCulture);
             }
         }
         

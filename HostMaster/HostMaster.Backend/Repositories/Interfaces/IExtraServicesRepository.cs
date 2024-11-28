@@ -27,5 +27,9 @@ namespace HostMaster.Backend.Repositories.Interfaces
         Task<ActionResponse<IEnumerable<ServiceAvailability>>> GetAvailabilityAsync(int serviceId);
 
         Task<ActionResponse<IEnumerable<ServiceAvailability>>> GetAvailabilitiesAsync();
+
+        Task<ActionResponse<ServiceAvailability>> DeleteAvailabilityAsync(int serviceAvailabilityId);
+
+        Task<ActionResponse<ServiceAvailability>> GetAvailabilityByIdAsync(int Id);
     }
 }

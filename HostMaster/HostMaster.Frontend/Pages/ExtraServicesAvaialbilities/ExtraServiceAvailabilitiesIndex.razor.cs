@@ -97,7 +97,11 @@ public partial class ExtraServiceAvailabilitiesIndex
         IDialogReference? dialog;
         if (isEdit)
         {
-            return;
+            var parameters = new DialogParameters
+                 {
+                     { "ServiceId", id }
+                 };
+            dialog = DialogService.Show<ExtraServicesEdit>($"{Localizer["Edit"]} {Localizer["Availability"]}", parameters, options);
         }
         else
         {
@@ -120,7 +124,7 @@ public partial class ExtraServiceAvailabilitiesIndex
     {
         var parameters = new DialogParameters
             {
-                { "Message", string.Format(Localizer["DeleteConfirm"], "La disponibilidad configurara") }
+                { "Message", string.Format(Localizer["DeleteConfirm"], "La disponibilidad configurada") }
             };
 
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
@@ -131,7 +135,7 @@ public partial class ExtraServiceAvailabilitiesIndex
             return;
         }
 
-        var responseHttp = await Repository.DeleteAsync($"api/extraServices/{serviceAvailability.Id}");
+        var responseHttp = await Repository.DeleteAsync($"api/extraServices/availability/{serviceAvailability.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)

@@ -109,10 +109,32 @@ namespace HostMaster.Backend.Controllers
             return NotFound(response.Message);
         }
 
+        [HttpGet("availability/{Id}")]
+        public async Task<IActionResult> GetAvailability(int Id)
+        {
+            var response = await _extraServicesUnitOfWork.GetAvailabilityByIdAsync(Id);
+            if (response.WasSuccess)
+            {
+                return Ok(response.Result);
+            }
+            return NotFound(response.Message);
+        }
+
         [HttpGet("availabilities")]
         public async Task<IActionResult> GetAvailabilitiesAsync()
         {
             var response = await _extraServicesUnitOfWork.GetAvailabilitiesAsync();
+            if (response.WasSuccess)
+            {
+                return Ok(response.Result);
+            }
+            return BadRequest(response.Message);
+        }
+
+        [HttpDelete("availability/{id}")]
+        public async Task<IActionResult> DeleteAvailabilityAsync(int id)
+        {
+            var response = await _extraServicesUnitOfWork.DeleteAvailabilityAsync(id);
             if (response.WasSuccess)
             {
                 return Ok(response.Result);

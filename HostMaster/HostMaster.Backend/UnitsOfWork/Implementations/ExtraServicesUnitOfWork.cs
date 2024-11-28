@@ -37,5 +37,9 @@ namespace HostMaster.Backend.UnitsOfWork.Implementations
         public async Task<ActionResponse<IEnumerable<ServiceAvailability>>> GetAvailabilityAsync(int serviceId) => await _extraServicesRepository.GetAvailabilityAsync(serviceId);
 
         public async Task<ActionResponse<IEnumerable<ServiceAvailability>>> GetAvailabilitiesAsync() => await _extraServicesRepository.GetAvailabilitiesAsync();
+
+        public async Task<ActionResponse<ServiceAvailability>> DeleteAvailabilityAsync(int serviceAvailabilityId) => await _extraServicesRepository.DeleteAvailabilityAsync(serviceAvailabilityId);
+
+        public async Task<ActionResponse<ServiceAvailability>> GetAvailabilityByIdAsync(int Id) => await _extraServicesRepository.GetAvailabilityByIdAsync(Id);
     }
 }

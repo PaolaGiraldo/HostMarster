@@ -29,5 +29,17 @@ namespace HostMaster.Backend.UnitsOfWork.Implementations
         public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _extraServicesRepository.GetTotalRecordsAsync(pagination);
 
         public async Task<ActionResponse<ExtraService>> UpdateAsync(ExtraServiceDTO extraServiceDTO) => await _extraServicesRepository.UpdateAsync(extraServiceDTO);
+
+        public async Task<ActionResponse<ServiceAvailability>> AddAvailabilityAsync(ServiceAvailabilityDTO availabilityDTO) => await _extraServicesRepository.AddAvailabilityAsync(availabilityDTO);
+
+        public async Task<ActionResponse<ServiceAvailability>> UpdateAvailabilityAsync(ServiceAvailabilityDTO availabilityDTO) => await _extraServicesRepository.UpdateAvailabilityAsync(availabilityDTO);
+
+        public async Task<ActionResponse<IEnumerable<ServiceAvailability>>> GetAvailabilityAsync(int serviceId) => await _extraServicesRepository.GetAvailabilityAsync(serviceId);
+
+        public async Task<ActionResponse<IEnumerable<ServiceAvailability>>> GetAvailabilitiesAsync() => await _extraServicesRepository.GetAvailabilitiesAsync();
+
+        public async Task<ActionResponse<ServiceAvailability>> DeleteAvailabilityAsync(int serviceAvailabilityId) => await _extraServicesRepository.DeleteAvailabilityAsync(serviceAvailabilityId);
+
+        public async Task<ActionResponse<ServiceAvailability>> GetAvailabilityByIdAsync(int Id) => await _extraServicesRepository.GetAvailabilityByIdAsync(Id);
     }
 }

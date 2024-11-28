@@ -1,10 +1,12 @@
-﻿using HostMaster.Backend.Data;
+﻿using Azure;
+using HostMaster.Backend.Data;
 using HostMaster.Backend.Helpers;
 using HostMaster.Backend.Repositories.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace HostMaster.Backend.Repositories.Implementations
 {
@@ -78,6 +80,7 @@ namespace HostMaster.Backend.Repositories.Implementations
         async Task<ActionResponse<IEnumerable<ExtraService>>> IExtraServicesRepository.GetAsync()
         {
             var extraServices = await _context.ExtraServices
+           .Include(es => es.Availabilities)
            .ToListAsync();
 
             return new ActionResponse<IEnumerable<ExtraService>>
@@ -176,6 +179,211 @@ namespace HostMaster.Backend.Repositories.Implementations
                     Message = exception.Message
                 };
             }
+        }
+
+        async Task<ActionResponse<ServiceAvailability>> IExtraServicesRepository.AddAvailabilityAsync(ServiceAvailabilityDTO availabilityDTO)
+        {
+            try
+            {
+                var extraService = await _context.Set<ExtraService>()
+                                                 .FirstOrDefaultAsync(es => es.Id == availabilityDTO.ServiceId);
+
+                if (extraService == null)
+                {
+                    return new ActionResponse<ServiceAvailability>
+                    {
+                        WasSuccess = false,
+                        Message = "The specified ExtraService does not exist."
+                    };
+                }
+
+                var serviceAvailability = new ServiceAvailability
+                {
+                    ServiceId = availabilityDTO.ServiceId,
+                    StartDate = availabilityDTO.StartDate,
+                    EndDate = availabilityDTO.EndDate,
+                    IsAvailable = availabilityDTO.IsAvailable
+                };
+
+                // Optional: Validate StartDate and EndDate
+                if (serviceAvailability.StartDate > serviceAvailability.EndDate)
+                {
+                    return new ActionResponse<ServiceAvailability>
+                    {
+                        WasSuccess = false,
+                        Message = "StartDate cannot be later than EndDate."
+                    };
+                }
+
+                _context.Add(serviceAvailability);
+
+                await _context.SaveChangesAsync();
+
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = true,
+                    Result = serviceAvailability
+                };
+            }
+            catch (DbUpdateException ex)
+            {
+                // Handle database update exceptions
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = "Database update failed: ERR003"
+                };
+            }
+            catch (Exception ex)
+            {
+                // Handle generic exceptions
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = $"An error occurred: {ex.Message}"
+                };
+            }
+        }
+
+        async Task<ActionResponse<ServiceAvailability>> IExtraServicesRepository.UpdateAvailabilityAsync(ServiceAvailabilityDTO availabilityDTO)
+        {
+            var serviceAvailabilityExists = await _context.ServiceAvailabilities.FindAsync(availabilityDTO.ServiceId);
+            if (serviceAvailabilityExists == null)
+            {
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = "ERR004"
+                };
+            }
+
+            var serviceAvailability = new ServiceAvailability
+            {
+                ServiceId = availabilityDTO.ServiceId,
+                EndDate = availabilityDTO.EndDate,
+                StartDate = availabilityDTO.StartDate,
+                IsAvailable = availabilityDTO.IsAvailable
+            };
+
+            _context.Update(serviceAvailability);
+            try
+            {
+                await _context.SaveChangesAsync();
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = true,
+                    Result = serviceAvailability
+                };
+            }
+            catch (DbUpdateException)
+            {
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = "ERR003"
+                };
+            }
+            catch (Exception exception)
+            {
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = exception.Message
+                };
+            }
+        }
+
+        async Task<ActionResponse<IEnumerable<ServiceAvailability>>> IExtraServicesRepository.GetAvailabilityAsync(int serviceId)
+        {
+            var serviceAvailability = await _context.ServiceAvailabilities
+                .Where(sa => sa.ServiceId == serviceId)
+                .ToListAsync();
+
+            if (serviceAvailability == null)
+            {
+                return new ActionResponse<IEnumerable<ServiceAvailability>>
+                {
+                    WasSuccess = false,
+                    Message = "ERR001"
+                };
+            }
+
+            return new ActionResponse<IEnumerable<ServiceAvailability>>
+            {
+                WasSuccess = true,
+                Result = serviceAvailability
+            };
+        }
+
+        public async Task<ActionResponse<IEnumerable<ServiceAvailability>>> GetAvailabilitiesAsync()
+        {
+            var serviceAvailabilities = await _context.ServiceAvailabilities
+           .ToListAsync();
+
+            return new ActionResponse<IEnumerable<ServiceAvailability>>
+            {
+                WasSuccess = true,
+                Result = serviceAvailabilities
+            };
+        }
+
+        async Task<ActionResponse<ServiceAvailability>> IExtraServicesRepository.DeleteAvailabilityAsync(int ServiceAvailabilityId)
+        {
+            var serviceAvailability = await _context.ServiceAvailabilities.FindAsync(ServiceAvailabilityId);
+            if (serviceAvailability == null)
+            {
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = "ERR004"
+                };
+            }
+
+            _context.Remove(serviceAvailability);
+            try
+            {
+                await _context.SaveChangesAsync();
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = true,
+                    Result = serviceAvailability
+                };
+            }
+            catch (DbUpdateException)
+            {
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = "ERR003"
+                };
+            }
+            catch (Exception exception)
+            {
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = exception.Message
+                };
+            }
+        }
+
+        async Task<ActionResponse<ServiceAvailability>> IExtraServicesRepository.GetAvailabilityByIdAsync(int Id)
+        {
+            var serviceAvailability = await _context.ServiceAvailabilities.FindAsync(Id);
+            if (serviceAvailability == null)
+            {
+                return new ActionResponse<ServiceAvailability>
+                {
+                    WasSuccess = false,
+                    Message = "ERR001"
+                };
+            }
+
+            return new ActionResponse<ServiceAvailability>
+            {
+                WasSuccess = true,
+                Result = serviceAvailability
+            };
         }
     }
 }

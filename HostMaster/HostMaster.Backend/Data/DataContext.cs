@@ -22,19 +22,23 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     public DbSet<ReservationRoom> ReservationRooms { get; set; }
     public DbSet<Maintenance> Maintenances { get; set; }
     public DbSet<MaintenanceRoom> MaintenanceRooms { get; set; }
-    public DbSet<Opinion> Opinions { get; set; }
+    public DbSet<Opinion> Opinions { get; set; }  
+    public DbSet<ServiceAvailability> ServiceAvailabilities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Room>().HasIndex(x => new { x.AccommodationId, x.RoomNumber }).IsUnique();
         modelBuilder.Entity<Reservation>().HasIndex(x => new { x.RoomId, x.AccommodationId, x.StartDate, x.EndDate }).IsUnique();
-        modelBuilder.Entity<Maintenance>().HasIndex(x => new { x.RoomId, x.AccommodationId, x.StartDate, x.EndDate }).IsUnique();
+        modelBuilder.Entity<ServiceAvailability>()
+         .HasOne<ExtraService>()
+         .WithMany(e => e.Availabilities)
+         .HasForeignKey(sa => sa.ServiceId);
 
         DisableCascadingDelete(modelBuilder);
     }
 
-    private static void DisableCascadingDelete(ModelBuilder modelBuilder)
+    private void DisableCascadingDelete(ModelBuilder modelBuilder)
     {
         var relationships = modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys());
         foreach (var relationship in relationships)

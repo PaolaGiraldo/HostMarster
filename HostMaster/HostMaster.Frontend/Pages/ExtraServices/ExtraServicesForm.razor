@@ -1,8 +1,4 @@
-﻿﻿@using HostMaster.Frontend.Shared
-<PageTitle>@Localizer["Service"]</PageTitle>
-<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
-
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+﻿<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
 
     <MudTextField Label="@Localizer["Service"]"

@@ -9,12 +9,17 @@ namespace HostMaster.Shared.DTOs;
 
 public class ContactFormDTO
 {
-    [Required(ErrorMessage = "El nombre es requerido.")]
-    public string Name { get; set; }
+    [Required(ErrorMessage = "El primer nombre es requerido.")]
+    public string FirstName { get; set; }
+
+    [Required(ErrorMessage = "El apellido es requerido.")]
+    public string LastName { get; set; }
 
     [Required(ErrorMessage = "El correo es requerido.")]
     [EmailAddress(ErrorMessage = "Correo electrónico no válido.")]
     public string Email { get; set; }
+
+    public string Phone { get; set; }
 
     [Required(ErrorMessage = "El mensaje es requerido.")]
     public string Message { get; set; }

@@ -1,0 +1,52 @@
+﻿@page "/extraServices/{serviceId:int}/availabilities"
+
+<h3> @Localizer["Availability"]</h3>
+
+<MudTable Items="@ExtraServiceAvailabilities"
+    @ref="table"
+    ServerData="LoadListAsync"
+    Dense="true"
+    Hover="true"
+    Striped="true"
+    FixedHeader="true"
+    FixedFooter="true">
+	<ToolBarContent>
+		<div class="d-flex justify-content-between">
+			<MudText Typo="Typo.h6" Class="me-4"> @Localizer["Availability"]</MudText>
+			<MudButton Variant="Variant.Outlined"
+        EndIcon="@Icons.Material.Filled.Add"
+        Color="Color.Info" OnClick="@(() => ShowModalAsync(serviceId))">
+				@Localizer["New"]
+			</MudButton>
+		</div>
+		<MudSpacer />
+		<FilterComponent ApplyFilter="SetFilterValue" />
+	</ToolBarContent>
+	<HeaderContent>						
+		<MudTh>@Localizer["StartDate"]</MudTh>
+		<MudTh>@Localizer["EndDate"]</MudTh>
+		<MudTh>@Localizer["IsAvailable"]</MudTh>		
+	</HeaderContent>
+
+	<RowTemplate>		
+		<MudTd>@context.StartDate</MudTd>
+		<MudTd>@context.EndDate</MudTd>
+		<MudTd>@(context.IsAvailable ? "Disponible" : "No Disponible")</MudTd>
+		<MudTd>
+			<MudTooltip Text="@Localizer["Edit"]">
+				<MudButton Variant="Variant.Filled"
+						   Color="Color.Warning"
+						   OnClick="@(() => ShowModalAsync(context.Id, true))">
+					<MudIcon Icon="@Icons.Material.Filled.Edit" />
+				</MudButton>
+			</MudTooltip>
+			<MudTooltip Text="@Localizer["Delete"]">
+				<MudButton Variant="Variant.Filled"
+						   Color="Color.Error"
+						   OnClick="@(() => DeleteAsync(@context))">
+					<MudIcon Icon="@Icons.Material.Filled.Delete" />
+				</MudButton>
+			</MudTooltip>			
+		</MudTd>
+	</RowTemplate>
+</MudTable>

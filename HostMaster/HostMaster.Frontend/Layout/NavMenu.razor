@@ -1,7 +1,6 @@
 ﻿<MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">@Localizer["Home"]</MudNavLink>
     <MudDivider />
-    
     <AuthorizeView Roles="Admin">
         <Authorized>
             <MudNavLink Href="/Accommodations" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.AddHomeWork">@Localizer["Accommodations"]</MudNavLink>
@@ -20,6 +19,8 @@
             <MudDivider />
             <MudNavLink Href="/reviews" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Reviews">@Localizer["Reviews"]</MudNavLink>
             <MudDivider />
+            <MudNavLink Href="/reports" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.QueryStats">@Localizer["Reports"]</MudNavLink>
+    <MudDivider />
         </Authorized>
     </AuthorizeView>
 

@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HostMaster.Backend.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:HostMaster/HostMaster.Backend/Migrations/20241124163345_AddMaintenanceModule.cs
     public partial class AddMaintenanceModule : Migration
+========
+    public partial class AddUsersEntities : Migration
+>>>>>>>> f9c43cfa2c20122e3e2a5b65208af04cd4aa2f1e:HostMaster/HostMaster.Backend/Migrations/20241123050919_AddUsersEntities.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

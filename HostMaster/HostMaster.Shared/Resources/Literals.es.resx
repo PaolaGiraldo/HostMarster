@@ -613,4 +613,49 @@
   <data name="Comments" xml:space="preserve">
     <value>Comentarios</value>
   </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Calification" xml:space="preserve">
+    <value>Calificación</value>
+  </data>
+  <data name="Positives" xml:space="preserve">
+    <value>Positiivo</value>
+  </data>
+  <data name="Negatives" xml:space="preserve">
+    <value>Negativo</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Fecha de creación</value>
+  </data>
+  <data name="Opinions" xml:space="preserve">
+    <value>Opiniones</value>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Reseñas</value>
+  </data>
+  <data name="Califications" xml:space="preserve">
+    <value>Tu Opinión Importa</value>
+  </data>
+  <data name="RateYourExperience" xml:space="preserve">
+    <value>Califica tu experiencia</value>
+  </data>
+  <data name="Awesome" xml:space="preserve">
+    <value>¡Increíble!</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>Buena</value>
+  </data>
+  <data name="Sufficient" xml:space="preserve">
+    <value>Aceptable</value>
+  </data>
+  <data name="Bad" xml:space="preserve">
+    <value>Mala</value>
+  </data>
+  <data name="VeryBad" xml:space="preserve">
+    <value>Muy mala</value>
+  </data>
+  <data name="ClientsOpinion" xml:space="preserve">
+    <value>La opinión de nuestros clientes</value>
+  </data>
 </root>

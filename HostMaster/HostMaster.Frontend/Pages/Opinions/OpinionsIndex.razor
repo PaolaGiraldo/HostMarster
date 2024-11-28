@@ -1,0 +1,59 @@
+﻿@page "/Reviews"
+@using HostMaster.Frontend.Shared
+<PageTitle>@Localizer["Reviews"]</PageTitle>
+
+@if (loading)
+{
+    <Loading />
+
+}
+else
+{
+    <MudTable Items="@Opinions"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true">
+
+        <ToolBarContent>
+            <div class="d-flex justify-content-between">
+                <MudText Typo="Typo.h6" Class="me-4"> @Localizer["Opinions"]</MudText>
+            </div>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+
+        <HeaderContent>
+            <MudTh>@Localizer["Id"]</MudTh>
+            <MudTh>@Localizer["Calification"]</MudTh>
+            <MudTh>@Localizer["Comments"]</MudTh>
+            <MudTh>@Localizer["Positives"]</MudTh>
+            <MudTh>@Localizer["Negatives"]</MudTh>
+            <MudTh>@Localizer["CreatedDate"]</MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd>@context.Id</MudTd>
+            <MudTd>@context.Calification</MudTd>
+            <MudTd>@context.Comments</MudTd>
+            <MudTd>@context.Positives</MudTd>
+            <MudTd>@context.Negatives</MudTd>
+            <MudTd>@context.CreatedDate.ToShortDateString()</MudTd>
+
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>@Localizer["NoRecords"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=@Localizer["All"]
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+
+
+}

@@ -1,0 +1,13 @@
+﻿@using HostMaster.Frontend.Shared
+@if (customerDTO is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <CustomerForm @ref="customerForm" CustomerDTO="customerDTO" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostMaster.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241123050919_AddUsersEntities")]
-    partial class AddUsersEntities
+    [Migration("20241128061121_versionone5")]
+    partial class versionone5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,10 +117,7 @@ namespace HostMaster.Backend.Migrations
             modelBuilder.Entity("HostMaster.Shared.Entities.Customer", b =>
                 {
                     b.Property<int>("DocumentNumber")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentNumber"));
 
                     b.Property<string>("DocumentType")
                         .IsRequired()

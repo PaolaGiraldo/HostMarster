@@ -9,6 +9,7 @@ public class DataContext : IdentityDbContext<User>
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
     }
+
     public DbSet<Accommodation> Accommodations { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }

@@ -49,11 +49,7 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
           }
         });
-
 });
-
-
-
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddScoped<IFileStorage, FileStorage>();
@@ -61,7 +57,6 @@ builder.Services.AddTransient<SeedDb>();
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
-
 
 builder.Services.AddScoped<IAccommodationsRepository, AccommodationsRepository>();
 builder.Services.AddScoped<IAccomodationsUnitOfWork, AccommodationsUnitOfWork>();
@@ -96,9 +91,11 @@ builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
 builder.Services.AddScoped<ICalendarUnitOfWork, CalendarUnitOfWork>();
 
+builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<ICustomersUnitOfWork, CustomersUnitOfWork>();
+
 builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
 builder.Services.AddScoped<IReportsUnitOfWork, ReportsUnitOfWork>();
-
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
@@ -144,15 +141,11 @@ void SeedData(WebApplication app)
     }
 }
 
-
-
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseCors(x => x
     .AllowAnyMethod()
@@ -163,6 +156,5 @@ app.UseCors(x => x
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
 
 app.Run();

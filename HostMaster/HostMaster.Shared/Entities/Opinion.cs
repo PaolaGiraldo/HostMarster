@@ -17,11 +17,11 @@ public class Opinion
 
     [Display(Name = "RoomId", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public String? Like { get; set; }
+    public String? Positives { get; set; }
 
     [Display(Name = "RoomId", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public String? Dislike { get; set; }
+    public String? Negatives { get; set; }
 
     public DateTime CreatedDate { get; set; }
 }

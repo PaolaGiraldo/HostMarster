@@ -164,7 +164,7 @@ public class SeedDb
     {
         if (!_context.Opinions.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedExtraServices.sql");
+            var SQLScript = File.ReadAllText("Data\\SeedOpinions.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }

@@ -52,8 +52,8 @@ public class OpinionRepository(DataContext context) : GenericRepository<Opinion>
         {
             Calification = opinionDTO.Calification,
             Comments = opinionDTO.Comments,
-            Like = opinionDTO.Like,
-            Dislike = opinionDTO.Dislike,
+            Positives = opinionDTO.Like,
+            Negatives = opinionDTO.Dislike,
             CreatedDate = DateTime.Now
         };
 

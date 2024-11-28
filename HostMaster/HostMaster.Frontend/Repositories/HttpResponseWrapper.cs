@@ -25,7 +25,7 @@ public class HttpResponseWrapper<T>
         var statusCode = HttpResponseMessage.StatusCode;
         if (statusCode == HttpStatusCode.NotFound)
         {
-            return "Recurso no Encuentrado";
+            return "Recurso no Encontrado";
         }
 
         if (statusCode == HttpStatusCode.BadRequest)

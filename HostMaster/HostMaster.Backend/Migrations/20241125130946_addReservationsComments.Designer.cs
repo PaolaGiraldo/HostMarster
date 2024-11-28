@@ -4,6 +4,7 @@ using HostMaster.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostMaster.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241125130946_addReservationsComments")]
+    partial class addReservationsComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -439,34 +442,6 @@ namespace HostMaster.Backend.Migrations
 
                     b.ToTable("RoomTypes");
                 });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.ServiceAvailability", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("ServiceAvailabilities");
-                });
-
 
             modelBuilder.Entity("HostMaster.Shared.Entities.State", b =>
                 {
@@ -912,15 +887,6 @@ namespace HostMaster.Backend.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("HostMaster.Shared.Entities.ServiceAvailability", b =>
-                {
-                    b.HasOne("HostMaster.Shared.Entities.ExtraService", null)
-                        .WithMany("Availabilities")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("HostMaster.Shared.Entities.State", b =>
                 {
                     b.HasOne("HostMaster.Shared.Entities.Country", "Country")
@@ -1029,15 +995,9 @@ namespace HostMaster.Backend.Migrations
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("HostMaster.Shared.Entities.ExtraService", b =>
-                {
-                    b.Navigation("Availabilities");
-                });
-
             modelBuilder.Entity("HostMaster.Shared.Entities.Maintenance", b =>
                 {
                     b.Navigation("MaintenanceRooms");
-
                 });
 
             modelBuilder.Entity("HostMaster.Shared.Entities.Reservation", b =>

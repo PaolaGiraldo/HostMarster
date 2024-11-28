@@ -1,5 +1,4 @@
-﻿using HostMaster.Backend.UnitsOfWork.Implementations;
-using HostMaster.Backend.UnitsOfWork.Interfaces;
+﻿using HostMaster.Backend.UnitsOfWork.Interfaces;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,19 +11,19 @@ namespace HostMaster.Backend.Controllers;
 [ApiController]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("/api/[controller]")]
-public class ReservationsController : GenericController<Reservation>
+public class MaintenancesController : GenericController<Maintenance>
 {
-    private readonly IReservationsUnitOfWork _reservationsUnitOfWork;
+    private readonly IMaintenancesUnitOfWork _maintenancesUnitOfWork;
 
-    public ReservationsController(IGenericUnitOfWork<Reservation> unitOfWork, IReservationsUnitOfWork reservationsUnitOfWork) : base(unitOfWork)
+    public MaintenancesController(IGenericUnitOfWork<Maintenance> unitOfWork, IMaintenancesUnitOfWork maintenancesUnitOfWork) : base(unitOfWork)
     {
-        _reservationsUnitOfWork = reservationsUnitOfWork;
+        _maintenancesUnitOfWork = maintenancesUnitOfWork;
     }
 
     [HttpGet]
     public override async Task<IActionResult> GetAsync()
     {
-        var response = await _reservationsUnitOfWork.GetAsync();
+        var response = await _maintenancesUnitOfWork.GetAsync();
         if (response.WasSuccess)
         {
             return Ok(response.Result);
@@ -35,7 +34,7 @@ public class ReservationsController : GenericController<Reservation>
     [HttpGet("{id}")]
     public override async Task<IActionResult> GetAsync(int id)
     {
-        var response = await _reservationsUnitOfWork.GetAsync(id);
+        var response = await _maintenancesUnitOfWork.GetAsync(id);
         if (response.WasSuccess)
         {
             return Ok(response.Result);
@@ -46,7 +45,7 @@ public class ReservationsController : GenericController<Reservation>
     [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
-        var response = await _reservationsUnitOfWork.GetAsync(pagination);
+        var response = await _maintenancesUnitOfWork.GetAsync(pagination);
         if (response.WasSuccess)
         {
             return Ok(response.Result);
@@ -57,18 +56,7 @@ public class ReservationsController : GenericController<Reservation>
     [HttpGet("totalRecordsPaginated")]
     public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
     {
-        var action = await _reservationsUnitOfWork.GetTotalRecordsAsync(pagination);
-        if (action.WasSuccess)
-        {
-            return Ok(action.Result);
-        }
-        return BadRequest();
-    }
-
-    [HttpGet("totalPages")]
-    public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
-    {
-        var action = await _reservationsUnitOfWork.GetTotalPagesAsync(pagination);
+        var action = await _maintenancesUnitOfWork.GetTotalRecordsAsync(pagination);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
@@ -79,13 +67,13 @@ public class ReservationsController : GenericController<Reservation>
     [HttpGet("combo/{roomId:int}")]
     public async Task<IActionResult> GetComboAsync(int roomId)
     {
-        return Ok(await _reservationsUnitOfWork.GetComboAsync(roomId));
+        return Ok(await _maintenancesUnitOfWork.GetComboAsync(roomId));
     }
 
     [HttpPost("full")]
-    public async Task<IActionResult> PostAsync(ReservationDTO reservationDTO)
+    public async Task<IActionResult> PostAsync(MaintenanceDTO maintenanceDTO)
     {
-        var action = await _reservationsUnitOfWork.AddAsync(reservationDTO);
+        var action = await _maintenancesUnitOfWork.AddAsync(maintenanceDTO);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
@@ -94,9 +82,9 @@ public class ReservationsController : GenericController<Reservation>
     }
 
     [HttpPut("full")]
-    public async Task<IActionResult> PutAsync(ReservationDTO reservationDTO)
+    public async Task<IActionResult> PutAsync(MaintenanceDTO maintenanceDTO)
     {
-        var action = await _reservationsUnitOfWork.UpdateAsync(reservationDTO);
+        var action = await _maintenancesUnitOfWork.UpdateAsync(maintenanceDTO);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
@@ -107,7 +95,7 @@ public class ReservationsController : GenericController<Reservation>
     [HttpGet("accommodation/{accommodationId:int}")]
     public async Task<IActionResult> GetByAccommodationIdAsync(int accommodationId)
     {
-        var action = await _reservationsUnitOfWork.GetByAccommodationIdAsync(accommodationId);
+        var action = await _maintenancesUnitOfWork.GetByAccommodationIdAsync(accommodationId);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
@@ -118,18 +106,12 @@ public class ReservationsController : GenericController<Reservation>
     [HttpGet("room/{roomId:int}")]
     public async Task<IActionResult> GetByRoomIdAsync(int roomId)
     {
-        return Ok(await _reservationsUnitOfWork.GetByRoomIdAsync(roomId));
-    }
-
-    [HttpGet("customer/{customerDocument:int}")]
-    public async Task<IActionResult> GetByCustomerAsync(int customerDocument)
-    {
-        return Ok(await _reservationsUnitOfWork.GetByCustomerAsync(customerDocument));
+        return Ok(await _maintenancesUnitOfWork.GetByRoomIdAsync(roomId));
     }
 
     [HttpGet("date/{startDate:DateTime}")]
     public async Task<IActionResult> GetByStartDateAsync(DateTime startDate)
     {
-        return Ok(await _reservationsUnitOfWork.GetByStartDateAsync(startDate));
+        return Ok(await _maintenancesUnitOfWork.GetByStartDateAsync(startDate));
     }
 }

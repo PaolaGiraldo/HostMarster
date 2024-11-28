@@ -38,6 +38,6 @@ public class QuotationsController : ControllerBase
                    $"<p><strong>Tipo de Habitación:</strong> {quotationDTO.RoomType}</p>" +
                    $"<p><strong>Observaciones:</strong> {quotationDTO.Observations}</p>";
 
-        return _mailHelper.SendQuotationMail("correoDestino@dominio.com", "Nueva Solicitud de Cotizacion", body);
+        return _mailHelper.SendMail("correoDestino@dominio.com", "correoDestino@dominio.com", "Nueva Solicitud de Cotizacion", body, "en");
     }
 }

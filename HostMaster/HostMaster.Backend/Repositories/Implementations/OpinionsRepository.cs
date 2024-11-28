@@ -30,6 +30,7 @@ public class OpinionRepository(DataContext context) : GenericRepository<Opinion>
     {
         var opinions = await _context.Opinions
                              .Where(o => o.Calification >= 4)
+                             .OrderByDescending(o => o.CreatedDate)
                              .ToListAsync();
 
         return new ActionResponse<IEnumerable<Opinion>>

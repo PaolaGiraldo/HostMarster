@@ -7,19 +7,19 @@ public class Opinion
 {
     public int Id { get; set; }
 
-    [Display(Name = "RoomId", ResourceType = typeof(Literals))]
-    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    [Display(Name = "Calification", ResourceType = typeof(Literals))]
+    [Range(1, 5, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int? Calification { get; set; }
 
-    [Display(Name = "RoomId", ResourceType = typeof(Literals))]
+    [Display(Name = "Comments", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public String? Comments { get; set; }
 
-    [Display(Name = "RoomId", ResourceType = typeof(Literals))]
+    [Display(Name = "Positives", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public String? Positives { get; set; }
 
-    [Display(Name = "RoomId", ResourceType = typeof(Literals))]
+    [Display(Name = "Negatives", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public String? Negatives { get; set; }
 

@@ -1,0 +1,44 @@
+﻿﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="d-flex flex-column align-center">
+        <MudRating @bind-SelectedValue="@OpinionDTO.Calification" HoveredValueChanged="HandleHoveredValueChanged" />
+        <MudText Typo="Typo.subtitle2" Class="deep-purple-text mt-2">@LabelText</MudText>
+    </div>
+
+    <MudTextField Label="@Localizer["Comments"]"
+                  Lines="5"
+                  @bind-Value="@OpinionDTO.Comments"
+                  For="@(() => OpinionDTO.Comments)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["Positives"]"
+                  Lines="5"
+                  @bind-Value="@OpinionDTO.Positives"
+                  For="@(() => OpinionDTO.Positives)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["Negatives"]"
+                  Lines="5"
+                  @bind-Value="@OpinionDTO.Negatives"
+                  For="@(() => OpinionDTO.Negatives)"
+                  Class="mb-4" />
+
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.ClearAll"
+               Color="Color.Info"
+               OnClick="ClearForm">
+        @Localizer["Clear"]
+    </MudButton>
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.Check"
+               Color="Color.Primary"
+               ButtonType="ButtonType.Submit">
+        @Localizer["SaveChanges"]
+    </MudButton>
+</EditForm>
+
+

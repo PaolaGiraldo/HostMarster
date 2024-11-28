@@ -52,9 +52,9 @@ public class OpinionRepository(DataContext context) : GenericRepository<Opinion>
         {
             Calification = opinionDTO.Calification,
             Comments = opinionDTO.Comments,
-            Positives = opinionDTO.Like,
-            Negatives = opinionDTO.Dislike,
-            CreatedDate = DateTime.Now
+            Positives = opinionDTO.Positives,
+            Negatives = opinionDTO.Negatives,
+            CreatedDate = opinionDTO.CreatedDate
         };
 
         _context.Add(opinion);

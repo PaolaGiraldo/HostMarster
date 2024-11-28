@@ -56,7 +56,6 @@ builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 
-
 builder.Services.AddScoped<IAccommodationsRepository, AccommodationsRepository>();
 builder.Services.AddScoped<IAccomodationsUnitOfWork, AccommodationsUnitOfWork>();
 
@@ -84,11 +83,20 @@ builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IRoomTypesRepository, RoomTypesRepository>();
 builder.Services.AddScoped<IRoomTypesUnitOfWork, RoomTypesUnitOfWork>();
 
+builder.Services.AddScoped<IExtraServicesRepository, ExtraServicesRepository>();
+builder.Services.AddScoped<IExtraServicesUnitOfWork, ExtraServicesUnitOfWork>();
+
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
 builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
 builder.Services.AddScoped<ICalendarUnitOfWork, CalendarUnitOfWork>();
+
+builder.Services.AddScoped<IMaitenancesRepository, MaintenancesRepository>();
+builder.Services.AddScoped<IMaintenancesUnitOfWork, MaintenancesUnitOfWork>();
+
+builder.Services.AddScoped<IOpinionsRepository, OpinionRepository>();
+builder.Services.AddScoped<IOpinionsUnitOfWork, OpinionsUnitOfWork>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
@@ -140,7 +148,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
@@ -150,6 +157,5 @@ app.UseCors(x => x
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
 
 app.Run();

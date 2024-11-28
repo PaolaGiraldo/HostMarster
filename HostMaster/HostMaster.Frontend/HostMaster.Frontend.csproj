@@ -24,7 +24,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <Folder Include="Pages\Cities\" />
     <Folder Include="Pages\Users\" />
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
@@ -34,7 +33,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\images\lobby.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\pool.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\images\questionMark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\room.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

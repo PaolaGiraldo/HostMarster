@@ -6,63 +6,77 @@ using Microsoft.AspNetCore.Components;
 using HostMaster.Frontend.Repositories;
 using HostMaster.Frontend.Shared;
 using HostMaster.Shared.Entities;
+using HostMaster.Shared.DTOs;
+using HostMaster.Shared.Resources;
+using Microsoft.Extensions.Localization;
+using MudBlazor;
+using static MudBlazor.Colors;
 
 namespace HostMaster.Frontend.Pages.States;
 
 public partial class StateEdit
 {
-    private State? state;
-    private FormWithName<State>? stateForm;
+	private StateDTO? stateDTO;
+	private StateForm? stateForm;
 
-    [Inject] private IRepository Repository { get; set; } = null!;
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
-    [CascadingParameter] private BlazoredModalInstance BlazoredModal { get; set; } = default!;
+	private Country selectedCountry = new();
 
-    [Parameter] public int StateId { get; set; }
+	[Inject] private IRepository Repository { get; set; } = null!;
 
-    protected override async Task OnParametersSetAsync()
-    {
-        var responseHttp = await Repository.GetAsync<State>($"/api/states/{StateId}");
-        if (responseHttp.Error)
-        {
-            if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
-            {
-                Return();
-            }
-            var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
-            return;
-        }
-        state = responseHttp.Response;
-    }
+	[Inject] private NavigationManager NavigationManager { get; set; } = null!;
+	[Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+	[Inject] private ISnackbar Snackbar { get; set; } = null!;
+	[Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
-    private async Task SaveAsync()
-    {
-        var responseHttp = await Repository.PutAsync($"/api/states", state);
-        if (responseHttp.Error)
-        {
-            var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
-            return;
-        }
+	[Parameter] public int Id { get; set; }
 
-        await BlazoredModal.CloseAsync(ModalResult.Ok());
-        Return();
+	protected override async Task OnInitializedAsync()
+	{
+		var responseHttp = await Repository.GetAsync<State>($"api/states/{Id}");
 
-        var toast = SweetAlertService.Mixin(new SweetAlertOptions
-        {
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-            ShowConfirmButton = true,
-            Timer = 3000
-        });
-        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
-    }
+		if (responseHttp.Error)
+		{
+			if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+			{
+				NavigationManager.NavigateTo("states");
+			}
+			else
+			{
+				var messageError = await responseHttp.GetErrorMessageAsync();
+				Snackbar.Add(messageError!, Severity.Error);
+			}
+		}
+		else
+		{
+			var state = responseHttp.Response;
+			stateDTO = new StateDTO()
+			{
+				Id = state!.Id,
+				Name = state!.Name,
+				CountryId = state.CountryId
+			};
+			selectedCountry = state.Country!;
+		}
+	}
 
-    private void Return()
-    {
-        stateForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo($"/countries/details/{state!.CountryId}");
-    }
+	private async Task EditAsync()
+	{
+		var responseHttp = await Repository.PutAsync("api/states/full", stateDTO);
+
+		if (responseHttp.Error)
+		{
+			var mensajeError = await responseHttp.GetErrorMessageAsync();
+			Snackbar.Add(Localizer[mensajeError!], Severity.Error);
+			return;
+		}
+
+		Return();
+		Snackbar.Add(Localizer["RecordSavedOk"], Severity.Success);
+	}
+
+	private void Return()
+	{
+		stateForm!.FormPostedSuccessfully = true;
+		NavigationManager.NavigateTo("states");
+	}
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HostMaster.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class v33 : Migration
+    public partial class AddMaintenanceModule : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,7 +62,8 @@ namespace HostMaster.Backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ServiceDescription = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -329,6 +330,35 @@ namespace HostMaster.Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Maintenances",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    AccommodationId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Maintenances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Maintenances_Accommodations_AccommodationId",
+                        column: x => x.AccommodationId,
+                        principalTable: "Accommodations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Maintenances_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservations",
                 columns: table => new
                 {
@@ -401,6 +431,32 @@ namespace HostMaster.Backend.Migrations
                     table.PrimaryKey("PK_RoomPhotos", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RoomPhotos_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MaintenanceRooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MaintenanceId = table.Column<int>(type: "int", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MaintenanceRooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MaintenanceRooms_Maintenances_MaintenanceId",
+                        column: x => x.MaintenanceId,
+                        principalTable: "Maintenances",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaintenanceRooms_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
@@ -545,6 +601,27 @@ namespace HostMaster.Backend.Migrations
                 column: "ReservationsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MaintenanceRooms_MaintenanceId",
+                table: "MaintenanceRooms",
+                column: "MaintenanceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MaintenanceRooms_RoomId",
+                table: "MaintenanceRooms",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Maintenances_AccommodationId",
+                table: "Maintenances",
+                column: "AccommodationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Maintenances_RoomId_AccommodationId_StartDate_EndDate",
+                table: "Maintenances",
+                columns: new[] { "RoomId", "AccommodationId", "StartDate", "EndDate" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_ReservationId",
                 table: "Payments",
                 column: "ReservationId");
@@ -624,6 +701,9 @@ namespace HostMaster.Backend.Migrations
                 name: "ExtraServiceReservation");
 
             migrationBuilder.DropTable(
+                name: "MaintenanceRooms");
+
+            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
@@ -643,6 +723,9 @@ namespace HostMaster.Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "ExtraServices");
+
+            migrationBuilder.DropTable(
+                name: "Maintenances");
 
             migrationBuilder.DropTable(
                 name: "Reservations");

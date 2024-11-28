@@ -1,0 +1,13 @@
+﻿﻿@using HostMaster.Frontend.Shared
+@if (extraServiceDTO is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <ExtraServicesForm @ref="extraServicesForm" ExtraServiceDTO="extraServiceDTO" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

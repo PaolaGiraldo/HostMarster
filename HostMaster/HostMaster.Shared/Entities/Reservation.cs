@@ -42,6 +42,8 @@ public class Reservation
 
     public Accommodation? Accommodation { get; set; }
 
+    public String? Comments { get; set; }
+
     // Relationships
     public ICollection<Payment>? Payments { get; set; }
 

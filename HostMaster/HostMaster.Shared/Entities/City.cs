@@ -1,9 +1,10 @@
-﻿using HostMaster.Shared.Resources;
+﻿using HostMaster.Shared.Interfaces;
+using HostMaster.Shared.Resources;
 using System.ComponentModel.DataAnnotations;
 
 namespace HostMaster.Shared.Entities;
 
-public class City
+public class City : IEntityWithName
 {
     public int Id { get; set; }
 

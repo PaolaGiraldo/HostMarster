@@ -1,0 +1,36 @@
+﻿﻿@using HostMaster.Frontend.Shared
+<PageTitle>@Localizer["Service"]</PageTitle>
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <MudTextField Label="@Localizer["Service"]"
+                  @bind-Value="@ExtraServiceDTO.ServiceName"
+                  For="@(() => ExtraServiceDTO.ServiceName)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["Description"]"
+                  @bind-Value="@ExtraServiceDTO.ServiceDescription"
+                  For="@(() => ExtraServiceDTO.ServiceDescription)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["Price"]"
+                  @bind-Value="@ExtraServiceDTO.Price"
+                  For="@(() => ExtraServiceDTO.Price)"
+                  Class="mb-4" />
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.ArrowBack"
+               Color="Color.Info"
+               OnClick="ReturnAction">
+        @Localizer["Return"]
+    </MudButton>
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.Check"
+               Color="Color.Primary"
+               ButtonType="ButtonType.Submit">
+        @Localizer["SaveChanges"]
+    </MudButton>
+</EditForm>

@@ -38,6 +38,7 @@ public partial class ReportsIndex
         {
             _dateRange = value;
             _ = FetchOccupancyData(); // Llama a FetchOccupancyData al cambiar el rango de fechas
+            _ = FetchMonthlyRevenueData(); // Llama a FetchOccupancyData al cambiar el rango de fechas
         }
     }
 
@@ -45,13 +46,17 @@ public partial class ReportsIndex
     public ChartOptions Options { get; set; } = new ChartOptions();
 
     public List<ChartSeries> Series { get; set; } = new List<ChartSeries>();
+    public List<ChartSeries> Seriesc { get; set; } = new List<ChartSeries>();
 
     public string[] XAxisLabels { get; set; } = Array.Empty<string>();
+    public string[] XAxisLabelsc { get; set; } = Array.Empty<string>();
 
+    private int Indexc = 1; // Valor predeterminado, no puede ser 0 ya que el primer SelectedIndex es 0.
 
     protected override async Task OnInitializedAsync()
     {
         await FetchOccupancyData();
+        await FetchMonthlyRevenueData();
     }
 
     private async Task FetchOccupancyData()
@@ -84,20 +89,65 @@ public partial class ReportsIndex
                 ChartLabels.Clear();
                 var occupancyPercentages = new List<double>();
 
-               
-
-
-
                 // Convertir los valores de OccupiedPercentage a un arreglo de double[]
                 var percentages = response.Select(item => item.OccupiedPercentage).ToArray();
 
                 XAxisLabels = percentages.Select(value => value.ToString("F2")).ToArray();
 
                 // Crear la serie con los datos convertidos
-                Series = new List<ChartSeries> { 
+                Series = new List<ChartSeries> {
                     new ChartSeries() {
-                        Name = "Ocupación (%)", 
-                        Data = percentages 
+                        Name = "Ocupación (%)",
+                        Data = percentages
+                    }};
+            }
+            else
+            {
+                Snackbar.Add("No se encontraron datos para el rango de fechas seleccionado.", Severity.Warning);
+                ChartLabels.Clear();
+                ChartData.Clear();
+            }
+
+            StateHasChanged(); // Asegura que la UI se actualice
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error al cargar los datos de ocupación: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task FetchMonthlyRevenueData()
+    {
+        if (string.IsNullOrWhiteSpace(AccommodationId))
+        {
+            AccommodationId = "1";
+        }
+
+        try
+        {
+            var startDate = (DateRange?.Start ?? DateTime.Today.AddYears(-1)).ToString("yyyy-MM-dd");
+            var endDate = (DateRange?.End ?? DateTime.Today).ToString("yyyy-MM-dd");
+   
+            var url = $"MonthlyRevenue?accommodationId={AccommodationId}&startDate={startDate}&endDate={endDate}";
+
+            var response = await HttpClient.GetFromJsonAsync<List<MonthlyRevenueDto>>(url);
+
+            if (response != null && response.Any())
+            {
+                ChartLabels.Clear();
+                var occupancyPercentages = new List<double>();
+
+                var Revenues = response.Select(item => (double)item.TotalRevenue).ToArray();
+
+                var RevenueDates = response.Select(item => $"{item.Year}-{item.Month:D2}").ToArray();
+
+                XAxisLabelsc = RevenueDates;
+
+                // Crear la serie con los datos convertidos
+                Seriesc = new List<ChartSeries> {
+                    new ChartSeries() {
+                        Name = "Revenue",
+                        Data = Revenues
                     }};
             }
             else

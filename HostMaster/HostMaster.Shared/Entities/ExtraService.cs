@@ -23,5 +23,5 @@ public class ExtraService
 	// Relationships
 	public ICollection<Reservation>? Reservations { get; set; }
 
-	public ICollection<ServiceAvailability> Availabilities { get; set; } = new List<ServiceAvailability>();
+	public ICollection<ServiceAvailability>? Availabilities { get; set; }
 }

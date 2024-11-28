@@ -5,9 +5,9 @@
 
     <MudTextField Label="Service id" HelperText="Service" Value="ServiceId" Disabled="true" Class="mb-4" />
 
-    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="Start Date" HelperText="Start Date" DateFormat="dd/MM/yyyy" @bind-Date="ServiceAvailabilityDTO.StartDate" />
+    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="@Localizer["StartDate"]" HelperText="@Localizer["StartDate"]" DateFormat="dd/MM/yyyy" @bind-Date="ServiceAvailabilityDTO.StartDate" />
 
-    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="End Date" HelperText="End Date" DateFormat="dd/MM/yyyy" @bind-Date="ServiceAvailabilityDTO.EndDate"/>
+    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="@Localizer["EndDate"]" HelperText="@Localizer["EndDate"]" DateFormat="dd/MM/yyyy" @bind-Date="ServiceAvailabilityDTO.EndDate" />
     
     <MudCheckBox Label="Disponible" @bind-Value="ServiceAvailabilityDTO.IsAvailable" Class="mb-4" />
 

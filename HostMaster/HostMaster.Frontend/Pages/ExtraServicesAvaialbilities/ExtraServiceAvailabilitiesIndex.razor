@@ -1,6 +1,6 @@
 ﻿@page "/extraServices/{serviceId:int}/availabilities"
 
-<h3> @Localizer["Availability"] </h3>
+<h3> @Localizer["Availability"]</h3>
 
 <MudTable Items="@ExtraServiceAvailabilities"
     @ref="table"
@@ -22,13 +22,13 @@
 		<MudSpacer />
 		<FilterComponent ApplyFilter="SetFilterValue" />
 	</ToolBarContent>
-	<HeaderContent>				
+	<HeaderContent>						
 		<MudTh>@Localizer["StartDate"]</MudTh>
 		<MudTh>@Localizer["EndDate"]</MudTh>
 		<MudTh>@Localizer["IsAvailable"]</MudTh>		
 	</HeaderContent>
 
-	<RowTemplate>
+	<RowTemplate>		
 		<MudTd>@context.StartDate</MudTd>
 		<MudTd>@context.EndDate</MudTd>
 		<MudTd>@(context.IsAvailable ? "Disponible" : "No Disponible")</MudTd>

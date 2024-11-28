@@ -28,20 +28,29 @@ else
                 </MudButton>
             </div>
             <MudSpacer />
-            <FilterComponent ApplyFilter="SetFilterValue" />
+
+            <MudDateRangePicker @bind-DateRange="@dateRangeFilter" Margin="Margin.Dense"
+                                PlaceholderStart="@Localizer["StartDate"]" PlaceholderEnd="@Localizer["EndDate"]" Label="@Localizer["Availability"]" />
+
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Primary"
+                       OnClick="@(() => ApplyFilterAsync())">
+                @Localizer["Ver"]
+            </MudButton>
+
+            <FilterComponent ApplyFilter="SetFilterValue" />            
         </ToolBarContent>
-        <HeaderContent>
-            <MudTh>@Localizer["ID"]</MudTh>
+        <HeaderContent>            
             <MudTh>@Localizer["Service"]</MudTh>
             <MudTh>@Localizer["Description"]</MudTh>
-            <MudTh>@Localizer["Price"]</MudTh>
+            <MudTh>@Localizer["Price"]</MudTh>            
             <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
-        <RowTemplate>
-            <MudTd>@context.Id</MudTd>
+        <RowTemplate>            
             <MudTd>@context.ServiceName</MudTd>
             <MudTd>@context.ServiceDescription</MudTd>
             <MudTd>@context.Price</MudTd>
+            
             <MudTd>
                 <MudTooltip Text="@Localizer["Edit"]">
                     <MudButton Variant="Variant.Filled"

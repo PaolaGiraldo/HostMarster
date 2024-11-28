@@ -1,7 +1,9 @@
 namespace HostMaster.Frontend.Pages.Reports;
 
 using HostMaster.Shared.DTOs;
+using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using MudBlazor;
 using System;
@@ -22,6 +24,7 @@ public partial class ReportsIndex
 
     [Inject] public ISnackbar Snackbar { get; set; }
     [Inject] public HttpClient HttpClient { get; set; }
+    [Inject] public IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
     // Datos para la gráfica
     private List<string> ChartLabels { get; set; } = new List<string>();
@@ -61,12 +64,6 @@ public partial class ReportsIndex
 
     private async Task FetchOccupancyData()
     {
-        //if (IsDownloadDisabled)
-        //{
-        //     Snackbar.Add("Por favor, complete los campos necesarios.", Severity.Error);
-        //     return;
-        // }
-
         if (string.IsNullOrWhiteSpace(AccommodationId))
         {
             AccommodationId = "1";
@@ -74,12 +71,9 @@ public partial class ReportsIndex
 
         try
         {
-            // Establecer valores predeterminados si DateRange es null o si sus propiedades Start/End son null
             var startDate = (DateRange?.Start ?? DateTime.Today.AddYears(-1)).ToString("yyyy-MM-dd");
             var endDate = (DateRange?.End ?? DateTime.Today).ToString("yyyy-MM-dd");
 
-            // var startDate = DateRange.Start.Value.ToString("yyyy-MM-dd");
-            // var endDate = DateRange.End.Value.ToString("yyyy-MM-dd");
             var url = $"OccupationData?accommodationId={AccommodationId}&startDate={startDate}&endDate={endDate}";
 
             var response = await HttpClient.GetFromJsonAsync<List<OccupationDataDto>>(url);
@@ -87,32 +81,28 @@ public partial class ReportsIndex
             if (response != null && response.Any())
             {
                 ChartLabels.Clear();
-                var occupancyPercentages = new List<double>();
-
-                // Convertir los valores de OccupiedPercentage a un arreglo de double[]
                 var percentages = response.Select(item => item.OccupiedPercentage).ToArray();
 
                 XAxisLabels = percentages.Select(value => value.ToString("F2")).ToArray();
 
-                // Crear la serie con los datos convertidos
                 Series = new List<ChartSeries> {
                     new ChartSeries() {
-                        Name = "Ocupación (%)",
+                        Name = Localizer["OccupancyPercentage"],
                         Data = percentages
                     }};
             }
             else
             {
-                Snackbar.Add("No se encontraron datos para el rango de fechas seleccionado.", Severity.Warning);
+                Snackbar.Add(Localizer["NoDataForSelectedRange"], Severity.Warning);
                 ChartLabels.Clear();
                 ChartData.Clear();
             }
 
-            StateHasChanged(); // Asegura que la UI se actualice
+            StateHasChanged();
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error al cargar los datos de ocupación: {ex.Message}", Severity.Error);
+            Snackbar.Add(Localizer["ErrorLoadingOccupancyData", ex.Message], Severity.Error);
         }
     }
 
@@ -135,33 +125,29 @@ public partial class ReportsIndex
             if (response != null && response.Any())
             {
                 ChartLabels.Clear();
-                var occupancyPercentages = new List<double>();
+                var revenues = response.Select(item => (double)item.TotalRevenue).ToArray();
+                var revenueDates = response.Select(item => $"{item.Year}-{item.Month:D2}").ToArray();
 
-                var Revenues = response.Select(item => (double)item.TotalRevenue).ToArray();
+                XAxisLabelsc = revenueDates;
 
-                var RevenueDates = response.Select(item => $"{item.Year}-{item.Month:D2}").ToArray();
-
-                XAxisLabelsc = RevenueDates;
-
-                // Crear la serie con los datos convertidos
                 Seriesc = new List<ChartSeries> {
                     new ChartSeries() {
-                        Name = "Revenue",
-                        Data = Revenues
+                        Name = Localizer["Revenue"],
+                        Data = revenues
                     }};
             }
             else
             {
-                Snackbar.Add("No se encontraron datos para el rango de fechas seleccionado.", Severity.Warning);
+                Snackbar.Add(Localizer["NoDataForSelectedRange"], Severity.Warning);
                 ChartLabels.Clear();
                 ChartData.Clear();
             }
 
-            StateHasChanged(); // Asegura que la UI se actualice
+            StateHasChanged();
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error al cargar los datos de ocupación: {ex.Message}", Severity.Error);
+            Snackbar.Add(Localizer["ErrorLoadingRevenueData", ex.Message], Severity.Error);
         }
     }
 
@@ -169,13 +155,13 @@ public partial class ReportsIndex
     {
         if (string.IsNullOrWhiteSpace(AccommodationId))
         {
-            Snackbar.Add("Por favor, ingrese un Accommodation ID válido.", Severity.Error);
+            Snackbar.Add(Localizer["EnterValidAccommodationId"], Severity.Error);
             return;
         }
 
         if (DateRange.Start == null || DateRange.End == null)
         {
-            Snackbar.Add("Por favor, seleccione un rango de fechas válido.", Severity.Error);
+            Snackbar.Add(Localizer["SelectValidDateRange"], Severity.Error);
             return;
         }
 
@@ -193,16 +179,16 @@ public partial class ReportsIndex
                 var content = await response.Content.ReadAsByteArrayAsync();
                 await JSRuntime.InvokeVoidAsync("downloadFile", fileName, "application/pdf", content);
 
-                Snackbar.Add("Reporte descargado exitosamente.", Severity.Success);
+                Snackbar.Add(Localizer["ReportDownloaded"], Severity.Success);
             }
             else
             {
-                Snackbar.Add("Error al generar el reporte.", Severity.Error);
+                Snackbar.Add(Localizer["ErrorGeneratingReport"], Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error inesperado: {ex.Message}", Severity.Error);
+            Snackbar.Add(Localizer["UnexpectedError", ex.Message], Severity.Error);
         }
     }
 
@@ -210,13 +196,13 @@ public partial class ReportsIndex
     {
         if (string.IsNullOrWhiteSpace(AccommodationId))
         {
-            Snackbar.Add("Por favor, ingrese un Accommodation ID válido.", Severity.Error);
+            Snackbar.Add(Localizer["EnterValidAccommodationId"], Severity.Error);
             return;
         }
 
         if (DateRange.Start == null || DateRange.End == null)
         {
-            Snackbar.Add("Por favor, seleccione un rango de fechas válido.", Severity.Error);
+            Snackbar.Add(Localizer["SelectValidDateRange"], Severity.Error);
             return;
         }
 
@@ -234,16 +220,16 @@ public partial class ReportsIndex
                 var content = await response.Content.ReadAsByteArrayAsync();
                 await JSRuntime.InvokeVoidAsync("downloadFile", fileName, "application/pdf", content);
 
-                Snackbar.Add("Reporte de ingresos descargado exitosamente.", Severity.Success);
+                Snackbar.Add(Localizer["RevenueReportDownloaded"], Severity.Success);
             }
             else
             {
-                Snackbar.Add("Error al generar el reporte de ingresos.", Severity.Error);
+                Snackbar.Add(Localizer["ErrorGeneratingRevenueReport"], Severity.Error);
             }
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error inesperado: {ex.Message}", Severity.Error);
+            Snackbar.Add(Localizer["UnexpectedError", ex.Message], Severity.Error);
         }
     }
 }

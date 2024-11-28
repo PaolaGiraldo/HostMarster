@@ -580,4 +580,100 @@
   <data name="NextMonth" xml:space="preserve">
     <value>Mes siguiente</value>
   </data>
+  <data name="NoDataFound" xml:space="preserve">
+    <value>No se encontraron datos.</value>
+  </data>
+  <data name="InvalidParameters" xml:space="preserve">
+    <value>Los parámetros proporcionados no son válidos.</value>
+  </data>
+  <data name="NoDataForReport" xml:space="preserve">
+    <value>No se encontraron datos para generar el reporte.</value>
+  </data>
+  <data name="OccupancyReportFile" xml:space="preserve">
+    <value>Reporte_Ocupacion</value>
+  </data>
+  <data name="MonthlyRevenueFile" xml:space="preserve">
+    <value>Reporte_Ingresos_Mensuales</value>
+  </data>
+  <data name="InternalError" xml:space="preserve">
+    <value>Se produjo un error interno.</value>
+  </data>
+  <data name="OccupancyReportTitle" xml:space="preserve">
+    <value>Reporte de Ocupación</value>
+  </data>
+  <data name="MonthlyRevenueReportTitle" xml:space="preserve">
+    <value>Reporte de Ingresos Mensuales</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="OccupiedRooms" xml:space="preserve">
+    <value>Habitaciones Ocupadas</value>
+  </data>
+  <data name="TotalRooms" xml:space="preserve">
+    <value>Total de Habitaciones</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="TotalRevenue" xml:space="preserve">
+    <value>Ingresos Totales</value>
+  </data>
+  <data name="DashboardReports" xml:space="preserve">
+    <value>Tablero de reportes</value>
+  </data>
+  <data name="SelectDateRange" xml:space="preserve">
+    <value>Seleccione un rango de fechas</value>
+  </data>
+  <data name="MonthlyRevenue" xml:space="preserve">
+    <value>Ingresos por mes</value>
+  </data>
+  <data name="DownloadReports" xml:space="preserve">
+    <value>Reportes para Descargar</value>
+  </data>
+  <data name="OccupancyReport" xml:space="preserve">
+    <value>Reporte de ocupación</value>
+  </data>
+  <data name="RevenueReport" xml:space="preserve">
+    <value>Reporte de Ingresos</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Descargar</value>
+  </data>
+  <data name="ErrorLoadingOccupancyData" xml:space="preserve">
+    <value>Error al cargar los datos de ocupación: {0}</value>
+  </data>
+  <data name="ErrorLoadingRevenueData" xml:space="preserve">
+    <value>Error al cargar los datos de ingresos: {0}</value>
+  </data>
+  <data name="EnterValidAccommodationId" xml:space="preserve">
+    <value>Por favor, ingrese un Accommodation ID válido.</value>
+  </data>
+  <data name="SelectValidDateRange" xml:space="preserve">
+    <value>Por favor, seleccione un rango de fechas válido.</value>
+  </data>
+  <data name="ReportDownloaded" xml:space="preserve">
+    <value>Reporte descargado exitosamente.</value>
+  </data>
+  <data name="RevenueReportDownloaded" xml:space="preserve">
+    <value>Reporte de ingresos descargado exitosamente.</value>
+  </data>
+  <data name="ErrorGeneratingReport" xml:space="preserve">
+    <value>Error al generar el reporte.</value>
+  </data>
+  <data name="ErrorGeneratingRevenueReport" xml:space="preserve">
+    <value>Error al generar el reporte de ingresos.</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Error inesperado: {0}</value>
+  </data>
+  <data name="OccupancyPercentage" xml:space="preserve">
+    <value>Porcentaje de Ocupación</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reportes</value>
+  </data>
 </root>

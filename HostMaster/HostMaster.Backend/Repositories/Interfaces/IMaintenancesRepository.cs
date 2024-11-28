@@ -5,7 +5,7 @@ using static MudBlazor.Colors;
 
 namespace HostMaster.Backend.Repositories.Interfaces;
 
-public interface IMaitenanceRepository
+public interface IMaitenancesRepository
 {
     Task<ActionResponse<Maintenance>> GetAsync(int id);
 

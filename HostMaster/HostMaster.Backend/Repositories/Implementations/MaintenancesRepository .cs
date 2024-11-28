@@ -9,7 +9,7 @@ using static MudBlazor.Colors;
 
 namespace HostMaster.Backend.Repositories.Implementations;
 
-public class MaintenanceRepository(DataContext context) : GenericRepository<Maintenance>(context), IMaitenanceRepository
+public class MaintenancesRepository(DataContext context) : GenericRepository<Maintenance>(context), IMaitenancesRepository
 
 {
     private readonly DataContext _context = context;

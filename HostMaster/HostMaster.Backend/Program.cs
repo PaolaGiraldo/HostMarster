@@ -89,8 +89,11 @@ builder.Services.AddScoped<IExtraServicesUnitOfWork, ExtraServicesUnitOfWork>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
-builder.Services.AddScoped<IMaitenanceRepository, MaintenanceRepository>();
+builder.Services.AddScoped<IMaitenancesRepository, MaintenancesRepository>();
 builder.Services.AddScoped<IMaintenancesUnitOfWork, MaintenancesUnitOfWork>();
+
+builder.Services.AddScoped<IOpinionsRepository, OpinionRepository>();
+builder.Services.AddScoped<IOpinionsUnitOfWork, OpinionsUnitOfWork>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {

@@ -20,4 +20,6 @@ public class OpinionsUnitOfWork(IGenericRepository<Opinion> repository, IOpinion
     public async Task<ActionResponse<Opinion>> AddAsync(OpinionDTO opinionDTO) => await _opinionsRepository.AddAsync(opinionDTO);
 
     public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _opinionsRepository.GetTotalRecordsAsync(pagination);
+
+    public async Task<ActionResponse<IEnumerable<Opinion>>> GetBestCalificationAsync() => await _opinionsRepository.GetBestCalificationAsync();
 }

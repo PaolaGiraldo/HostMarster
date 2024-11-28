@@ -1,0 +1,39 @@
+﻿@page "/opinionsView"
+
+@using HostMaster.Frontend.Shared
+<PageTitle>@Localizer["Reviews"]</PageTitle>
+
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudPaper Class="pa-4">
+        <MudText Typo="Typo.h6" Class="mb-4">@Localizer["ClientsOpinion"]</MudText>
+
+        <!-- Contenedor de tarjetas -->
+        <MudGrid>
+            @foreach (var opinion in opinions)
+            {
+                <MudItem xs="12" sm="6" md="4">
+                    <MudCard>
+                        <!-- Encabezado de la tarjeta -->
+                        <MudCardHeader>
+                            <MudRating @bind-SelectedValue="@opinion.Calification" ReadOnly="true" MaxValue="5" Size="Size.Large" /> <br />
+                            
+                        </MudCardHeader>
+
+                        <!-- Cuerpo de la tarjeta -->
+                        <MudCardContent>
+                            <MudText Typo="Typo.body2">@opinion.CreatedDate.ToShortDateString()</MudText>
+                            <MudText Typo="Typo.body1">@opinion.Comments</MudText>
+                            
+                        </MudCardContent>
+
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+    </MudPaper>
+}

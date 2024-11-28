@@ -15,6 +15,8 @@ public interface IOpinionsUnitOfWork
 
     Task<ActionResponse<Opinion>> GetAsync(int opinionId);
 
+    Task<ActionResponse<IEnumerable<Opinion>>> GetBestCalificationAsync();
+
     Task<ActionResponse<IEnumerable<Opinion>>> GetAsync(PaginationDTO pagination);
 
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);

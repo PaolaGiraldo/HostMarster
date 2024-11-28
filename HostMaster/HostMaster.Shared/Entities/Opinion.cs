@@ -9,7 +9,7 @@ public class Opinion
 
     [Display(Name = "Calification", ResourceType = typeof(Literals))]
     [Range(1, 5, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
-    public int? Calification { get; set; }
+    public int Calification { get; set; }
 
     [Display(Name = "Comments", ResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]

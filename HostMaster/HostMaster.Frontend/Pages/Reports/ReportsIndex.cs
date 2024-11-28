@@ -127,7 +127,7 @@ public partial class ReportsIndex
         {
             var startDate = (DateRange?.Start ?? DateTime.Today.AddYears(-1)).ToString("yyyy-MM-dd");
             var endDate = (DateRange?.End ?? DateTime.Today).ToString("yyyy-MM-dd");
-   
+
             var url = $"MonthlyRevenue?accommodationId={AccommodationId}&startDate={startDate}&endDate={endDate}";
 
             var response = await HttpClient.GetFromJsonAsync<List<MonthlyRevenueDto>>(url);
@@ -198,6 +198,47 @@ public partial class ReportsIndex
             else
             {
                 Snackbar.Add("Error al generar el reporte.", Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error inesperado: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task DownloadRevenueReport()
+    {
+        if (string.IsNullOrWhiteSpace(AccommodationId))
+        {
+            Snackbar.Add("Por favor, ingrese un Accommodation ID válido.", Severity.Error);
+            return;
+        }
+
+        if (DateRange.Start == null || DateRange.End == null)
+        {
+            Snackbar.Add("Por favor, seleccione un rango de fechas válido.", Severity.Error);
+            return;
+        }
+
+        try
+        {
+            var startDate = DateRange.Start.Value.ToString("yyyy-MM-dd");
+            var endDate = DateRange.End.Value.ToString("yyyy-MM-dd");
+            var url = $"MonthlyRevenue/pdf?accommodationId={AccommodationId}&startDate={startDate}&endDate={endDate}";
+
+            var response = await HttpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var fileName = $"reporte_ingresos_{AccommodationId}_{startDate}_al_{endDate}.pdf";
+                var content = await response.Content.ReadAsByteArrayAsync();
+                await JSRuntime.InvokeVoidAsync("downloadFile", fileName, "application/pdf", content);
+
+                Snackbar.Add("Reporte de ingresos descargado exitosamente.", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("Error al generar el reporte de ingresos.", Severity.Error);
             }
         }
         catch (Exception ex)

@@ -655,4 +655,7 @@
   <data name="VeryBad" xml:space="preserve">
     <value>Very bad</value>
   </data>
+  <data name="ClientsOpinion" xml:space="preserve">
+    <value>Our clients' opinion</value>
+  </data>
 </root>

@@ -9,6 +9,8 @@ public interface IOpinionsRepository
 {
     Task<ActionResponse<Opinion>> GetAsync(int id);
 
+    Task<ActionResponse<IEnumerable<Opinion>>> GetBestCalificationAsync();
+
     Task<ActionResponse<IEnumerable<Opinion>>> GetAsync();
 
     Task<ActionResponse<Opinion>> AddAsync(OpinionDTO opinionDTO);

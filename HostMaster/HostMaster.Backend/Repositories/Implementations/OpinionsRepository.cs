@@ -26,6 +26,19 @@ public class OpinionRepository(DataContext context) : GenericRepository<Opinion>
         };
     }
 
+    public async Task<ActionResponse<IEnumerable<Opinion>>> GetBestCalificationAsync()
+    {
+        var opinions = await _context.Opinions
+                             .Where(o => o.Calification >= 4)
+                             .ToListAsync();
+
+        return new ActionResponse<IEnumerable<Opinion>>
+        {
+            WasSuccess = true,
+            Result = opinions
+        };
+    }
+
     public override async Task<ActionResponse<Opinion>> GetAsync(int opinionId)
     {
         var opinion = await _context.Opinions

@@ -42,6 +42,18 @@ public class OpinionsController : GenericController<Opinion>
         return BadRequest();
     }
 
+    [HttpGet("best")]
+    public async Task<IActionResult> GetBestCalificationAsync()
+    {
+        var response = await _opinionsUnitOfWork.GetBestCalificationAsync();
+
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
     [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {

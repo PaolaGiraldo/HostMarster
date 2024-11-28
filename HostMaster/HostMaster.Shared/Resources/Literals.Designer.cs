@@ -331,6 +331,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Our clients&apos; opinion.
+        /// </summary>
+        public static string ClientsOpinion {
+            get {
+                return ResourceManager.GetString("ClientsOpinion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comments.
         /// </summary>
         public static string Comments {

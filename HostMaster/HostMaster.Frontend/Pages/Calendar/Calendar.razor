@@ -5,23 +5,24 @@
 
 <MudContainer Class="calendar-container">
     <MudPaper Class="pa-4 calendar-paper">
-        <MudText Typo="Typo.h5" Align="Align.Center">
-            Calendario para @CurrentMonth.ToString("MMMM") @CurrentMonth.ToString("yyyy")
+        <!-- Título del calendario -->
+        <MudText Typo="Typo.h5" Align="Align.Center" Class="calendar-title">
+            @Localizer["Calendar"] @Localizer[@CurrentMonth.ToString("MMMM")] @CurrentMonth.ToString("yyyy")
         </MudText>
 
-        <!-- Envolver el calendario en un contenedor centrado -->
+        <!-- Contenedor del calendario -->
         <div class="calendar-table-container">
-            <!-- Utilizar MudSimpleTable para el calendario -->
+            <!-- Tabla del calendario -->
             <MudSimpleTable Class="calendar-table">
                 <thead>
-                    <tr>
-                        <th>Lunes</th>
-                        <th>Martes</th>
-                        <th>Miércoles</th>
-                        <th>Jueves</th>
-                        <th>Viernes</th>
-                        <th>Sábado</th>
-                        <th>Domingo</th>
+                    <tr class="calendar-header">
+                        <th>@Localizer["Monday"]</th>
+                        <th>@Localizer["Tuesday"]</th>
+                        <th>@Localizer["Wednesday"]</th>
+                        <th>@Localizer["Thursday"]</th>
+                        <th>@Localizer["Friday"]</th>
+                        <th>@Localizer["Saturday"]</th>
+                        <th>@Localizer["Sunday"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,18 +31,19 @@
                         <tr>
                             @foreach (var day in week)
                             {
-                                <td>
+                                <td class="calendar-day">
                                     @if (day.HasValue)
                                     {
                                         <MudButton @onclick="() => OnDateSelected(day.Value)"
                                                    Class="calendar-button"
-                                                   Style="@(IsToday(day.Value) ? "background-color: yellow; color: black;" : "")">
+                                                   Variant="Variant.Text"
+                                                   Style="@(IsToday(day.Value) ? "background-color: #FFD700; color: black; font-weight: bold;" : "")">
                                             @day.Value.Day
                                         </MudButton>
                                     }
                                     else
                                     {
-                                        @:<span>&nbsp;</span>
+                                        <span class="calendar-empty-day">&nbsp;</span>
                                     }
                                 </td>
                             }
@@ -51,9 +53,14 @@
             </MudSimpleTable>
         </div>
 
-        <div class="calendar-navigation">
-            <MudButton Variant="Variant.Outlined" OnClick="PreviousMonth" Class="calendar-nav-button">Mes Anterior</MudButton>
-            <MudButton Variant="Variant.Outlined" OnClick="NextMonth" Class="calendar-nav-button">Mes Siguiente</MudButton>
+        <!-- Navegación -->
+        <div class="calendar-navigation d-flex justify-content-center mt-4">
+            <MudButton Variant="Variant.Outlined" OnClick="PreviousMonth" Class="calendar-nav-button">
+                <MudIcon Icon="@Icons.Material.Filled.ArrowBack" />
+            </MudButton>
+            <MudButton Variant="Variant.Outlined" OnClick="NextMonth" Class="calendar-nav-button ms-2">
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForward" />
+            </MudButton>
         </div>
     </MudPaper>
 </MudContainer>

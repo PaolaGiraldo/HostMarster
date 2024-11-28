@@ -28,9 +28,17 @@ else
         </ToolBarContent>
         <HeaderContent>
             <MudTh>@Localizer["RoomNumber"]</MudTh>
+            <MudTh>@Localizer["StartDate"]</MudTh>
+            <MudTh>@Localizer["EndDate"]</MudTh>
+            <MudTh>@Localizer["NumberOfGuests"]</MudTh>
+            <MudTh>@Localizer["ReservationState"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.RoomNumber</MudTd>
+            <MudTd>@context.StartDate</MudTd>
+            <MudTd>@context.EndDate</MudTd>
+            <MudTd>@context.NumberOfGuests</MudTd>
+            <MudTd>@context.ReservationState</MudTd>
         </RowTemplate>
         <NoRecordsContent>
             <MudText>@Localizer["NoRecords"]</MudText>

@@ -25,7 +25,7 @@ public class CalendarRepository : GenericRepository<CalendarListDTO>, ICalendarR
 {
     var queryDateOnly = QueryDate.Date;
 
-    var calendarListDTOs = await GetQuerable(QueryDate).Select(r => new CalendarListDTO
+    var calendarListDTOs = await GetQuerable(QueryDate).Select(static r => new CalendarListDTO
          {
              Id = r.Id,
              StartDate = r.StartDate,
@@ -35,7 +35,8 @@ public class CalendarRepository : GenericRepository<CalendarListDTO>, ICalendarR
              RoomId = r.RoomId,
              RoomNumber = r.Room!.RoomNumber,
              AccommodationId = r.AccommodationId,
-             CustomerDocument = r.CustomerDocumentNumber
+             CustomerDocument = r.CustomerDocumentNumber,
+             Room = r.Room
          })
             .OrderBy(x => x.RoomNumber)
             .ToListAsync();
@@ -55,7 +56,7 @@ public class CalendarRepository : GenericRepository<CalendarListDTO>, ICalendarR
         return _context.Reservations
             .Include(x => x.Room)
             .Include(x => x.Customer)
-            .Where(r => queryDateOnly >= r.StartDate.Date && queryDateOnly <= r.EndDate.Date)
+            .Where(r => queryDateOnly >= r.StartDate.Date && queryDateOnly <= r.EndDate.Date)            
             .OrderBy(x => x.RoomId);
     }
 

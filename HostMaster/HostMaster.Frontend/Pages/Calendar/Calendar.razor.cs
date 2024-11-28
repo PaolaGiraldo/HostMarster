@@ -1,5 +1,7 @@
 using HostMaster.Frontend.Services;
+using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace HostMaster.Frontend.Pages.Calendar;
 
@@ -11,10 +13,13 @@ public class CalendarBase : ComponentBase
     [Inject]
     protected DateSelectionService DateSelectionService { get; set; }
 
+    [Inject] public IStringLocalizer<Literals> Localizer { get; set; } = null!;
+
     // add if to load currentMonth when go back page.
     //################################TO DO #######################
-    // if service date null then calculate currentMonth otherwise load from service 
+    // if service date null then calculate currentMonth otherwise load from service
     protected DateTime CurrentMonth { get; set; } = DateTime.Now;
+
     protected List<List<DateTime?>> WeeksInMonth { get; set; }
 
     protected override void OnInitialized()
@@ -96,5 +101,4 @@ public class CalendarBase : ComponentBase
     {
         return date.Date == DateTime.Now.Date;
     }
-
 }

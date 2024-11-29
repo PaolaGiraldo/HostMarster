@@ -46,10 +46,19 @@
                   For="@(() => ReservationDTO.NumberOfGuests)"
                   Class="mb-4" />
 
-    <MudTextField Label="@Localizer["Customer"]"
-                  @bind-Value="@ReservationDTO.CustomerDocument"
-                  For="@(() => ReservationDTO.CustomerDocument)"
-                  Class="mb-4" />
+    <MudAutocomplete T="Customer"
+                     Label=@Localizer["Customer"]
+                     Placeholder=@Localizer["Customer"]
+                     SearchFunc="SearchCustomer"
+                     Value="selectedCustomer"
+                     ValueChanged="CustomerChanged"
+                     ToStringFunc="@(e=> e==null?null : $"{e.DocumentNumber}")"
+                     AllowCustomValue="true"
+                     Class="mb-4">
+        <ItemTemplate Context="itemContext">
+            @itemContext.DocumentNumber
+        </ItemTemplate>
+    </MudAutocomplete>
 
     @if (services != null && services.Any())
     {

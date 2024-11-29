@@ -16,8 +16,10 @@ public partial class ReservationForm
     private EditContext editContext = null!;
     private Accommodation selectedAccommodation = new();
     private List<Accommodation>? accommodations;
+    private List<Customer>? customers;
 
     private Room selectedRoom = new();
+    private Customer selectedCustomer = new();
     private List<Room>? rooms;
     private List<ExtraService>? services;
 
@@ -46,6 +48,7 @@ public partial class ReservationForm
         await LoadAccommodationsAsync();
         await LoadRoomsAsync();
         await LoadExtraServicesAsync();
+        await LoadCustomersAsync();
     }
 
     [EditorRequired, Parameter] public ReservationDTO ReservationDTO { get; set; } = null!;
@@ -160,5 +163,37 @@ public partial class ReservationForm
         }
 
         services = responseHttp.Response;
+    }
+
+    private async Task LoadCustomersAsync()
+    {
+        var responseHttp = await Repository.GetAsync<List<Customer>>("/api/customers");
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+        customers = responseHttp.Response;
+    }
+
+    private async Task<IEnumerable<Customer>> SearchCustomer(string searchText, CancellationToken cancellationToken)
+    {
+        await Task.Delay(5);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return customers!;
+        }
+
+        return customers
+            .Where(x => x.DocumentNumber.ToString().Contains(searchText))
+            .ToList();
+    }
+
+    private void CustomerChanged(Customer customer)
+    {
+        selectedCustomer = customer;
+        ReservationDTO.CustomerDocument = customer.DocumentNumber;
     }
 }

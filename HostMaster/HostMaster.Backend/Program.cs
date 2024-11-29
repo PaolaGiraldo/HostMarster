@@ -16,6 +16,17 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuración de CORS: permitir cualquier origen
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", policy =>
+    {
+        policy.AllowAnyOrigin() // Permitir cualquier origen
+              .AllowAnyHeader() // Permitir cualquier encabezado
+              .AllowAnyMethod(); // Permitir cualquier método HTTP
+    });
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
@@ -49,11 +60,7 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
           }
         });
-
 });
-
-
-
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddScoped<IFileStorage, FileStorage>();
@@ -100,7 +107,6 @@ builder.Services.AddScoped<ICalendarUnitOfWork, CalendarUnitOfWork>();
 
 builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
 builder.Services.AddScoped<IReportsUnitOfWork, ReportsUnitOfWork>();
-
 
 builder.Services.AddScoped<IMaitenancesRepository, MaintenancesRepository>();
 builder.Services.AddScoped<IMaintenancesUnitOfWork, MaintenancesUnitOfWork>();
@@ -152,14 +158,11 @@ void SeedData(WebApplication app)
     }
 }
 
-
-
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 app.UseCors(x => x
     .AllowAnyMethod()
@@ -167,9 +170,10 @@ app.UseCors(x => x
     .SetIsOriginAllowed(origin => true)
     .AllowCredentials());
 
+app.UseCors("AllowAllOrigins"); // Aplica la política de CORS
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
 
 app.Run();

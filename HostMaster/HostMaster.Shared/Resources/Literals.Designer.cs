@@ -61,6 +61,15 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string _ {
+            get {
+                return ResourceManager.GetString("", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string About {
@@ -1924,11 +1933,20 @@ namespace HostMaster.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Date Range.
+        ///   Looks up a localized string similar to Select a date range.
         /// </summary>
         public static string SelectDateRange {
             get {
                 return ResourceManager.GetString("SelectDateRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Date Range.
+        /// </summary>
+        public static string SelectDateRange_Duplicate_1_ {
+            get {
+                return ResourceManager.GetString("SelectDateRange_Duplicate[1]", resourceCulture);
             }
         }
         

@@ -685,7 +685,7 @@
   <data name="AccommodationSlogan" xml:space="preserve">
     <value>A charming hotel with history and personality.</value>
   </data>
-  <data name="SelectDateRange" xml:space="preserve">
+  <data name="SelectDateRange_Duplicate[1]" xml:space="preserve">
     <value>Select Date Range</value>
   </data>
   <data name="ValidGuestsNumber" xml:space="preserve">
@@ -819,5 +819,8 @@
   </data>
   <data name="ClientsOpinion" xml:space="preserve">
     <value>Our clients' opinion</value>
+  </data>
+  <data name="" xml:space="preserve">
+    <value></value>
   </data>
 </root>

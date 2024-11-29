@@ -25,6 +25,7 @@ public partial class QuotationCreate
 
     private async Task CreateAsync()
     {
+        Console.WriteLine("HOLLLJJHGJ");
         var responseHttp = await Repository.PostAsync("/api/Quotations/request-quote", quotationDTO);
         if (responseHttp.Error)
         {

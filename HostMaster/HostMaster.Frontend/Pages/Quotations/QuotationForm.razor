@@ -1,10 +1,9 @@
 ﻿﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
     <MudPaper Class="pa-4" Elevation="4">
     <MudText Typo="Typo.h6">Solicitar Cotización de Reserva</MudText>
 
-    <MudForm @ref="quotationForm" OnValidSubmit="HandleSubmit">
-        <MudGrid>
-            <!-- Campos del formulario (los mismos que antes) -->
             <MudItem xs="12" sm="6">
                 <MudTextField Label="Nombre" @bind-Value="QuotationDTO.Name" Required="true" />
             </MudItem>
@@ -52,9 +51,7 @@
             <MudItem xs="12">
                 <MudButton Type="Submit" Color="Color.Primary" Variant="Variant.Filled">Solicitar Cotización</MudButton>
             </MudItem>
-        </MudGrid>
-    </MudForm>
-    </MudPaper>
 
- 
+
+</EditForm>
 

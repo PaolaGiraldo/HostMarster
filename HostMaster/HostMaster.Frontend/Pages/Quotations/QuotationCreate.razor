@@ -1,0 +1,10 @@
+﻿@page "/Quotation"
+@using HostMaster.Frontend.Shared
+<PageTitle>@Localizer["Quotations"]</PageTitle>
+
+<QuotationForm @ref="quotationForm" 
+    QuotationDTO="quotationDTO" 
+    OnValidSubmit="CreateAsync" 
+    ReturnAction="Return" />
+
+

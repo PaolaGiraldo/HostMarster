@@ -23,10 +23,10 @@ public class QuotationDTO
     public string Phone { get; set; }
 
     [Required(ErrorMessage = "La fecha de inicio es obligatoria")]
-    public DateTime StartDate { get; set; }
+    public DateTime? StartDate { get; set; }
 
     [Required(ErrorMessage = "La fecha de fin es obligatoria")]
-    public DateTime EndDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     [Required(ErrorMessage = "El número de adultos es obligatorio")]
     [Range(1, int.MaxValue, ErrorMessage = "El número de adultos debe ser al menos 1")]

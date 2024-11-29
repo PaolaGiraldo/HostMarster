@@ -22,8 +22,7 @@ public class QuotationsController : ControllerBase
         _mailHelper = mailHelper;
     }
 
-    [HttpPost("full")]
-    [HttpPost("send-quote")]
+    [HttpPost("request-quote")]
     public async Task<ActionResponse<string>> SendQuoteAsync([FromBody] QuotationDTO quotationDTO)
     {
         // Construir el cuerpo del correo
@@ -31,8 +30,8 @@ public class QuotationsController : ControllerBase
                    $"<p><strong>Nombre:</strong> {quotationDTO.Name}</p>" +
                    $"<p><strong>Correo:</strong> {quotationDTO.Email}</p>" +
                    $"<p><strong>Teléfono:</strong> {quotationDTO.Phone}</p>" +
-                   $"<p><strong>Fecha de Inicio:</strong> {quotationDTO.StartDate.ToShortDateString()}</p>" +
-                   $"<p><strong>Fecha de Fin:</strong> {quotationDTO.EndDate.ToShortDateString()}</p>" +
+                   $"<p><strong>Fecha de Inicio:</strong> {quotationDTO.StartDate.ToString}</p>" +
+                   $"<p><strong>Fecha de Fin:</strong> {quotationDTO.EndDate.ToString}</p>" +
                    $"<p><strong>Adultos:</strong> {quotationDTO.Adults}</p>" +
                    $"<p><strong>Niños:</strong> {quotationDTO.Children}</p>" +
                    $"<p><strong>Tipo de Habitación:</strong> {quotationDTO.RoomType}</p>" +

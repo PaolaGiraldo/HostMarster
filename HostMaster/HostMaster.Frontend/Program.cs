@@ -13,6 +13,9 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+var urlProd = "https://hostmasterbackend2024.azurewebsites.net/";
+var urlLocal = "https://localhost:7242";
+
 builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7242") });
 
 builder.Services.AddScoped<IRepository, Repository>();

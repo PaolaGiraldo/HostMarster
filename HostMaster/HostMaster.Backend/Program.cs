@@ -16,12 +16,41 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurar Kestrel para usar HTTPS con el certificado
+builder.WebHost.ConfigureKestrel((context, options) =>
+{
+    // Cargar el certificado desde la ruta por defecto
+    // Cargar el certificado desde la ruta especificada en Docker
+    options.ListenAnyIP(7242, listenOptions =>
+    {
+        if (builder.Environment.IsDevelopment())
+        {
+            listenOptions.UseHttps("C:\\docker\\backend\\https\\certificado.pfx", "camilo");
+        }
+        else
+        {
+            listenOptions.UseHttps("/app/https/certificado.pfx", "camilo");
+        }
+    });
+});
+
+// Configurar CORS global
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("_allowSpecificOrigins", policy =>
+    {
+        policy.AllowAnyOrigin()  // Permitir cualquier origen
+              .AllowAnyHeader()  // Permitir cualquier encabezado
+              .AllowAnyMethod(); // Permitir cualquier método
+    });
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "HostMaster Backend", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Orders Backend", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme. <br /> <br />
@@ -94,19 +123,14 @@ builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
 builder.Services.AddScoped<ICalendarUnitOfWork, CalendarUnitOfWork>();
 
-builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
-builder.Services.AddScoped<ICustomersUnitOfWork, CustomersUnitOfWork>();
-
 builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
 builder.Services.AddScoped<IReportsUnitOfWork, ReportsUnitOfWork>();
-
 
 builder.Services.AddScoped<IMaitenancesRepository, MaintenancesRepository>();
 builder.Services.AddScoped<IMaintenancesUnitOfWork, MaintenancesUnitOfWork>();
 
 builder.Services.AddScoped<IOpinionsRepository, OpinionRepository>();
 builder.Services.AddScoped<IOpinionsUnitOfWork, OpinionsUnitOfWork>();
-
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
@@ -152,17 +176,19 @@ void SeedData(WebApplication app)
     }
 }
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
     .SetIsOriginAllowed(origin => true)
     .AllowCredentials());
+
+app.UseCors("AllowAllOrigins"); // Aplica la política de CORS
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

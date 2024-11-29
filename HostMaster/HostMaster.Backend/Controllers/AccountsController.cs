@@ -34,6 +34,12 @@ public class AccountsController : ControllerBase
         _fileStorage = fileStorage;
     }
 
+    [HttpOptions]
+    public IActionResult HandlePrefLight()
+    {
+        return Ok();
+    }
+
     [HttpPost("RecoverPassword")]
     public async Task<IActionResult> RecoverPasswordAsync([FromBody] EmailDTO model)
     {

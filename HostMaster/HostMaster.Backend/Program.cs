@@ -16,14 +16,32 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración de CORS: permitir cualquier origen
+// Configurar Kestrel para usar HTTPS con el certificado
+builder.WebHost.ConfigureKestrel((context, options) =>
+{
+    // Cargar el certificado desde la ruta por defecto
+    // Cargar el certificado desde la ruta especificada en Docker
+    options.ListenAnyIP(7242, listenOptions =>
+    {
+        if (builder.Environment.IsDevelopment())
+        {
+            listenOptions.UseHttps("C:\\docker\\backend\\https\\certificado.pfx", "camilo");
+        }
+        else
+        {
+            listenOptions.UseHttps("/app/https/certificado.pfx", "camilo");
+        }
+    });
+});
+
+// Configurar CORS global
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins", policy =>
+    options.AddPolicy("_allowSpecificOrigins", policy =>
     {
-        policy.AllowAnyOrigin() // Permitir cualquier origen
-              .AllowAnyHeader() // Permitir cualquier encabezado
-              .AllowAnyMethod(); // Permitir cualquier método HTTP
+        policy.AllowAnyOrigin()  // Permitir cualquier origen
+              .AllowAnyHeader()  // Permitir cualquier encabezado
+              .AllowAnyMethod(); // Permitir cualquier método
     });
 });
 

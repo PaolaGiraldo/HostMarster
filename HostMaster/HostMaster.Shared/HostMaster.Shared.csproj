@@ -2,11 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>    	
   </PropertyGroup>
 
-  <ItemGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<PublishTrimmed>false</PublishTrimmed>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Remove="Resources\Literals.es.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Literals.es.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+
+	<ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
   </ItemGroup>
@@ -20,9 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Literals.es.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Literals.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Literals.Designer.cs</LastGenOutput>

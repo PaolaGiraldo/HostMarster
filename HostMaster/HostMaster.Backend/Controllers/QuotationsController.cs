@@ -16,15 +16,18 @@ namespace HostMaster.Backend.Controllers;
 public class QuotationsController : ControllerBase
 {
     private readonly IMailHelper _mailHelper;
+    private readonly IConfiguration _configuration;
 
-    public QuotationsController(IMailHelper mailHelper)
+    public QuotationsController(IConfiguration configuration, IMailHelper mailHelper)
     {
+        _configuration = configuration;
         _mailHelper = mailHelper;
     }
 
     [HttpPost("request-quote")]
     public async Task<ActionResponse<string>> SendQuoteAsync([FromBody] QuotationDTO quotationDTO)
     {
+        Console.WriteLine(quotationDTO.Name);
         // Construir el cuerpo del correo
         var body = $"<h3>Solicitud de Cotización</h3>" +
                    $"<p><strong>Nombre:</strong> {quotationDTO.Name}</p>" +
@@ -37,6 +40,6 @@ public class QuotationsController : ControllerBase
                    $"<p><strong>Tipo de Habitación:</strong> {quotationDTO.RoomType}</p>" +
                    $"<p><strong>Observaciones:</strong> {quotationDTO.Observations}</p>";
 
-        return _mailHelper.SendMail("correoDestino@dominio.com", "correoDestino@dominio.com", "Nueva Solicitud de Cotizacion", body, "en");
+        return _mailHelper.SendMail("Asesor Reservas", "hostmaster2024@gmail.com", "Nueva Solicitud de Cotizacion", body, "es");
     }
 }

@@ -85,6 +85,9 @@ builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IRoomTypesRepository, RoomTypesRepository>();
 builder.Services.AddScoped<IRoomTypesUnitOfWork, RoomTypesUnitOfWork>();
 
+builder.Services.AddScoped<IExtraServicesRepository, ExtraServicesRepository>();
+builder.Services.AddScoped<IExtraServicesUnitOfWork, ExtraServicesUnitOfWork>();
+
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
@@ -96,6 +99,14 @@ builder.Services.AddScoped<ICustomersUnitOfWork, CustomersUnitOfWork>();
 
 builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
 builder.Services.AddScoped<IReportsUnitOfWork, ReportsUnitOfWork>();
+
+
+builder.Services.AddScoped<IMaitenancesRepository, MaintenancesRepository>();
+builder.Services.AddScoped<IMaintenancesUnitOfWork, MaintenancesUnitOfWork>();
+
+builder.Services.AddScoped<IOpinionsRepository, OpinionRepository>();
+builder.Services.AddScoped<IOpinionsUnitOfWork, OpinionsUnitOfWork>();
+
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {

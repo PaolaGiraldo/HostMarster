@@ -1,0 +1,201 @@
+using CurrieTechnologies.Razor.SweetAlert2;
+using HostMaster.Frontend.Repositories;
+using HostMaster.Frontend.Shared;
+using HostMaster.Shared.Entities;
+using HostMaster.Shared.Resources;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using MudBlazor;
+using MudBlazor.Charts;
+using System.Net;
+using static MudBlazor.Colors;
+
+namespace HostMaster.Frontend.Pages.ExtraServices;
+
+public partial class ExtraServicesIndex
+{
+	private List<ExtraService>? ExtraServices { get; set; }
+	private MudTable<ExtraService> table = new();
+	private readonly int[] pageSizeOptions = { 10, 25, 50, int.MaxValue };
+	private int totalRecords = 0;
+	private bool loading;
+	private const string baseUrl = "api/extraServices";
+	private readonly string infoFormat = "{first_item}-{last_item} => {all_items}";
+	private DateRange? dateRangeFilter = new DateRange();
+	private bool isFiltered = false;
+
+	[Inject] private IRepository Repository { get; set; } = null!;
+	[Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
+	[Inject] private NavigationManager NavigationManager { get; set; } = null!;
+	[Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+	[Inject] private IDialogService DialogService { get; set; } = null!;
+	[Inject] private ISnackbar Snackbar { get; set; } = null!;
+
+	[Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadTotalRecordsAsync();
+	}
+
+	private async Task LoadTotalRecordsAsync()
+	{
+		loading = true;
+		var url = $"{baseUrl}/totalRecordsPaginated";
+
+		if (!string.IsNullOrWhiteSpace(Filter))
+		{
+			url += $"?filter={Filter}";
+		}
+
+		var responseHttp = await Repository.GetAsync<int>(url);
+		if (responseHttp.Error)
+		{
+			var message = await responseHttp.GetErrorMessageAsync();
+			Snackbar.Add(Localizer[message!], Severity.Error);
+			return;
+		}
+
+		totalRecords = responseHttp.Response;
+		loading = false;
+	}
+
+	private async Task<TableData<ExtraService>> LoadListAsync(TableState state, CancellationToken cancellationToken)
+	{
+		if (isFiltered)
+		{
+			isFiltered = false;
+			return new TableData<ExtraService>
+			{
+				Items = table.Items,
+				TotalItems = table.TotalItems
+			};
+		}
+
+		int page = state.Page + 1;
+		int pageSize = state.PageSize;
+		var url = $"{baseUrl}/paginated/?page={page}&recordsnumber={pageSize}";
+
+		if (!string.IsNullOrWhiteSpace(Filter))
+		{
+			url += $"&filter={Filter}";
+		}
+
+		var responseHttp = await Repository.GetAsync<List<ExtraService>>(url);
+
+		if (responseHttp.Error)
+		{
+			var message = await responseHttp.GetErrorMessageAsync();
+			Snackbar.Add(Localizer[message!], Severity.Error);
+			return new TableData<ExtraService> { Items = [], TotalItems = 0 };
+		}
+		if (responseHttp.Response == null)
+		{
+			return new TableData<ExtraService> { Items = [], TotalItems = 0 };
+		}
+
+		return new TableData<ExtraService>
+		{
+			Items = responseHttp.Response,
+			TotalItems = totalRecords
+		};
+	}
+
+	private async Task SetFilterValue(string value)
+	{
+		Filter = value;
+		await LoadTotalRecordsAsync();
+		await table.ReloadServerData();
+	}
+
+	private async Task ShowModalAsync(int id = 0, bool isEdit = false)
+	{
+		var options = new DialogOptions() { CloseOnEscapeKey = true, BackdropClick = false, CloseButton = true };
+		IDialogReference? dialog;
+		if (isEdit)
+		{
+			var parameters = new DialogParameters
+				 {
+					 { "Id", id }
+				 };
+			dialog = DialogService.Show<ExtraServicesEdit>($"{Localizer["Edit"]} {Localizer["Service"]}", parameters, options);
+		}
+		else
+		{
+			dialog = DialogService.Show<ExtraServicesCreate>($"{Localizer["New"]} {Localizer["Service"]}", options);
+		}
+
+		var result = await dialog.Result;
+		if (result!.Canceled)
+		{
+			await LoadTotalRecordsAsync();
+			await table.ReloadServerData();
+		}
+	}
+
+	private async Task DeleteAsync(ExtraService extraService)
+	{
+		var parameters = new DialogParameters
+			{
+				{ "Message", string.Format(Localizer["DeleteConfirm"], Localizer["ExtraService"], extraService.ServiceName) }
+			};
+
+		var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
+		var dialog = DialogService.Show<ConfirmDialog>(Localizer["Confirmation"], parameters, options);
+		var result = await dialog.Result;
+		if (result!.Canceled)
+		{
+			return;
+		}
+
+		var responseHttp = await Repository.DeleteAsync($"{baseUrl}/{extraService.Id}");
+		if (responseHttp.Error)
+		{
+			if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+			{
+				NavigationManager.NavigateTo("/extraServices");
+			}
+			else
+			{
+				var message = await responseHttp.GetErrorMessageAsync();
+				Snackbar.Add(Localizer[message!], Severity.Error);
+			}
+			return;
+		}
+
+		await LoadTotalRecordsAsync();
+		await table.ReloadServerData();
+		Snackbar.Add(Localizer["RecordDeletedOk"], Severity.Success);
+	}
+
+	private void ShowAvailabilitiesAsync(int id)
+	{
+		NavigationManager.NavigateTo($"/extraServices/{id}/availabilities");
+	}
+
+	private async Task ApplyFilterAsync()
+	{
+		if (dateRangeFilter?.Start != null && dateRangeFilter?.End != null)
+		{
+			var startDate = dateRangeFilter.Start.Value;
+			var endDate = dateRangeFilter.End.Value;
+
+			var responseHttp = await Repository.GetAsync<List<ExtraService>>(baseUrl);
+
+			// Filter services based on availabilities within the date range
+			var filteredServices = responseHttp.Response?.Where(es => es.Availabilities != null &&
+																	  es.Availabilities.Any(sa =>
+																		  sa.IsAvailable &&
+																		  (
+																			  (sa.StartDate == null || sa.StartDate <= endDate) &&
+																			  (sa.EndDate == null || sa.EndDate >= startDate)
+																		  )))
+				.ToList();
+
+			isFiltered = true;
+			table.Items = filteredServices;
+			table.TotalItems = filteredServices?.Count ?? 0;
+			await table.ReloadServerData();
+		}
+	}
+}

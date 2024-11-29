@@ -1,6 +1,8 @@
-﻿using HostMaster.Backend.Data;
+﻿using CurrieTechnologies.Razor.SweetAlert2;
+using HostMaster.Backend.Data;
 using HostMaster.Backend.Helpers;
 using HostMaster.Backend.Repositories.Interfaces;
+using HostMaster.Frontend.Repositories;
 using HostMaster.Shared.DTOs;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Responses;
@@ -56,7 +58,10 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
 
     public async Task<ActionResponse<Reservation>> AddAsync(ReservationDTO reservationDTO)
     {
-        var room = await _context.Rooms.FindAsync(reservationDTO.RoomId);
+        var room = await _context.Rooms
+            .Include(x => x.RoomType)
+            .FirstAsync(x => x.Id == reservationDTO.RoomId);
+
         if (room == null)
         {
             return new ActionResponse<Reservation>
@@ -73,6 +78,14 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
                 Message = "ERR_RES005"
             };
         }
+        else if (room.RoomType!.MaxGuests < reservationDTO.NumberOfGuests)
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = "ERR_RES007"
+            };
+        }
 
         /* if (reservationDTO.StartDate <= reservationDTO.EndDate)
          {
@@ -83,15 +96,28 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
              };
          }*/
 
+        if (!await IsRoomAvailableForReservationAsync(reservationDTO.RoomId, reservationDTO.StartDate, reservationDTO.EndDate))
+        {
+            return new ActionResponse<Reservation>
+            {
+                WasSuccess = false,
+                Message = "ERR_RES006"
+            };
+        }
+
+        var extraServices = CreateExtraServicesAsync(reservationDTO.ExtraServices!);
+
         var reservation = new Reservation
         {
-            StartDate = reservationDTO.StartDate,
-            EndDate = reservationDTO.EndDate,
+            StartDate = reservationDTO.StartDate ?? DateTime.Today,
+            EndDate = reservationDTO.EndDate ?? DateTime.Today.AddDays(3),
             ReservationState = reservationDTO.ReservationState,
             RoomId = reservationDTO.RoomId,
             NumberOfGuests = reservationDTO.NumberOfGuests,
             CustomerDocumentNumber = reservationDTO.CustomerDocument,
             AccommodationId = reservationDTO.AccommodationId,
+            ExtraServices = await extraServices,
+            Comments = reservationDTO.Comments
         };
 
         _context.Add(reservation);
@@ -162,13 +188,17 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             };
         }*/
 
-        currentReservation.StartDate = reservationDTO.StartDate;
-        currentReservation.EndDate = reservationDTO.EndDate;
+        var extraServices = CreateExtraServicesAsync(reservationDTO.ExtraServices!);
+
+        currentReservation.StartDate = reservationDTO.StartDate ?? DateTime.Now;
+        currentReservation.EndDate = reservationDTO.EndDate ?? DateTime.Now;
         currentReservation.RoomId = reservationDTO.RoomId;
         currentReservation.NumberOfGuests = reservationDTO.NumberOfGuests;
         currentReservation.AccommodationId = reservationDTO.AccommodationId;
         currentReservation.CustomerDocumentNumber = reservationDTO.CustomerDocument;
         currentReservation.ReservationState = reservationDTO.ReservationState;
+        currentReservation.ExtraServices = await extraServices;
+        currentReservation.Comments = reservationDTO.Comments;
 
         _context.Update(currentReservation);
         try
@@ -245,7 +275,10 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
     {
         var queryable = _context.Reservations
             .Include(x => x.Room)
+            .ThenInclude(x => x!.RoomType)
             .Include(x => x.Customer)
+            .Include(x => x.Accommodation)
+            .Include(x => x.ExtraServices)
             .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
@@ -259,6 +292,36 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             Result = await queryable
                 .OrderBy(x => x.RoomId)
                 .Paginate(pagination)
+                .Select(x => new Reservation
+                {
+                    Id = x.Id,
+                    RoomId = x.RoomId,
+                    CustomerDocumentNumber = x.CustomerDocumentNumber,
+                    ReservationState = x.ReservationState,
+                    NumberOfGuests = x.NumberOfGuests,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    Room = new Room
+                    {
+                        Id = x.Room!.Id,
+                        RoomNumber = x.Room.RoomNumber,
+                        RoomType = x.Room.RoomType,
+                    },
+                    Customer = new Customer
+                    {
+                        Id = x.Customer.Id,
+                        FirstName = x.Customer.FirstName,
+                        LastName = x.Customer.LastName,
+                        Email = x.Customer.Email,
+                        PhoneNumber = x.Customer.PhoneNumber
+                    },
+                    Accommodation = new Accommodation
+                    {
+                        Id = x.AccommodationId,
+                        Name = x.Accommodation!.Name
+                    },
+                    ExtraServices = x.ExtraServices
+                })
                 .ToListAsync()
         };
     }
@@ -278,5 +341,48 @@ public class ReservationsRepository : GenericRepository<Reservation>, IReservati
             WasSuccess = true,
             Result = (int)count
         };
+    }
+
+    public async Task<bool> IsRoomAvailableForReservationAsync(int roomId, DateTime? startDate, DateTime? endDate)
+    {
+        // Verificar si hay reservas superpuestas
+        var overlappingReservation = await _context.Reservations
+            .Where(r => r.RoomId == roomId)
+            .AnyAsync(r =>
+                (startDate < r.EndDate && endDate > r.StartDate)); // Verifica superposición de fechas
+
+        if (overlappingReservation)
+        {
+            return false; // Hay una reserva superpuesta
+        }
+
+        // Verificar si hay mantenimientos superpuestos
+        var overlappingMaintenance = await _context.Maintenances
+            .Where(m => m.RoomId == roomId)
+            .AnyAsync(m =>
+                (startDate < m.EndDate && endDate > m.StartDate)); // Verifica superposición de fechas
+
+        return !overlappingMaintenance; // Retorna verdadero si no hay mantenimiento superpuesto
+    }
+
+    public async Task<List<ExtraService>> CreateExtraServicesAsync(IEnumerable<string> extraServices)
+    {
+        var reservationServices = new List<ExtraService>();
+
+        // Verifica si extraServices es null o está vacío
+        if (extraServices != null && extraServices.Any())
+        {
+            foreach (var serviceName in extraServices)
+            {
+                // Encuentra el servicio usando su nombre
+                var service = await _context.ExtraServices
+                    .Where(s => s.ServiceName == serviceName)
+                    .FirstOrDefaultAsync(); // Usamos FirstOrDefaultAsync en lugar de FirstAsync
+
+                reservationServices.Add(service!);
+            }
+        }
+
+        return reservationServices;
     }
 }

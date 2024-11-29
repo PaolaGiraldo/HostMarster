@@ -1,0 +1,10 @@
+﻿@page "/Opinion"
+@using HostMaster.Frontend.Shared
+<PageTitle>@Localizer["Opinions"]</PageTitle>
+
+<OpinionForm @ref="opinionForm" 
+    OpinionDTO="opinionDTO" 
+    OnValidSubmit="CreateAsync" 
+    ReturnAction="Return" />
+
+

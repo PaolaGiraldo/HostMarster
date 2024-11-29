@@ -1,5 +1,4 @@
 using Blazored.Modal.Services;
-using Blazored.Modal;
 using CurrieTechnologies.Razor.SweetAlert2;
 using HostMaster.Frontend.Repositories;
 using HostMaster.Frontend.Shared;
@@ -17,11 +16,24 @@ public partial class CountriesIndex
     private int currentPage = 1;
     private int totalPages;
 
+    private bool loading = true;
+
+    private MudTable<Country> table = new();
+
+    private const string baseUrl = "api/countries";
+
+    private int countryId = 1;
+
+    private int totalRecords = 0;
+
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
+
+    [Inject] private IDialogService DialogService { get; set; } = null!;
+    [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
     [Parameter, SupplyParameterFromQuery] public string Page { get; set; } = string.Empty;
     [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
@@ -32,62 +44,69 @@ public partial class CountriesIndex
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadAsync();
+        await LoadTotalRecordsAsync();
     }
 
     private async Task ShowModalAsync(int id = 0, bool isEdit = false)
     {
-        IModalReference modalReference;
+        var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
+        IDialogReference? dialog;
 
         if (isEdit)
         {
-            modalReference = Modal.Show<CountryEdit>(string.Empty, new ModalParameters().Add("Id", id));
+            var parameters = new DialogParameters
+                 {
+                     { "Id", id }
+                 };
+
+            dialog = DialogService.Show<CountryEdit>($"{Localizer["Edit"]} {Localizer["Country"]}", parameters, options);
         }
         else
         {
-            modalReference = Modal.Show<CountryCreate>();
+            dialog = DialogService.Show<CountryCreate>($"{Localizer["New"]} {Localizer["Country"]}", options);
         }
 
-        var result = await modalReference.Result;
-        if (result.Confirmed)
+        var result = await dialog.Result;
+        if (result!.Canceled)
         {
-            await LoadAsync();
+            await LoadTotalRecordsAsync();
+            await table.ReloadServerData();
         }
     }
 
-    private async Task SelectedRecordsNumberAsync(int recordsnumber)
-    {
-        RecordsNumber = recordsnumber;
-        int page = 1;
-        await LoadAsync(page);
-        await SelectedPageAsync(page);
-    }
+    //private async Task FilterCallBack(string filter)
+    //{
+    //Filter = filter;
+    //await ApplyFilterAsync();
+    //StateHasChanged();
+    //}
 
-    private async Task FilterCallBack(string filter)
-    {
-        Filter = filter;
-        await ApplyFilterAsync();
-        StateHasChanged();
-    }
+    //private async Task SelectedPageAsync(int page)
+    //{
+    //currentPage = page;
+    //await LoadAsync(page);
+    //}
 
-    private async Task SelectedPageAsync(int page)
+    private async Task LoadTotalRecordsAsync()
     {
-        currentPage = page;
-        await LoadAsync(page);
-    }
+        loading = true;
+        var url = $"{baseUrl}/totalRecordsPaginated";
 
-    private async Task LoadAsync(int page = 1)
-    {
-        if (!string.IsNullOrWhiteSpace(Page))
+        if (!string.IsNullOrWhiteSpace(Filter))
         {
-            page = Convert.ToInt32(Page);
+            url += $"?filter={Filter}";
         }
 
-        var ok = await LoadListAsync(page);
-        if (ok)
+        var responseHttp = await Repository.GetAsync<int>(url);
+        if (responseHttp.Error)
         {
-            await LoadPagesAsync();
+            var message = await responseHttp.GetErrorMessageAsync();
+            Snackbar.Add(Localizer[message!], Severity.Error);
+            return;
         }
+
+        totalRecords = responseHttp.Response;
+        loading = false;
     }
 
     private void ValidateRecordsNumber()
@@ -98,11 +117,14 @@ public partial class CountriesIndex
         }
     }
 
-    private async Task<bool> LoadListAsync(int page)
+    private async Task<TableData<Country>> LoadListAsync(TableState state, CancellationToken cancellationToken)
     {
-        ValidateRecordsNumber();
-        var url = $"api/countries?page={page}&recordsnumber={RecordsNumber}";
-        if (!string.IsNullOrEmpty(Filter))
+        int page = state.Page + 1;
+        int pageSize = state.PageSize;
+
+        var url = $"{baseUrl}/paginated/?page={page}&recordsnumber={pageSize}";
+
+        if (!string.IsNullOrWhiteSpace(Filter))
         {
             url += $"&filter={Filter}";
         }
@@ -111,11 +133,18 @@ public partial class CountriesIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
-            return false;
+            Snackbar.Add(Localizer[message!], Severity.Error);
+            return new TableData<Country> { Items = [], TotalItems = 0 };
         }
-        Countries = responseHttp.Response;
-        return true;
+        if (responseHttp.Response == null)
+        {
+            return new TableData<Country> { Items = [], TotalItems = 0 };
+        }
+        return new TableData<Country>
+        {
+            Items = responseHttp.Response,
+            TotalItems = totalRecords
+        };
     }
 
     private async Task LoadPagesAsync()
@@ -136,51 +165,61 @@ public partial class CountriesIndex
         totalPages = responseHttp.Response;
     }
 
-    private async Task ApplyFilterAsync()
+    //private async Task ApplyFilterAsync()
+    //{
+    //int page = 1;
+    //await LoadAsync(page);
+    //await SelectedPageAsync(page);
+    //}
+
+    private async Task DeleteAsync(Country country)
     {
-        int page = 1;
-        await LoadAsync(page);
-        await SelectedPageAsync(page);
+        {
+            var parameters = new DialogParameters
+            {
+                { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Country"], country.Name) }
+            };
+            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
+            var dialog = DialogService.Show<ConfirmDialog>(Localizer["Confirmation"], parameters, options);
+            var result = await dialog.Result;
+            if (result!.Canceled)
+            {
+                return;
+            }
+
+            var responseHttp3 = await Repository.DeleteAsync($"api/roomphotos/by-roomId/{country.Id}");
+            if (responseHttp3.Error)
+            {
+                var mensajeError = await responseHttp3.GetErrorMessageAsync();
+                Snackbar.Add(Localizer[mensajeError!], Severity.Error);
+                return;
+            }
+
+            var responseHttp = await Repository.DeleteAsync($"{baseUrl}/{country.Id}");
+            if (responseHttp.Error)
+            {
+                if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                {
+                    NavigationManager.NavigateTo("/countries");
+                }
+                else
+                {
+                    var message = await responseHttp.GetErrorMessageAsync();
+                    Snackbar.Add(Localizer[message!], Severity.Error);
+                }
+                return;
+            }
+
+            await LoadTotalRecordsAsync();
+            await table.ReloadServerData();
+            Snackbar.Add(Localizer["RecordDeletedOk"], Severity.Success);
+        }
     }
 
-    private async Task DeleteAsycn(Country country)
+    private async Task SetFilterValue(string value)
     {
-        var result = await SweetAlertService.FireAsync(new SweetAlertOptions
-        {
-            Title = "Confirmación",
-            Text = $"¿Estas seguro de querer borrar el país: {country.Name}?",
-            Icon = SweetAlertIcon.Question,
-            ShowCancelButton = true,
-        });
-        var confirm = string.IsNullOrEmpty(result.Value);
-        if (confirm)
-        {
-            return;
-        }
-
-        var responseHttp = await Repository.DeleteAsync($"api/countries/{country.Id}");
-        if (responseHttp.Error)
-        {
-            if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
-            {
-                NavigationManager.NavigateTo("/countries");
-            }
-            else
-            {
-                var mensajeError = await responseHttp.GetErrorMessageAsync();
-                await SweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
-            }
-            return;
-        }
-
-        await LoadAsync();
-        var toast = SweetAlertService.Mixin(new SweetAlertOptions
-        {
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-            ShowConfirmButton = true,
-            Timer = 3000
-        });
-        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro borrado con éxito.");
+        Filter = value;
+        await LoadTotalRecordsAsync();
+        await table.ReloadServerData();
     }
 }

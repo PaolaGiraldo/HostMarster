@@ -17,8 +17,9 @@ public class CalendarBase : ComponentBase
 
     // add if to load currentMonth when go back page.
     //################################TO DO #######################
-    // if service date null then calculate currentMonth otherwise load from service 
+    // if service date null then calculate currentMonth otherwise load from service
     protected DateTime CurrentMonth { get; set; } = DateTime.Now;
+
     protected List<List<DateTime?>> WeeksInMonth { get; set; }
 
     protected override void OnInitialized()
@@ -100,5 +101,4 @@ public class CalendarBase : ComponentBase
     {
         return date.Date == DateTime.Now.Date;
     }
-
 }

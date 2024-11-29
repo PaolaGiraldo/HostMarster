@@ -32,6 +32,9 @@ public class SeedDb
         await CheckReservationsDbAsync();
         await CheckRolesAsync();
         await CheckUserAsync("admin", "admin", "admin@yopmail.com", "322 311 4620", UserType.Admin);
+        await CheckExtraServicesDbAsync();
+        await CheckMaintenancesDbAsync();
+        await CheckOpinionsDbAsync();
     }
 
     private async Task CheckRolesAsync()
@@ -69,7 +72,7 @@ public class SeedDb
 
     private async Task CheckCountriesDbAsync()
     {
-        if (!_context.Rooms.Any())
+        if (!_context.Countries.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedCountries.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
@@ -78,7 +81,7 @@ public class SeedDb
 
     private async Task CheckStatesDbAsync()
     {
-        if (!_context.Rooms.Any())
+        if (!_context.States.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedStates.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
@@ -87,7 +90,7 @@ public class SeedDb
 
     private async Task CheckCitiesDbAsync()
     {
-        if (!_context.Rooms.Any())
+        if (!_context.Cities.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedCities.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
@@ -96,7 +99,7 @@ public class SeedDb
 
     private async Task CheckAccommodationsDbAsync()
     {
-        if (!_context.Rooms.Any())
+        if (!_context.Accommodations.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedAccommodations.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
@@ -135,6 +138,33 @@ public class SeedDb
         if (!_context.Reservations.Any())
         {
             var SQLScript = File.ReadAllText("Data\\SeedReservations.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckExtraServicesDbAsync()
+    {
+        if (!_context.ExtraServices.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedExtraServices.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckMaintenancesDbAsync()
+    {
+        if (!_context.Maintenances.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedMaintenances.sql");
+            await _context.Database.ExecuteSqlRawAsync(SQLScript);
+        }
+    }
+
+    private async Task CheckOpinionsDbAsync()
+    {
+        if (!_context.Opinions.Any())
+        {
+            var SQLScript = File.ReadAllText("Data\\SeedOpinions.sql");
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }

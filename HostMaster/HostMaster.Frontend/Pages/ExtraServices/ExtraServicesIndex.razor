@@ -1,0 +1,90 @@
+﻿@page "/extraServices"
+@using HostMaster.Frontend.Shared
+
+<PageTitle>@Localizer["Services"]</PageTitle>
+
+
+@if (loading)
+{
+    <HostMaster.Frontend.Shared.Loading />
+}
+else
+{
+    <MudTable Items="@ExtraServices"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true">
+        <ToolBarContent>
+            <div class="d-flex justify-content-between">
+                <MudText Typo="Typo.h6" Class="me-4"> @Localizer["Service"]</MudText>
+                <MudButton Variant="Variant.Outlined"
+                           EndIcon="@Icons.Material.Filled.Add"
+                           Color="Color.Info" OnClick="@(() => ShowModalAsync())">
+                    @Localizer["New"]
+                </MudButton>
+            </div>
+            <MudSpacer />
+
+            <MudDateRangePicker @bind-DateRange="@dateRangeFilter" Margin="Margin.Dense"
+                                PlaceholderStart="@Localizer["StartDate"]" PlaceholderEnd="@Localizer["EndDate"]" Label="@Localizer["Availability"]" />
+
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Primary"
+                       OnClick="@(() => ApplyFilterAsync())">
+                @Localizer["Ver"]
+            </MudButton>
+
+            <FilterComponent ApplyFilter="SetFilterValue" />            
+        </ToolBarContent>
+        <HeaderContent>            
+            <MudTh>@Localizer["Service"]</MudTh>
+            <MudTh>@Localizer["Description"]</MudTh>
+            <MudTh>@Localizer["Price"]</MudTh>            
+            <MudTh>@Localizer["Actions"]</MudTh>
+        </HeaderContent>
+        <RowTemplate>            
+            <MudTd>@context.ServiceName</MudTd>
+            <MudTd>@context.ServiceDescription</MudTd>
+            <MudTd>@context.Price</MudTd>
+            
+            <MudTd>
+                <MudTooltip Text="@Localizer["Edit"]">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Warning"
+                               OnClick="@(() => ShowModalAsync(context.Id, true))">
+                        <MudIcon Icon="@Icons.Material.Filled.Edit" />
+                    </MudButton>
+                </MudTooltip>
+                <MudTooltip Text="@Localizer["Delete"]">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               OnClick="@(() => DeleteAsync(@context))">
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" />
+                    </MudButton>
+                </MudTooltip>
+                <MudTooltip>
+                    <MudButton Variant="Variant.Filled"
+							   Color="Color.Info"
+							   OnClick="@(() => ShowAvailabilitiesAsync(context.Id))">
+						<MudIcon Icon="@Icons.Material.Filled.DateRange" />
+					</MudButton>
+					<MudTooltip Text="@Localizer["Availabilities"]">
+					</MudTooltip>
+                </MudTooltip>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>@Localizer["NoRecords"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=@Localizer["All"]
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}

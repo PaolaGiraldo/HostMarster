@@ -16,4 +16,10 @@ public class ReportsUnitOfWork : GenericUnitOfWork<OccupationDataDto>, IReportsU
 
     public async Task<ActionResponse<IEnumerable<OccupationDataDto>>> GetOccupancyPercentageByAccommodationAsync(int accommodationId, DateTime startDate, DateTime endDate)
     => await _reportsRepository.GetOccupancyPercentageByAccommodationAsync(accommodationId, startDate, endDate);
+
+    public async Task<ActionResponse<IEnumerable<MonthlyOccupancyDto>>> GetMonthlyOccupancyPercentageAsync(int accommodationId, DateTime startDate, DateTime endDate)
+=> await _reportsRepository.GetMonthlyOccupancyPercentageAsync(accommodationId, startDate, endDate);
+
+    public async Task<ActionResponse<IEnumerable<MonthlyRevenueDto>>> GetMonthlyRevenueAsync(int accommodationId, DateTime startDate, DateTime endDate)
+=> await _reportsRepository.GetMonthlyRevenueAsync(accommodationId, startDate, endDate);
 }

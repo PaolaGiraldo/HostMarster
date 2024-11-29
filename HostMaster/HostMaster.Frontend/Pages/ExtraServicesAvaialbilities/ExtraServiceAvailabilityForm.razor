@@ -1,0 +1,28 @@
+﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />   
+
+    <MudTextField Label="Service id" HelperText="Service" Value="ServiceId" Disabled="true" Class="mb-4" />
+
+    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="@Localizer["StartDate"]" HelperText="@Localizer["StartDate"]" DateFormat="dd/MM/yyyy" @bind-Date="ServiceAvailabilityDTO.StartDate" />
+
+    <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="@Localizer["EndDate"]" HelperText="@Localizer["EndDate"]" DateFormat="dd/MM/yyyy" @bind-Date="ServiceAvailabilityDTO.EndDate" />
+    
+    <MudCheckBox Label="Disponible" @bind-Value="ServiceAvailabilityDTO.IsAvailable" Class="mb-4" />
+
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.ArrowBack"
+               Color="Color.Info"
+               OnClick="ReturnAction">
+        @Localizer["Return"]
+    </MudButton>
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.Check"
+               Color="Color.Primary"
+               ButtonType="ButtonType.Submit">
+        @Localizer["SaveChanges"]
+    </MudButton>
+</EditForm>

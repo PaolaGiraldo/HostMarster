@@ -1,0 +1,35 @@
+﻿SET IDENTITY_INSERT [dbo].[Opinions] ON;
+INSERT INTO [dbo].[Opinions] (Id, Calification, Comments, Positives, Negatives, CreatedDate)
+VALUES
+(1, 5, 'El hotel es increíble, muy cómodo y limpio.', 'Habitaciones amplias', 'Nada', '2024-11-01 08:00:00'),
+(2, 4, 'La ubicación es excelente, pero el desayuno podría mejorar.', 'Ubicación excelente', 'Desayuno limitado', '2024-11-02 09:15:00'),
+(3, 3, 'La habitación estaba bien, pero el servicio al cliente no fue el mejor.', 'Ambiente agradable', 'Servicio lento', '2024-11-03 10:30:00'),
+(4, 5, 'Todo perfecto, personal muy amable y atento. ¡Recomiendo este hotel!', 'Personal amable', 'Ninguno', '2024-11-04 11:00:00'),
+(5, 2, 'El aire acondicionado no funcionaba y la limpieza dejaba mucho que desear.', 'Ubicación conveniente', 'Problemas con el aire acondicionado', '2024-11-05 12:15:00'),
+(6, 4, 'Las instalaciones son modernas y bonitas, pero el precio es un poco alto.', 'Instalaciones modernas', 'Precio elevado', '2024-11-06 13:30:00'),
+(7, 5, 'Una experiencia maravillosa, me encantaría regresar.', 'Vistas espectaculares', 'Nada', '2024-11-07 14:45:00'),
+(8, 4, 'Muy buen hotel, aunque el Wi-Fi no era tan rápido como esperaba.', 'Comodidad de la habitación', 'Wi-Fi lento', '2024-11-08 16:00:00'),
+(9, 3, 'El hotel está bien, pero se escucha mucho ruido en las habitaciones.', 'Buen trato del personal', 'Ruido en las habitaciones', '2024-11-09 17:15:00'),
+(10, 5, 'Nos encantó todo, la habitación era muy cómoda y el personal muy profesional.', 'Cama cómoda', 'Nada', '2024-11-10 18:30:00'),
+(11, 2, 'No estoy satisfecho, la limpieza y los servicios fueron muy pobres.', 'Ubicación central', 'Falta de limpieza', '2024-11-11 19:45:00'),
+(12, 4, 'El hotel está muy bien, pero debería haber más opciones de comida en el menú.', 'Decoración del hotel', 'Pocas opciones de comida', '2024-11-12 20:00:00'),
+(13, 3, 'La ubicación es excelente, pero la habitación no estaba tan limpia como esperaba.', 'Ubicación ideal', 'Habitación sucia', '2024-11-13 21:15:00'),
+(14, 5, 'Un hotel encantador, la piscina es perfecta para relajarse.', 'Piscina maravillosa', 'Nada', '2024-11-14 22:30:00'),
+(15, 4, 'Muy buena experiencia, aunque las toallas estaban un poco viejas.', 'Atención al cliente', 'Toallas gastadas', '2024-11-15 23:45:00'),
+(16, 5, 'Excelente hotel, las vistas desde la habitación son impresionantes.', 'Vistas desde la habitación', 'Nada', '2024-11-16 08:15:00'),
+(17, 3, 'Me gustó el hotel en general, pero la habitación estaba un poco fría.', 'Servicio rápido', 'Habitación fría', '2024-11-17 09:30:00'),
+(18, 4, 'Todo muy bien, pero el baño podría ser más grande.', 'Comodidad', 'Baño pequeño', '2024-11-18 10:45:00'),
+(19, 5, 'Un lugar perfecto para descansar, muy tranquilo y con todo lo necesario.', 'Ambiente tranquilo', 'Nada', '2024-11-19 12:00:00'),
+(20, 3, 'El hotel está bien, pero la cama no era tan cómoda como esperaba.', 'Buen desayuno', 'Cama incómoda', '2024-11-20 13:15:00'),
+(21, 4, 'Me gustó mucho el hotel, pero las habitaciones no tenían suficientes enchufes.', 'Buenos servicios', 'Pocos enchufes en la habitación', '2024-11-21 14:30:00'),
+(22, 5, 'Maravillosa estancia, sin duda volveré.', 'Excelente atención', 'Nada', '2024-11-22 15:45:00'),
+(23, 2, 'No me agradó el lugar, el ruido y la falta de limpieza fueron muy molestos.', 'Ubicación cómoda', 'Ruidos molestos', '2024-11-23 17:00:00'),
+(24, 4, 'Muy buena experiencia, aunque el gimnasio es pequeño.', 'Gimnasio bien equipado', 'Gimnasio pequeño', '2024-11-24 18:15:00'),
+(25, 5, 'Me encantó todo, la habitación estaba impecable y el servicio excepcional.', 'Habitación limpia', 'Nada', '2024-11-25 19:30:00'),
+(26, 3, 'El hotel es bonito, pero no hay muchas opciones de actividades dentro del mismo.', 'Buena ubicación', 'Pocas actividades', '2024-11-26 20:45:00'),
+(27, 4, 'Todo estuvo bien, pero deberían ofrecer más opciones de entretenimiento para niños.', 'Buena calidad de sueño', 'Pocas opciones para niños', '2024-11-27 22:00:00'),
+(28, 3, 'La habitación estaba bien, pero los servicios del hotel no fueron tan buenos.', 'Tranquilidad', 'Servicios limitados', '2024-11-28 08:30:00'),
+(29, 4, 'Un hotel muy bonito, aunque el acceso al spa es limitado.', 'Ambiente relajante', 'Acceso limitado al spa', '2024-11-29 09:45:00'),
+(30, 5, 'Estancia perfecta, todo funcionó perfectamente.', 'Todo en orden', 'Nada', '2024-11-30 11:00:00');
+
+SET IDENTITY_INSERT [dbo].[Opinions] OFF;

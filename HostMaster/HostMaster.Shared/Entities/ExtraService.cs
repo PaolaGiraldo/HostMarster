@@ -1,16 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HostMaster.Shared.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace HostMaster.Shared.Entities;
 
 public class ExtraService
 {
-    public int Id { get; set; }
+	public int Id { get; set; }
 
-    [Required]
-    public string ServiceName { get; set; } = null!;
+	[Display(Name = "Service", ResourceType = typeof(Literals))]
+	[MaxLength(100, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+	[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+	public string ServiceName { get; set; } = null!;
 
-    public decimal Price { get; set; }
+	[Display(Name = "Description", ResourceType = typeof(Literals))]
+	[MaxLength(150, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+	[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+	public string ServiceDescription { get; set; } = null!;
 
-    // Relationships
-    public ICollection<Reservation>? Reservations { get; set; }
+	[Display(Name = "Price", ResourceType = typeof(Literals))]
+	public decimal Price { get; set; }
+
+	// Relationships
+	public ICollection<Reservation>? Reservations { get; set; }
+
+	public ICollection<ServiceAvailability>? Availabilities { get; set; }
 }

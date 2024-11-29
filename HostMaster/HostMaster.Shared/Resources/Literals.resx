@@ -218,7 +218,7 @@
     <value>Calendar</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>mayor</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>Ciudad</value>
@@ -289,7 +289,7 @@
   <data name="ERR_RES003" xml:space="preserve">
     <value>The Reservation Id is not valid</value>
   </data>
-  <data name="ERR_RES004" xml:space="preserve">
+  <data name="EndDateGreater" xml:space="preserve">
     <value>The end date of the reservation must be greater than the start date.</value>
   </data>
   <data name="ERR_RES005" xml:space="preserve">
@@ -579,5 +579,245 @@
   </data>
   <data name="NextMonth" xml:space="preserve">
     <value>Next month</value>
+  </data>
+  <data name="NoDataFound" xml:space="preserve">
+    <value>No data found.</value>
+  </data>
+  <data name="InvalidParameters" xml:space="preserve">
+    <value>The provided parameters are invalid.</value>
+  </data>
+  <data name="NoDataForReport" xml:space="preserve">
+    <value>No data found to generate the report.</value>
+  </data>
+  <data name="OccupancyReportFile" xml:space="preserve">
+    <value>Occupancy_Report</value>
+  </data>
+  <data name="MonthlyRevenueFile" xml:space="preserve">
+    <value>Monthly_Revenue_Report</value>
+  </data>
+  <data name="InternalError" xml:space="preserve">
+    <value>An internal error occurred.</value>
+  </data>
+  <data name="OccupancyReportTitle" xml:space="preserve">
+    <value>Occupancy Report</value>
+  </data>
+  <data name="MonthlyRevenueReportTitle" xml:space="preserve">
+    <value>Monthly Revenue Report</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="OccupiedRooms" xml:space="preserve">
+    <value>Occupied Rooms</value>
+  </data>
+  <data name="TotalRooms" xml:space="preserve">
+    <value>Total Rooms</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="TotalRevenue" xml:space="preserve">
+    <value>Total Revenue</value>
+  </data>
+  <data name="DashboardReports" xml:space="preserve">
+    <value>Dashboard Reports</value>
+  </data>
+  <data name="SelectDateRange" xml:space="preserve">
+    <value>Select a date range</value>
+  </data>
+  <data name="MonthlyRevenue" xml:space="preserve">
+    <value>Monthly Revenue</value>
+  </data>
+  <data name="DownloadReports" xml:space="preserve">
+    <value>Reports to Download</value>
+  </data>
+  <data name="OccupancyReport" xml:space="preserve">
+    <value>Occupancy Report</value>
+  </data>
+  <data name="RevenueReport" xml:space="preserve">
+    <value>Revenue Report</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="ErrorLoadingOccupancyData" xml:space="preserve">
+    <value>Error loading occupancy data: {0}</value>
+  </data>
+  <data name="ErrorLoadingRevenueData" xml:space="preserve">
+    <value>Error loading revenue data: {0}</value>
+  </data>
+  <data name="EnterValidAccommodationId" xml:space="preserve">
+    <value>Please enter a valid Accommodation ID.</value>
+  </data>
+  <data name="SelectValidDateRange" xml:space="preserve">
+    <value>Please select a valid date range.</value>
+  </data>
+  <data name="ReportDownloaded" xml:space="preserve">
+    <value>Report downloaded successfully.</value>
+  </data>
+  <data name="RevenueReportDownloaded" xml:space="preserve">
+    <value>Revenue report downloaded successfully.</value>
+  </data>
+  <data name="ErrorGeneratingReport" xml:space="preserve">
+    <value>Error generating the report.</value>
+  </data>
+  <data name="ErrorGeneratingRevenueReport" xml:space="preserve">
+    <value>Error generating the revenue report.</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Unexpected error: {0}</value>
+  </data>
+  <data name="OccupancyPercentage" xml:space="preserve">
+    <value>Occupancy percentage</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Revenue" xml:space="preserve">
+    <value>Revenue</value>
+  </data>
+  <data name="AccomodationName" xml:space="preserve">
+    <value>Hotel Name</value>
+  </data>
+  <data name="AccommodationSlogan" xml:space="preserve">
+    <value>A charming hotel with history and personality.</value>
+  </data>
+  <data name="SelectDateRange" xml:space="preserve">
+    <value>Select Date Range</value>
+  </data>
+  <data name="ValidGuestsNumber" xml:space="preserve">
+    <value>{0} must be greater than 0.</value>
+  </data>
+  <data name="CustomerDocument" xml:space="preserve">
+    <value>Customer document</value>
+  </data>
+  <data name="StartDateLess" xml:space="preserve">
+    <value>The start date of the reservation must be less than the end date.</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="ReservationForm" xml:space="preserve">
+    <value>Reservation Form</value>
+  </data>
+  <data name="AccommodationsForm" xml:space="preserve">
+    <value>Accommodations Form</value>
+  </data>
+  <data name="RegisterPageName" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="EditUserPageName" xml:space="preserve">
+    <value>Edit user</value>
+  </data>
+  <data name="CountryForm" xml:space="preserve">
+    <value>Country Form</value>
+  </data>
+  <data name="RoomForm" xml:space="preserve">
+    <value>Room Form</value>
+  </data>
+  <data name="RoomTypeForm" xml:space="preserve">
+    <value>Room Type Form</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="Observations" xml:space="preserve">
+    <value>Observations</value>
+  </data>
+  <data name="ERR_RES006" xml:space="preserve">
+    <value>The room is not available for reservations on the selected dates.</value>
+  </data>
+  <data name="NoServicesAvailable" xml:space="preserve">
+    <value>No extra services available.</value>
+  </data>
+  <data name="ExtraServices" xml:space="preserve">
+    <value>Additional Services</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>Confirmed</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="NoShow" xml:space="preserve">
+    <value>No Show</value>
+  </data>
+  <data name="PaymentPending" xml:space="preserve">
+    <value>Payment Pending</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="CheckedOut" xml:space="preserve">
+    <value>Check-Out</value>
+  </data>
+  <data name="CheckedIn" xml:space="preserve">
+    <value>Check-In</value>
+  </data>
+  <data name="Refunded" xml:space="preserve">
+    <value>Refunded</value>
+  </data>
+  <data name="ERR_RES007" xml:space="preserve">
+    <value>The number of guests exceeds the allowed limit for this room.</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Calification" xml:space="preserve">
+    <value>Calification</value>
+  </data>
+  <data name="Positives" xml:space="preserve">
+    <value>Positive</value>
+  </data>
+  <data name="Negatives" xml:space="preserve">
+    <value>Negative</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Creation date</value>
+  </data>
+  <data name="Opinions" xml:space="preserve">
+    <value>Opinions</value>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="Califications" xml:space="preserve">
+    <value>We Value Your Opinion</value>
+  </data>
+  <data name="RateYourExperience" xml:space="preserve">
+    <value>Rate your experience</value>
+  </data>
+  <data name="Awesome" xml:space="preserve">
+    <value>Awesome!</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>Good</value>
+  </data>
+  <data name="Sufficient" xml:space="preserve">
+    <value>Sufficient</value>
+  </data>
+  <data name="Bad" xml:space="preserve">
+    <value>Bad</value>
+  </data>
+  <data name="VeryBad" xml:space="preserve">
+    <value>Very bad</value>
+  </data>
+  <data name="ClientsOpinion" xml:space="preserve">
+    <value>Our clients' opinion</value>
   </data>
 </root>

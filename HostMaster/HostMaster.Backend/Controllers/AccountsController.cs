@@ -269,14 +269,14 @@ public class AccountsController : ControllerBase
     private TokenDTO BuildToken(User user)
     {
         var claims = new List<Claim>
-        {
-            new(ClaimTypes.Name, user.Email!),
-            new(ClaimTypes.Role, user.UserType.ToString()),
-            new("FirstName", user.FirstName),
-            new("LastName", user.LastName),
-            new("Photo", user.Photo ?? string.Empty),
-            new("CountryId", user.Country.Id.ToString())
-        };
+    {
+        new(ClaimTypes.Name, user.Email!),
+        new(ClaimTypes.Role, user.UserType.ToString()),
+        new("FirstName", user.FirstName),
+        new("LastName", user.LastName),
+        new("Photo", user.Photo ?? string.Empty),
+        new("CountryId", user.Country.Id.ToString())
+    };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwtKey"]!));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

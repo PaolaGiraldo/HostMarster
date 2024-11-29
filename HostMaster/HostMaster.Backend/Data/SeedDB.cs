@@ -32,6 +32,7 @@ public class SeedDb
         await CheckReservationsDbAsync();
         await CheckRolesAsync();
         await CheckUserAsync("admin", "admin", "admin@yopmail.com", "322 311 4620", UserType.Admin);
+        await CheckUserAsync("user", "user", "user@yopmail.com", "322 000 4620", UserType.User);
         await CheckExtraServicesDbAsync();
         await CheckMaintenancesDbAsync();
         await CheckOpinionsDbAsync();

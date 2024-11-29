@@ -99,5 +99,19 @@ public class CalendarController : GenericController<CalendarListDTO>
         return BadRequest();
     }
 
+    [HttpGet("availableRooms")]
+    public async Task<IActionResult> GetXAvailableRoomsAsync([FromQuery] DateTime queryDate, [FromQuery] int? accommodationId = null)
+    {
+        if (queryDate == default(DateTime))
+        {
+            return BadRequest("La fecha es requerida.");
+        }
 
+        var response = await _calendarUnitOfWork.GetXAvailableRoomsAsync(queryDate, accommodationId);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest(response.Message);
+    }
 }

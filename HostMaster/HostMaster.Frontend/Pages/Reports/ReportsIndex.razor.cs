@@ -83,7 +83,7 @@ public partial class ReportsIndex
                 ChartLabels.Clear();
                 var percentages = response.Select(item => item.OccupiedPercentage).ToArray();
 
-                XAxisLabels = percentages.Select(value => value.ToString("F2")).ToArray();
+                XAxisLabels = percentages.Select(value => "").ToArray();
 
                 Series = new List<ChartSeries> {
                     new ChartSeries() {

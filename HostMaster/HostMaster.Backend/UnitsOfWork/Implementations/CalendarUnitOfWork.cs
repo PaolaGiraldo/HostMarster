@@ -21,4 +21,6 @@ public class CalendarUnitOfWork : GenericUnitOfWork<CalendarListDTO>, ICalendarU
     async Task<ActionResponse<IEnumerable<CalendarListDTO>>> ICalendarUnitOfWork.GetAsync(PaginationDTO pagination, DateTime QueryDate) => await _calendarRepository.GetAsync(pagination, QueryDate);
 
     async Task<ActionResponse<int>> ICalendarUnitOfWork.GetTotalRecordsAsync(PaginationDTO pagination, DateTime QueryDate) => await _calendarRepository.GetTotalRecordsAsync(pagination, QueryDate);
+
+    public async Task<ActionResponse<IEnumerable<Room>>> GetXAvailableRoomsAsync(DateTime QueryDate, int? accommodationId = null) => await _calendarRepository.GetXAvailableRoomsAsync(QueryDate, accommodationId);
 }

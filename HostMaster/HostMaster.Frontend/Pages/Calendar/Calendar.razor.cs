@@ -1,12 +1,16 @@
 using HostMaster.Frontend.Services;
 using HostMaster.Shared.Resources;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 
 namespace HostMaster.Frontend.Pages.Calendar;
 
 public class CalendarBase : ComponentBase
 {
+    [Inject]
+    protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
     [Inject]
     protected NavigationManager NavigationManager { get; set; }
 
@@ -88,13 +92,42 @@ public class CalendarBase : ComponentBase
         GenerateCalendar(CurrentMonth);
     }
 
-    protected void OnDateSelected(DateTime date)
+    // protected void OnDateSelected(DateTime date)
+    // {
+    //     // Guardamos la fecha seleccionada en el servicio
+    //    DateSelectionService.SelectedDate = date;
+
+    // Navegamos a la página de reservas sin pasar parámetros en la URL
+    //  NavigationManager.NavigateTo("/CalendarList");
+    // }
+
+    protected async void OnDateSelected(DateTime date)
     {
         // Guardamos la fecha seleccionada en el servicio
         DateSelectionService.SelectedDate = date;
 
-        // Navegamos a la página de reservas sin pasar parámetros en la URL
-        NavigationManager.NavigateTo("/CalendarList");
+        // Obtener el estado de autenticación
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        // Comprobar si el usuario está autenticado y obtener su rol
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            if (user.IsInRole("Admin"))
+            {
+                NavigationManager.NavigateTo("/CalendarList");
+            }
+            else
+            {
+                // Si no tiene un rol conocido, redirigir a una página por defecto
+                NavigationManager.NavigateTo("/AvailableRooms");
+            }
+        }
+        else
+        {
+            // Redirigir a la página de inicio de sesión si no está autenticado
+            NavigationManager.NavigateTo("/Login");
+        }
     }
 
     protected bool IsToday(DateTime date)

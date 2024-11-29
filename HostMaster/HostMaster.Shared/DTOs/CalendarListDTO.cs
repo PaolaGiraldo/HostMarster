@@ -45,4 +45,6 @@ public class CalendarListDTO
     public int AccommodationId { get; set; }
 
     public int CustomerDocument { get; set; }
+
+    public string FullName { get; set; } = null!;
 }

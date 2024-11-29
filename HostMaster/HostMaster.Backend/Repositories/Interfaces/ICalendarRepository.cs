@@ -9,5 +9,8 @@ public interface ICalendarRepository
     Task<ActionResponse<IEnumerable<CalendarListDTO>>> GetAsync(DateTime queryDate);
 
     Task<ActionResponse<IEnumerable<CalendarListDTO>>> GetAsync(PaginationDTO pagination, DateTime queryDate);
+
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination, DateTime queryDate);
+
+    Task<ActionResponse<IEnumerable<Room>>> GetXAvailableRoomsAsync(DateTime queryDate, int? accommodationId = null);
 }

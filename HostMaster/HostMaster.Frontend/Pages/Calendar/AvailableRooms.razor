@@ -1,0 +1,39 @@
+﻿@page "/AvailableRooms"
+@inherits AvailableRoomsBase
+
+<h3>@Localizer["AvailableRooms"]</h3>
+
+@if (loading)
+{
+    <p>@Localizer["Loading"]...</p>
+}
+else if (availableRoomsList == null || !availableRoomsList.Any())
+{
+    <p>@Localizer["NoRoomsAvailable"]</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Localizer["RoomNumber"]</th>
+                <th>@Localizer["RoomType"]</th>
+                <th>@Localizer["Capacity"]</th>
+                <th>@Localizer["PricePerNight"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in availableRoomsList)
+            {
+                <tr>
+                    <td>@room.RoomNumber</td>
+                    <td>@room.RoomType.TypeName</td>
+                    <td>@room.RoomType?.MaxGuests</td>
+                    <td>@room.RoomType?.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button @onclick="GoBack" class="btn btn-primary">@Localizer["Back"]</button>

@@ -32,6 +32,7 @@ else
             <MudTh>@Localizer["EndDate"]</MudTh>
             <MudTh>@Localizer["NumberOfGuests"]</MudTh>
             <MudTh>@Localizer["ReservationState"]</MudTh>
+            <MudTh>@Localizer["Name"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.RoomNumber</MudTd>
@@ -39,6 +40,7 @@ else
             <MudTd>@context.EndDate</MudTd>
             <MudTd>@context.NumberOfGuests</MudTd>
             <MudTd>@context.ReservationState</MudTd>
+            <MudTd>@context.FullName</MudTd>
         </RowTemplate>
         <NoRecordsContent>
             <MudText>@Localizer["NoRecords"]</MudText>

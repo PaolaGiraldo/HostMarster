@@ -3,6 +3,7 @@ using HostMaster.Backend.UnitsOfWork.Interfaces;
 using HostMaster.Shared.Entities;
 using HostMaster.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace HostMaster.Backend.Data;
 
@@ -74,7 +75,8 @@ public class SeedDb
     {
         if (!_context.Countries.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedCountries.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedCountries.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -83,7 +85,8 @@ public class SeedDb
     {
         if (!_context.States.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedStates.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedStates.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -92,7 +95,8 @@ public class SeedDb
     {
         if (!_context.Cities.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedCities.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedCities.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -101,7 +105,8 @@ public class SeedDb
     {
         if (!_context.Accommodations.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedAccommodations.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedAccommodations.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -110,7 +115,8 @@ public class SeedDb
     {
         if (!_context.Rooms.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedRooms.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedRooms.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -119,7 +125,8 @@ public class SeedDb
     {
         if (!_context.RoomTypes.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedRoomTypes.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedRoomTypes.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -128,7 +135,8 @@ public class SeedDb
     {
         if (!_context.Customers.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedCustomers.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedCustomers.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -137,7 +145,8 @@ public class SeedDb
     {
         if (!_context.Reservations.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedReservations.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedReservations.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -146,7 +155,8 @@ public class SeedDb
     {
         if (!_context.ExtraServices.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedExtraServices.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedExtraServices.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -155,7 +165,8 @@ public class SeedDb
     {
         if (!_context.Maintenances.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedMaintenances.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedMaintenances.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }
@@ -164,7 +175,8 @@ public class SeedDb
     {
         if (!_context.Opinions.Any())
         {
-            var SQLScript = File.ReadAllText("Data\\SeedOpinions.sql");
+            var sqlScriptPath = Path.Combine(AppContext.BaseDirectory, "Data", "SeedOpinions.sql");
+            var SQLScript = File.ReadAllText(sqlScriptPath);
             await _context.Database.ExecuteSqlRawAsync(SQLScript);
         }
     }

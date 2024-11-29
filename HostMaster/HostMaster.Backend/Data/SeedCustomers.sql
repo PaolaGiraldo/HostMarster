@@ -1,5 +1,4 @@
-﻿SET IDENTITY_INSERT [dbo].[Customers] ON;
-
+﻿
 INSERT [dbo].[Customers] ([Id], [FirstName], [LastName], [DocumentType], [DocumentNumber], [Email], [PhoneNumber]) 
 VALUES 
     (1, N'John', N'Doe', N'CC', 123456789, N'john.doe@yopmail.com', N'555-1234'),
@@ -53,4 +52,3 @@ VALUES
     (49, N'Megan', N'Evans', N'CC', 223334411, N'megan.evans@yopmail.com', N'555-7890'),
     (50, N'Andrew', N'Turner', N'CC', 3344551, N'andrew.turner@yopmail.com', N'555-8901');
 
-SET IDENTITY_INSERT [dbo].[Customers] OFF;

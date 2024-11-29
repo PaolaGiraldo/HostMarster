@@ -49,11 +49,7 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
           }
         });
-
 });
-
-
-
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddScoped<IFileStorage, FileStorage>();
@@ -98,6 +94,9 @@ builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
 builder.Services.AddScoped<ICalendarUnitOfWork, CalendarUnitOfWork>();
 
+builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<ICustomersUnitOfWork, CustomersUnitOfWork>();
+
 builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
 builder.Services.AddScoped<IReportsUnitOfWork, ReportsUnitOfWork>();
 
@@ -107,6 +106,7 @@ builder.Services.AddScoped<IMaintenancesUnitOfWork, MaintenancesUnitOfWork>();
 
 builder.Services.AddScoped<IOpinionsRepository, OpinionRepository>();
 builder.Services.AddScoped<IOpinionsUnitOfWork, OpinionsUnitOfWork>();
+
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
@@ -152,9 +152,6 @@ void SeedData(WebApplication app)
     }
 }
 
-
-
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -170,6 +167,5 @@ app.UseCors(x => x
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
 
 app.Run();

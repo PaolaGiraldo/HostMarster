@@ -1,0 +1,52 @@
+﻿@using HostMaster.Frontend.Shared
+<PageTitle>@Localizer["CustomerForm"]</PageTitle>
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <MudTextField Label="@Localizer["Document"]"
+                  @bind-Value="@CustomerDTO.DocumentNumber"
+                  For="@(() => CustomerDTO.DocumentNumber)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["DocumentType"]"
+                  @bind-Value="@CustomerDTO.DocumentType"
+                  For="@(() => CustomerDTO.DocumentType)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["FirstName"]"
+                  @bind-Value="@CustomerDTO.FirstName"
+                  For="@(() => CustomerDTO.FirstName)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["LastName"]"
+                  @bind-Value="@CustomerDTO.LastName"
+                  For="@(() => CustomerDTO.LastName)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["Email"]"
+                  @bind-Value="@CustomerDTO.Email"
+                  For="@(() => CustomerDTO.Email)"
+                  Class="mb-4" />
+
+    <MudTextField Label="@Localizer["PhoneNumber"]"
+                  @bind-Value="@CustomerDTO.PhoneNumber"
+                  For="@(() => CustomerDTO.PhoneNumber)"
+                  Class="mb-4" />
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.ArrowBack"
+               Color="Color.Info"
+               OnClick="ReturnAction">
+        @Localizer["Return"]
+    </MudButton>
+
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.Check"
+               Color="Color.Primary"
+               ButtonType="ButtonType.Submit">
+        @Localizer["SaveChanges"]
+    </MudButton>
+</EditForm>
+

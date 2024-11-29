@@ -6,6 +6,7 @@ namespace HostMaster.Backend.Data;
 
 public class DataContext(DbContextOptions<DataContext> options) : IdentityDbContext<User>(options)
 {
+
     public DbSet<Accommodation> Accommodations { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }

@@ -4,6 +4,7 @@ using HostMaster.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostMaster.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241128061832_alterCustomer")]
+    partial class alterCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,107 +163,13 @@ namespace HostMaster.Backend.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("ServiceDescription")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
                     b.Property<string>("ServiceName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ExtraServices");
-                });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.Maintenance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AccommodationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Observations")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccommodationId");
-
-                    b.HasIndex("RoomId", "AccommodationId", "StartDate", "EndDate")
-                        .IsUnique();
-
-                    b.ToTable("Maintenances");
-                });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.MaintenanceRoom", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MaintenanceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaintenanceId");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("MaintenanceRooms");
-                });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.Opinion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Calification")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Dislike")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Like")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Opinions");
                 });
 
             modelBuilder.Entity("HostMaster.Shared.Entities.Payment", b =>
@@ -304,9 +213,6 @@ namespace HostMaster.Backend.Migrations
 
                     b.Property<int>("AccommodationId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustomerDocumentNumber")
                         .HasColumnType("int");
@@ -473,34 +379,6 @@ namespace HostMaster.Backend.Migrations
 
                     b.ToTable("RoomTypes");
                 });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.ServiceAvailability", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("ServiceAvailabilities");
-                });
-
 
             modelBuilder.Entity("HostMaster.Shared.Entities.State", b =>
                 {
@@ -810,44 +688,6 @@ namespace HostMaster.Backend.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("HostMaster.Shared.Entities.Maintenance", b =>
-                {
-                    b.HasOne("HostMaster.Shared.Entities.Accommodation", "Accommodation")
-                        .WithMany()
-                        .HasForeignKey("AccommodationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HostMaster.Shared.Entities.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Accommodation");
-
-                    b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.MaintenanceRoom", b =>
-                {
-                    b.HasOne("HostMaster.Shared.Entities.Maintenance", "Maintenance")
-                        .WithMany("MaintenanceRooms")
-                        .HasForeignKey("MaintenanceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HostMaster.Shared.Entities.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Maintenance");
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("HostMaster.Shared.Entities.Payment", b =>
                 {
                     b.HasOne("HostMaster.Shared.Entities.Reservation", "Reservation")
@@ -944,15 +784,6 @@ namespace HostMaster.Backend.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.ServiceAvailability", b =>
-                {
-                    b.HasOne("HostMaster.Shared.Entities.ExtraService", null)
-                        .WithMany("Availabilities")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("HostMaster.Shared.Entities.State", b =>
@@ -1061,17 +892,6 @@ namespace HostMaster.Backend.Migrations
             modelBuilder.Entity("HostMaster.Shared.Entities.Customer", b =>
                 {
                     b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.ExtraService", b =>
-                {
-                    b.Navigation("Availabilities");
-                });
-
-            modelBuilder.Entity("HostMaster.Shared.Entities.Maintenance", b =>
-                {
-                    b.Navigation("MaintenanceRooms");
-
                 });
 
             modelBuilder.Entity("HostMaster.Shared.Entities.Reservation", b =>
